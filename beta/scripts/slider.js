@@ -1,0 +1,1 @@
+$(document).ready(function(){function o(){if(e==r-1){e=0}else{e++}u()}function u(){$("#slidesHolder").animate({marginLeft:t*-e})}var e=0;var t=740;var n=$(".slide");var r=n.length;var i;var s=3500;i=setInterval(o,s);n.wrapAll('<div id="slidesHolder"></div>');n.css({"float":"left"});$("#slidesHolder").css("width",t*r)})
