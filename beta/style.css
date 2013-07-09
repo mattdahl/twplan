@@ -7,6 +7,27 @@
 	border: 2px solid red;
 }
 
+.editable:hover, .editable:focus {
+	outline: rgb(160, 0, 0) solid thin;
+	box-shadow: 0px 0px 5px rgb(160, 0, 0);
+}
+
+input[type="text"] {
+	width: 25px;
+}
+
+#targets_paste_in {
+  float: left;
+  height: 60px;
+  width: 500px;
+}
+
+#target_assginment {
+	width: 100%;
+	float: left;
+	margin-top: 100px;
+}
+
 @font-face {
   font-family: league_gothic;
   src: url('league_gothic.otf');
@@ -364,7 +385,7 @@ tr:nth-child(even) { background:inherit; }
 
 /* ======= Planning Step 1 ======= */
 
-#villagecoordsbulk {
+#villages_paste_in {
   height: 60px;
   width: 305px;
   margin-right: 2%;
@@ -397,7 +418,7 @@ a.collapsebutton:hover {
 
 /* ======= Planning Step 2 ======= */
 
-#step2container {
+#step_two_container {
   display: none;
 }
 
