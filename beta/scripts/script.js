@@ -133,7 +133,7 @@ window.onerror = function (msg, url, linenumber) {
 };
 
 /* ====== Back Functions ====== */
-
+/*
 function backToStep1() {
 	$('#step2container').fadeOut('fast');
 	$('#step1container').show('fast');
@@ -159,7 +159,7 @@ function backToStep2a() {
 	$($("h1")[0]).html("Planning - Step 3");
 	// sessionStorage will be overwritten when the villages are submitted again on step 2
 }
-
+*/
 /* ====== Group Functions ====== */
 
 function createGroup() {
@@ -1070,7 +1070,7 @@ function removeVillageFromPlan(id) { // step 1 remove from plan
 
 	stepOneUpdateAvailable($attacktype, false);
 }
-*/
+
 function stepOneUpdateAvailable(attacktype, add) {
 	switch (attacktype) { // attacktypes are numbers because of issues with escaping strings
 		case "noble": {
@@ -1301,7 +1301,7 @@ function addGroupToPlan() {
 			}
 		});
 }
-
+*/
 function handleCollapse(obj, id) {
 	if ($(obj).html() == "[collapse]") {
 		switch(id) {

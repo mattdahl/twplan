@@ -35,7 +35,6 @@ session_start();
 	<?php include "header.php" ?>
 	<div id="container">
 		<noscript>It looks like you have Javascript turned off! TWplan requires Javascript functionality to work. Please turn it on :)</noscript>
-		<h1>Planning - Step {{current_step + 1}}</h1>
 		<?php
 		if (!isset($_SESSION["username"])) {
 			echo "You must <a href=\"login.php\">login</a> to use TWplan's planning feature!<span id=\"dontload\" style=\"display:none\"></span>";
@@ -57,8 +56,8 @@ session_start();
 		}
 		?>
 
-		<p id="instructions">{{instructions[current_step]}}</p>
-		<br />
+		<!-- Dynamic content loaded by $routeProvider using the appropriate partials for each step -->
+		<div ng-view></div>
 
 	</div>
 

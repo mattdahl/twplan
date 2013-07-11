@@ -25,7 +25,7 @@ input[type="text"] {
 #target_assginment {
 	width: 100%;
 	float: left;
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 @font-face {
@@ -418,10 +418,6 @@ a.collapsebutton:hover {
 
 /* ======= Planning Step 2 ======= */
 
-#step_two_container {
-  display: none;
-}
-
 #bulkvillages {
   display: none;
 }
@@ -483,10 +479,6 @@ a.collapsebutton:hover {
 }
 
 /* ======= Planning Step 3 ====== */
-
-#step3container {
-  display: none;
-}
 
 /* ======== Planning Step Results ===== */
 
@@ -597,10 +589,4 @@ a.collapsebutton:hover {
 
   border: 2px solid black;
   background-color: #c4101d;
-}
-
-.backarrow {
-  position: absolute;
-  top: 3%;
-  left: 90%;
 }
