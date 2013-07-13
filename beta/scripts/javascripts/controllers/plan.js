@@ -1,25 +1,11 @@
+/**
+ * Creates a module that acts as the ng-app on plan.php
+ */
 var PlanModule = angular.module('PlanModule', []);
 
-PlanModule.run(['$rootScope', function ($rootScope) {
-	$rootScope.villages = [];
-	$rootScope.villages_in_plan = {
-			villages: [],
-			nukes: 0,
-			nobles: 0,
-			supports: 0
-		};
-
-	$rootScope.targets = [];
-	$rootScope.targets_in_plan = {
-		targets: [],
-		nukes: [],
-		nobles: [],
-		supports: []
-	};
-
-	$rootScope.instructions = 'Choose the landing date and time for your attack. All times are in <b>TW Server Time</b> (see bottom of page)!\n\nTWplan\'s algorithm can intelligently plan your commands such that the launch times are at times during the day that are convenient to you. For instance, maybe you would prefer not to have any launch times when you would normally be asleep. If you check the Send Time Optimization box below, TWplan will try to plan commands to have launch times <i>between</i> the "early bound" and the "late bound".';
-}]);
-
+/**
+ * Provides configuration for the PlanModule, namely setting up route forwarding using $routeProvider for a single-page app experience
+ */
 PlanModule.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 		.when('/step_one',
@@ -44,6 +30,28 @@ PlanModule.config(['$routeProvider', function ($routeProvider) {
 		})
 		.otherwise({redirectTo: '/step_one'});
 }]);
+
+/**
+ * Once the PlanModule has been initialized and the DOM has loaded, sets up the $rootScope variables
+ */
+PlanModule.run(['$rootScope', function ($rootScope) {
+	$rootScope.villages = [];
+	$rootScope.villages_in_plan = {
+			nukes: [],
+			nobles: [],
+			supports: []
+		};
+
+	$rootScope.targets_in_plan = {
+		nukes: [],
+		nobles: [],
+		supports: []
+	};
+
+	$rootScope.instructions = 'Choose the landing date and time for your attack. All times are in <b>TW Server Time</b> (see bottom of page)!\n\nTWplan\'s algorithm can intelligently plan your commands such that the launch times are at times during the day that are convenient to you. For instance, maybe you would prefer not to have any launch times when you would normally be asleep. If you check the Send Time Optimization box below, TWplan will try to plan commands to have launch times <i>between</i> the "early bound" and the "late bound".';
+}]);
+
+// BEGIN DUPLICATE SERVICES
 
 PlanModule.factory('AttackTypes', function () {
 	return {
@@ -164,272 +172,44 @@ PlanModule.factory('GroupNames', ['$http', '$q', function ($http, $q) {
 	};
 }]);
 
-
-/**
- * A village object
- * @return {Village} An instance of a Village
- */
-Village = (function () {
-	function Village($scope, village_id, name, x_coord, y_coord, continent, slowest_unit, attack_type) {
-		this.$scope = $scope;
-
-		this.village_id = village_id;
-		this.name = name;
-		this.x_coord = x_coord;
-		this.y_coord = y_coord;
-		this.continent = continent;
-		this.slowest_unit = slowest_unit;
-		this.attack_type = attack_type;
-	}
-
-	Village.prototype = {
-		setSlowestUnit: function (slowest_unit) {
-			this.slowest_unit = slowest_unit;
-			switch (this.slowest_unit) {
-				case this.$scope.Units.Axe:
-				case this.$scope.Units.Scout:
-				case this.$scope.Units.Lc:
-				case this.$scope.Units.Marcher:
-				case this.$scope.Units.Ram:
-				case this.$scope.Units.Cat:
-					this.attack_type = this.$scope.AttackTypes.Nuke;
-					break;
-				case this.$scope.Units.Noble:
-					this.attack_type = this.$scope.AttackTypes.Noble;
-					break;
-				case this.$scope.Units.Spear:
-				case this.$scope.Units.Sword:
-				case this.$scope.Units.Archer:
-				case this.$scope.Units.Hc:
-				case this.$scope.Units.Pally:
-					this.attack_type = this.$scope.AttackTypes.Support;
-					break;
-			}
-			$('#' + this.village_id + '_add_button').focus();
-		},
-		setAttackType: function (attack_type) {
-			this.attack_type = attack_type;
-			if (!this.slowest_unit) {
-				switch (this.attack_type) {
-					case this.$scope.AttackTypes.Nuke:
-						this.slowest_unit = this.$scope.Units.Axe;
-						break;
-					case this.$scope.AttackTypes.Noble:
-						this.slowest_unit = this.$scope.Units.Noble;
-						break;
-					case this.$scope.AttackTypes.Support:
-						this.slowest_unit = this.$scope.Units.Spear;
-						break;
-				}
-			}
-			$('#' + this.village_id + '_add_button').focus();
-		},
-		addToPlan: function () {
-			this.$scope.villages_in_plan.villages.push(new Village(this.$scope,
-				this.village_id,
-				this.name,
-				this.x_coord,
-				this.y_coord,
-				this.continent,
-				this.slowest_unit,
-				this.attack_type));
-
-			switch (this.attack_type) {
-				case this.$scope.AttackTypes.Nuke:
-					this.$scope.villages_in_plan.nukes++;
-					break;
-				case this.$scope.AttackTypes.Noble:
-					this.$scope.villages_in_plan.nobles++;
-					break;
-				case this.$scope.AttackTypes.Support:
-					this.$scope.villages_in_plan.supports++;
-					break;
-			}
-
-			$("#" + this.village_id + '_row').effect("highlight", {color: "#a9a96f"}, 2000);
-			$('#' + this.village_id + '_add_button').blur();
-
-			this.slowest_unit = null;
-			this.attack_type = null;
-		},
-		removeFromPlan: function () {
-			this.$scope.villages_in_plan.villages.splice(this.$scope.villages_in_plan.villages.indexOf(this), 1);
-
-			switch (this.attack_type) {
-				case this.$scope.AttackTypes.Nuke:
-					this.$scope.villages_in_plan.nukes--;
-					break;
-				case this.$scope.AttackTypes.Noble:
-					this.$scope.villages_in_plan.nobles--;
-					break;
-				case this.$scope.AttackTypes.Support:
-					this.$scope.villages_in_plan.supports--;
-					break;
-			}
-		}
-	};
-
-	return Village;
-})();
-
-Target = (function () {
-	function Target($scope, x_coord, y_coord, continent, attack_type) {
-		this.$scope = $scope;
-
-		this.x_coord = x_coord;
-		this.y_coord = y_coord;
-		this.continent = continent;
-		this.attack_type = attack_type;
-	}
-
-	Target.prototype = {
-		removeFromPlan: function () {
-			this.$scope.villages_in_plan.villages.splice(this.$scope.villages_in_plan.villages.indexOf(this), 1);
-
-			switch (this.attack_type) {
-				case this.$scope.AttackTypes.Nuke:
-					this.$scope.villages_in_plan.nukes--;
-					break;
-				case this.$scope.AttackTypes.Noble:
-					this.$scope.villages_in_plan.nobles--;
-					break;
-				case this.$scope.AttackTypes.Support:
-					this.$scope.villages_in_plan.supports--;
-					break;
-			}
-		}
-	};
-
-	return Village;
-})();
-
-Row = (function () {
-	function Row($scope, slowest_unit, attack_type) {
-		this.$scope = $scope;
-
-		this.slowest_unit = slowest_unit;
-		this.attack_type = attack_type;
-	}
-
-	Row.prototype = {
-		setSlowestUnit: function (slowest_unit) {
-			this.slowest_unit = slowest_unit;
-			switch (this.slowest_unit) {
-				case this.$scope.Units.Axe:
-				case this.$scope.Units.Scout:
-				case this.$scope.Units.Lc:
-				case this.$scope.Units.Marcher:
-				case this.$scope.Units.Ram:
-				case this.$scope.Units.Cat:
-					this.attack_type = this.$scope.AttackTypes.Nuke;
-					break;
-				case this.$scope.Units.Noble:
-					this.attack_type = this.$scope.AttackTypes.Noble;
-					break;
-				case this.$scope.Units.Spear:
-				case this.$scope.Units.Sword:
-				case this.$scope.Units.Archer:
-				case this.$scope.Units.Hc:
-				case this.$scope.Units.Pally:
-					this.attack_type = this.$scope.AttackTypes.Support;
-					break;
-			}
-			$('#' + this.village_id + '_add_button').focus();
-		},
-		setAttackType: function (attack_type) {
-			this.attack_type = attack_type;
-			if (!this.slowest_unit) {
-				switch (this.attack_type) {
-					case this.$scope.AttackTypes.Nuke:
-						this.slowest_unit = this.$scope.Units.Axe;
-						break;
-					case this.$scope.AttackTypes.Noble:
-						this.slowest_unit = this.$scope.Units.Noble;
-						break;
-					case this.$scope.AttackTypes.Support:
-						this.slowest_unit = this.$scope.Units.Spear;
-						break;
-				}
-			}
-			$('#' + this.village_id + '_add_button').focus();
-		},
-		addToPlan: function () {
-			if (this.$scope.villages_paste_in_coords == '') {
-				alert("You haven't entered any coordinates in the box yet.");
-				return false;
-			}
-
-			var coords = this.$scope.villages_paste_in_coords.match(/[0-9]{3}\|[0-9]{3}/g);
-
-			for (var i = 0; i < this.$scope.villages.length; i++) {
-				for (var j = 0; j < coords.length; j++) {
-					var coord_components = coords[j].split('|');
-
-					if (this.$scope.villages[i].x_coord == coord_components[0] && this.$scope.villages[i].y_coord == coord_components[1]) {
-						this.$scope.villages_in_plan.villages.push(new Village(this.$scope,
-							this.$scope.villages[i].village_id,
-							this.$scope.villages[i].name,
-							this.$scope.villages[i].x_coord,
-							this.$scope.villages[i].y_coord,
-							this.$scope.villages[i].continent,
-							this.slowest_unit,
-							this.attack_type));
-
-						switch (this.attack_type) {
-							case this.$scope.AttackTypes.Nuke:
-								this.$scope.villages_in_plan.nukes++;
-								break;
-							case this.$scope.AttackTypes.Noble:
-								this.$scope.villages_in_plan.nobles++;
-								break;
-							case this.$scope.AttackTypes.Support:
-								this.$scope.villages_in_plan.supports++;
-								break;
-						}
-					}
-				}
-			}
-
-			this.$scope.villages_paste_in_coords = "";
-			this.slowest_unit = null;
-			this.attack_type = null;
-		}
-	};
-
-	return Row;
-})();
+// END DUPLICATE
 
 /**
  * The controller for the Step One page of plan.php
  */
 PlanModule.controller('StepOneController', ['$rootScope', '$scope', 'Villages', 'GroupNames', 'Units', 'AttackTypes', function ($rootScope, $scope, Villages, GroupNames, Units, AttackTypes) {
+	$scope.$watch(function() { console.log("A digest was executed!"); });
+
 	$scope.instructions = 'Below is a list of your villages. Select the ones you wish to include in the plan and choose the slowest traveling times, respectively. Choose how you want to classify each attack (noble, nuke, support). Common defaults are in place, but change them accordingly if needed (i.e. sending HC as an attack instead of support).\n\nAt the bottom of the page is a table with all the villages you add to your plan.';
 	$scope.current_step = 1;
 
-	$scope.paste_in_row = new Row($scope, null, null);
-	$scope.group_row = new Row($scope, null, null);
+	$scope.village_paste_in_interface = new VillagePasteInInterface($scope);
+	$scope.village_group_interface = new VillageGroupInterface($scope);
 
-	$scope.villages_paste_in_coords = "";
 	$scope.group_names = [];
 
 	$scope.Units = Units;
 	$scope.AttackTypes = AttackTypes;
 
 	$scope.submitStepOne = function () {
-		if ($scope.villages_in_plan.villages.length == 0) {
-			alert("You haven't selected any villages! Please choose at least one.");
+		debugger;
+		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length == 0) {
+			alert("You haven't added any villages! Please choose at least one.");
 			return false;
 		}
-		else {
-			window.location.href = 'plan.php#/step_two';
-		}
+
+		debugger;
+
+		window.location.href = 'plan.php#/step_two';
 	};
 
+	// Checks if villages have already been loaded (i.e. returning from step two or three)
 	if ($rootScope.villages.length == 0) {
 		Villages.getUserVillages() // Returns a promise object
 		.then(function (data) { // Success
 			$.each(data, function (index, element) {
-				$scope.villages.push(new Village($scope,
+				$scope.villages.push(new Village(
+					$scope,
 					element.villageid,
 					element.name.replace(/\+/g, ' '),
 					element.xcoord,
@@ -452,167 +232,44 @@ PlanModule.controller('StepOneController', ['$rootScope', '$scope', 'Villages', 
 		});
 	}
 
-	GroupNames.getGroupNames() // Returns a promise object
-		.then(function (data) { // Success
-			$scope.group_names = data;
-			debugger;
-		}, function (data) { // Error
-			debugger;
-		});
+	// Checks if group name have already been loaded (i.e. returning from step two or three)
+	if (!$scope.group_names) {
+		GroupNames.getGroupNames() // Returns a promise object
+			.then(function (data) { // Success
+				$scope.group_names = data;
+				debugger;
+			}, function (data) { // Error
+				debugger;
+			});
+	}
 
 }]);
 
 PlanModule.controller('StepTwoController', ['$rootScope', '$scope', 'AttackTypes', function ($rootScope, $scope, AttackTypes) {
+	$scope.$watch(function() { console.log("A digest was executed!"); });
+
 	$scope.instructions = 'Next, enter the coordinates of your targets. Choose how many of each command (noble, nuke, and support) you want to send to each village - the commands available are determined by your village selections in Step 1. Use the Add Many Targets feature to set the same information for many targets at once.';
 	$scope.current_step = 2;
 
-	$scope.paste_in_targets_obj = {
-		paste_in_coords: '',
-		nukes_quantity: 0,
-		nobles_quantity: 0,
-		supports_quantity: 0,
-		addToPlan = function () {
-			if (this.paste_in_coords == '') {
-				alert("You haven't entered any coordinates in the box yet.");
-				return false;
-			}
-
-			var coords = this.paste_in_coords.match(/[0-9]{3}\|[0-9]{3}/g);
-
-			for (var i = 0; i < coords.length; i++)
-				$rootScope.targets_in_plan.targets.push(new Target());
-
-				for (var j = 0; j < coords.length; j++) {
-					var coord_components = coords[j].split('|');
-
-					if (this.$scope.villages[i].x_coord == coord_components[0] && this.$scope.villages[i].y_coord == coord_components[1]) {
-						this.$scope.villages_in_plan.villages.push(new Village(this.$scope,
-							this.$scope.villages[i].village_id,
-							this.$scope.villages[i].name,
-							this.$scope.villages[i].x_coord,
-							this.$scope.villages[i].y_coord,
-							this.$scope.villages[i].continent,
-							this.slowest_unit,
-							this.attack_type));
-
-						switch (this.attack_type) {
-							case this.$scope.AttackTypes.Nuke:
-								this.$scope.villages_in_plan.nukes++;
-								break;
-							case this.$scope.AttackTypes.Noble:
-								this.$scope.villages_in_plan.nobles++;
-								break;
-							case this.$scope.AttackTypes.Support:
-								this.$scope.villages_in_plan.supports++;
-								break;
-						}
-					}
-				}
-			}
-
-			this.$scope.villages_paste_in_coords = "";
-			this.slowest_unit = null;
-			this.attack_type = null;
-		}
-	};
-
-
-	(function () {
-		function Row($scope, slowest_unit, attack_type) {
-			this.$scope = $scope;
-
-			this.slowest_unit = slowest_unit;
-			this.attack_type = attack_type;
-		}
-
-		Row.prototype = {
-			setSlowestUnit: function (slowest_unit) {
-				this.slowest_unit = slowest_unit;
-				switch (this.slowest_unit) {
-					case this.$scope.Units.Axe:
-					case this.$scope.Units.Scout:
-					case this.$scope.Units.Lc:
-					case this.$scope.Units.Marcher:
-					case this.$scope.Units.Ram:
-					case this.$scope.Units.Cat:
-						this.attack_type = this.$scope.AttackTypes.Nuke;
-						break;
-					case this.$scope.Units.Noble:
-						this.attack_type = this.$scope.AttackTypes.Noble;
-						break;
-					case this.$scope.Units.Spear:
-					case this.$scope.Units.Sword:
-					case this.$scope.Units.Archer:
-					case this.$scope.Units.Hc:
-					case this.$scope.Units.Pally:
-						this.attack_type = this.$scope.AttackTypes.Support;
-						break;
-				}
-				$('#' + this.village_id + '_add_button').focus();
-			},
-			setAttackType: function (attack_type) {
-				this.attack_type = attack_type;
-				if (!this.slowest_unit) {
-					switch (this.attack_type) {
-						case this.$scope.AttackTypes.Nuke:
-							this.slowest_unit = this.$scope.Units.Axe;
-							break;
-						case this.$scope.AttackTypes.Noble:
-							this.slowest_unit = this.$scope.Units.Noble;
-							break;
-						case this.$scope.AttackTypes.Support:
-							this.slowest_unit = this.$scope.Units.Spear;
-							break;
-					}
-				}
-				$('#' + this.village_id + '_add_button').focus();
-			},
-			addToPlan: function () {
-				if (this.$scope.villages_paste_in_coords == '') {
-					alert("You haven't entered any coordinates in the box yet.");
-					return false;
-				}
-
-				var coords = this.$scope.villages_paste_in_coords.match(/[0-9]{3}\|[0-9]{3}/g);
-
-				for (var i = 0; i < this.$scope.villages.length; i++) {
-					for (var j = 0; j < coords.length; j++) {
-						var coord_components = coords[j].split('|');
-
-						if (this.$scope.villages[i].x_coord == coord_components[0] && this.$scope.villages[i].y_coord == coord_components[1]) {
-							this.$scope.villages_in_plan.villages.push(new Village(this.$scope,
-								this.$scope.villages[i].village_id,
-								this.$scope.villages[i].name,
-								this.$scope.villages[i].x_coord,
-								this.$scope.villages[i].y_coord,
-								this.$scope.villages[i].continent,
-								this.slowest_unit,
-								this.attack_type));
-
-							switch (this.attack_type) {
-								case this.$scope.AttackTypes.Nuke:
-									this.$scope.villages_in_plan.nukes++;
-									break;
-								case this.$scope.AttackTypes.Noble:
-									this.$scope.villages_in_plan.nobles++;
-									break;
-								case this.$scope.AttackTypes.Support:
-									this.$scope.villages_in_plan.supports++;
-									break;
-							}
-						}
-					}
-				}
-
-				this.$scope.villages_paste_in_coords = "";
-				this.slowest_unit = null;
-				this.attack_type = null;
-			}
-		};
-
-		return Row;
-	})();
+	$scope.target_paste_in_interface = new TargetPasteInInterface($scope);
 
 	$scope.AttackTypes = AttackTypes;
 
+	$scope.submitStepTwo = function () {
+		if ($scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length == 0) {
+			alert("You haven't added any targets! Please enter at least one.");
+			return false;
+		}
+		else if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length > $scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length) {
+			alert("You've added more targets than you selected villages in Step One. Please remove some targets or go back and add more villages.");
+			return false;
+		}
+		else if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length < $scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length) {
+			if (!confirm("You have more villages than targets! Is this okay?")) {
+				return false;
+			}
+		}
+
+		window.location.href = 'plan.php#/step_three';
+	};
 }]);

@@ -736,6 +736,7 @@ function submitHungarian() { // step 3 submit
 
 /* ======= Planning Step 2 ======= */
 
+/*
 function submitTargets() {  // step 2 submit
 	stepTwoUpdateAvailable();
 
@@ -913,9 +914,10 @@ function addVillagesToTable(pastein) {
 	stepTwoUpdateAvailable();
 	return false;
 }
-
+*/
 /* ======= Planning Step 1 ======= */
 
+/*
 function submitVillages() {  // step 1 submit
 	var ignore = false;
 	var form = $('#sendvillageinfo');
@@ -991,7 +993,6 @@ function submitVillages() {  // step 1 submit
 	return false;
 }
 
-/*
 function addVillageToPlan(id) { // step 1 add to plan
 	var $vid = id.slice(0,-1) + "r";
 	var $copy = $('#' + $vid).clone();

@@ -14,6 +14,8 @@ session_start();
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
 	<script src="scripts/javascripts/controllers/plan.js"></script>
+	<script src="scripts/javascripts/services/plan_objects.js"></script>
+<!--	<script src="scripts/javascripts/services/plan_services.js"></script> -->
 	<script src="scripts/onload.js"></script>
 	<script type="text/javascript" src="scripts/script.js"></script>
 	<script type="text/javascript" src="scripts/hungarian6.js"></script>
