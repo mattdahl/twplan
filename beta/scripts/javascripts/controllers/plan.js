@@ -248,7 +248,7 @@ PlanModule.controller('StepOneController', ['$rootScope', '$scope', 'Villages', 
 PlanModule.controller('StepTwoController', ['$rootScope', '$scope', 'AttackTypes', function ($rootScope, $scope, AttackTypes) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
-	$scope.instructions = 'Next, enter the coordinates of your targets. Choose how many of each command (noble, nuke, and support) you want to send to each village - the commands available are determined by your village selections in Step 1. Use the Add Many Targets feature to set the same information for many targets at once.';
+	$scope.instructions = 'Next, enter the coordinates of your targets. Choose how many of each command (noble, nuke, and support) you want to send to each village - the commands available are determined by your village selections in Step 1.';
 	$scope.current_step = 2;
 
 	$scope.target_paste_in_interface = new TargetPasteInInterface($scope);

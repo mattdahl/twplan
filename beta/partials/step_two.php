@@ -15,7 +15,7 @@
 		<td>Supports <input type='number' min='0' id='bulktargetsupports' ng-model='target_paste_in_interface.supports_quantity' /></td>
 	</tr>
 </table>
-<input type="button" value='Add Targets' ng-click="target_paste_in_interface.addToPlan()" />
+<input type="button" id="step_two_add_button" value='Add Targets' ng-click="target_paste_in_interface.addToPlan()" />
 <span style="font-family:Arial;font-size:12px;float:left;clear:both;top:10px;position:relative;">
 	{{villages_in_plan.nukes.length - targets_in_plan.nukes.length}} nukes,
 	{{villages_in_plan.nobles.length - targets_in_plan.nobles.length}} nobles, and
@@ -91,4 +91,4 @@
 	</div>
 </div>
 
-<input type='button' value='Submit Targets' style='position: relative; top: 20px; float: left; clear: both;' ng-click='submitStepTwo()' />
+<input type='button' id='step_two_submit_button' value='Submit Targets' ng-click='submitStepTwo()' />

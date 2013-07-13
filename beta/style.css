@@ -28,6 +28,19 @@ input[type="text"] {
 	margin-top: 50px;
 }
 
+#step_two_submit_button {
+	position: relative;
+	margin-top: 20px;
+	right: 50px;
+	float: right;
+	clear: both;
+}
+
+#step_two_add_button {
+	position: relative;
+	left: 30px;
+}
+
 @font-face {
   font-family: league_gothic;
   src: url('league_gothic.otf');

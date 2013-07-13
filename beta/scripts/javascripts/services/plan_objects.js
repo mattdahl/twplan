@@ -399,6 +399,10 @@ TargetPasteInInterface = (function () {
 				alert("You haven't entered any coordinates in the box yet.");
 				return false;
 			}
+			else if (this.nukes_quantity + this.nobles_quantity + this.supports_quantity <= 0) {
+				alert('Please enter numbers greater than zero in the Quantity Commands to Send box.');
+				return false;
+			}
 
 			var coords = this.coords.match(/[0-9]{3}\|[0-9]{3}/g);
 
