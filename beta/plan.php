@@ -18,7 +18,7 @@ session_start();
 <!--	<script src="scripts/javascripts/services/plan_services.js"></script> -->
 	<script src="scripts/onload.js"></script>
 	<script type="text/javascript" src="scripts/script.js"></script>
-	<script type="text/javascript" src="scripts/hungarian6.js"></script>
+	<script type="text/javascript" src="scripts/javascripts/hungarian6_unmini.js"></script>
 	<script type="text/javascript"> /* Google Analytics */
 
 	var _gaq = _gaq || [];

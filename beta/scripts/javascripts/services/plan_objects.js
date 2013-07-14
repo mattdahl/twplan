@@ -448,3 +448,111 @@ TargetPasteInInterface = (function () {
 
 	return TargetPasteInInterface;
 })();
+
+Command = (function () {
+	function Command(scope, village, target, traveling_time, launch_datetime) {
+		this.scope = scope;
+
+		this.village = village;
+		this.target = target;
+		this.slowest_unit = village.slowest_unit;
+		this.attack_type = village.attack_type;
+		this.traveling_time = traveling_time;
+		this.launch_datetime = launch_datetime;
+		this.time_remaining = (new Date(this.launch_datetime - new Date())).getTime() / 1000; // Seconds
+		this.url = "http://en" + sessionStorage.currentWorld + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
+	}
+
+	debugger;
+
+	Command.prototype = {
+		decrement_time_remaining: function () {
+			if (this.time_remaining > 0) {
+				this.time_remaining--;
+			}
+			else {
+				this.time_remaining = 'Expired!';
+			}
+		},
+		alarm: function () {
+
+		},
+		delete: function () {
+
+		}
+	};
+
+	return Command;
+})();
+
+Plan = (function () {
+	function Plan(scope, name, landing_datetime, commands) {
+		this.scope = scope;
+
+		this.name = name;
+		this.landing_datetime = landing_datetime;
+		this.commands = commands || [];
+	}
+
+	Plan.prototype = {
+		sort: function () {
+			this.commands.sort(function (a, b) {
+				return a.launchtime - b.launch_datetime;
+			});
+		},
+		recalculate: function () {
+
+		},
+		save: function () {
+
+		},
+		export_as_text: function () {
+			var s = this.name + "\n \n";
+
+			for (var i = 0; i < this.commands.length; i++) {
+				s += "Send "
+				+ this.commands[i].slowest_unit.name
+				+ " ("
+				+ this.scope.AttackTypes.toString[this.commands[i].attack_type]
+				+ ") from [village]"
+				+ this.commands[i].village.y_coord
+				+ "|"
+				+ this.commands[i].village.x_coord
+				+ "[/village] to [village]"
+				+ this.commands[i].target.x_coord
+				+ "|"
+				+ this.commands[i].target.y_coord
+				+ "[/village] at [b]"
+				+ this.commands[i].launch_datetime
+				+ "[/b]\n";
+			}
+
+			return s;
+		},
+		export_as_table: function () {
+			var s = this.name + "\n\n[table][**]Village[||]Target[||]Slowest Unit[||]Attack Type[||]Launch Time[/**]";
+
+			for (var i = 0; i < this.commands.length; i++) {
+				s += "[*][village]"
+				+ this.commands[i].village.y_coord
+				+ "|"
+				+ this.commands[i].village.x_coord
+				+ "[/village][|][village]"
+				+ this.commands[i].target.x_coord
+				+ "|"
+				+ this.commands[i].target.y_coord
+				+ "[/village][|]"
+				+ this.commands[i].slowest_unit.name
+				+ "[|]"
+				+ this.scope.AttackTypes.toString[this.commands[i].attack_type]
+				+ "[|]"
+				+ this.commands[i].launch_datetime
+				+ "\n";
+			}
+
+			return s;
+		}
+	};
+
+	return Plan;
+})();
