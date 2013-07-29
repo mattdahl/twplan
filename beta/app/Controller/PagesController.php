@@ -69,7 +69,16 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
+
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
+
+		$path_components = explode('/', $path[0]);
+
+		if ($path_components[0] == 'plan' && count($path_components) > 1) {
+			// Allows for loading of just the partial, as routing is handled client-side by Angular for the plan page
+			$this->autoLayout = false;
+		}
+
 		$this->render(implode('/', $path));
 	}
 }

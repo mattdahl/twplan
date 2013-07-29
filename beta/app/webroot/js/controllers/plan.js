@@ -10,22 +10,22 @@ PlanModule.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 		.when('/step_one',
 		{
-			templateUrl: 'partials/step_one.php',
+			templateUrl: 'plan/step_one',
 			controller: 'StepOneController'
 		})
 		.when('/step_two',
 		{
-			templateUrl: 'partials/step_two.php',
+			templateUrl: 'plan/step_two',
 			controller: 'StepTwoController'
 		})
 		.when('/step_three',
 		{
-			templateUrl: 'partials/step_three.php',
+			templateUrl: 'plan/step_three',
 			controller: 'StepThreeController'
 		})
 		.when('/results',
 		{
-			templateUrl: 'partials/results.php',
+			templateUrl: 'plan/results',
 			controller: 'ResultsController'
 		})
 		.otherwise({redirectTo: '/step_one'});

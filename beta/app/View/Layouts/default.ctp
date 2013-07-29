@@ -16,46 +16,63 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+	/**
+	 * Starts a new session on return from login validation
+	 */
+	if (isset($_GET["id"]) && strlen($_GET["id"]) == 26) {
+		session_id($_GET["id"]);
+	}
+	session_start();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
-	<?php
-		echo $this->Html->meta('icon');
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/slider.js"></script>
+	<script src="js/onload.js"></script>
+	<script src="js/script.js"></script>
+	<script type="text/javascript"> /* Google Analytics */
 
-		echo $this->Html->css('cake.generic');
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34224555-1']);
+	  _gaq.push(['_trackPageview']);
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+
+	<?php echo $this->fetch('plan_scripts'); ?>
+
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<meta name="description" content="TWplan is a dynamic and intelligent mass attack planner for the popular online game Tribalwars." />
 </head>
 <body>
+	<?php echo $this->element('header'); ?>
+
+	<noscript>It looks like you have Javascript turned off! TWplan requires Javascript functionality to work. Please turn it on :)</noscript>
+
 	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
-		</div>
+		<?php echo $this->fetch('content'); ?>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+
+	<?php
+		if (isset($_SESSION["username"])) {
+			if ($_SESSION["username"] == "syntexgrid") {
+				echo $this->element('admin');
+			}
+		}
+	?>
+
+	<?php echo $this->element('footer'); ?>
 </body>
 </html>

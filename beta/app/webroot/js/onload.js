@@ -112,6 +112,48 @@ $("#villages > tbody:last").last().append($s);
 }
 }
 
+function loadSettings() {
+   $.ajax({
+      url:('scripts/defaultworld.php'),
+      timeout: 10000,
+      success: function(data) {
+        debugger;
+        $("#defaultworld").html(data);
+      },
+      error: function(jqXHR, t, e) {
+        debugger;
+      }
+   });
+
+  $.ajax({
+      url:('scripts/localtimezone.php'),
+      timeout: 10000,
+      success: function(data) {
+        debugger;
+        $("#localtimezone").html(data);
+      },
+      error: function(jqXHR, t, e) {
+        debugger;
+      }
+   })
+ };
+
+   function validateBugReport() {
+   	if ($("#page").val().length == 0) {
+   		alert("Please fill out the \"Which page were you using?\" box");
+   		return false;
+   	}
+   	else if ($("#bugnature").val().length <= 5) {
+   		alert("Please fill out the \"Can you explain the bug?\" box");
+   		return false;
+   	}
+   	else {
+   		debugger;
+   		$("#bugreportform").submit();
+   		return true;
+   	}
+   }
+
 /* ===== Dropdown Topnavbar Menu ====== */
 
 $(document).ready(function(){
