@@ -1,8 +1,12 @@
-<?php if ($this->Session->flash()) :?>
+<?php
+	$flash_message = $this->Session->flash();
+?>
+
+<?php if ($flash_message) : ?>
 
 <h1>Plan</h1>
 
-<?php echo $this->Session->flash(); ?>
+<?php echo $flash_message; ?>
 
 <?php else : ?>
 

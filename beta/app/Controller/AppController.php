@@ -39,11 +39,13 @@ class AppController extends Controller {
 	}
 
 	public $components = array(
+		'DebugKit.Toolbar',
 	    'Session',
 	    'Auth' => array(
 	        'loginRedirect' => '/',
 	        'logoutRedirect' => '/',
 	        'loginAction' => '/users/login'
-	    )
+	    ),
+	    'Players'
 	);
 }

@@ -42,7 +42,13 @@
 
 	</script>
 
-	<?php echo $this->fetch('plan_scripts'); ?>
+	<?php if ($page == 'plan') : ?>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+		<script src="js/controllers/plan.js"></script>
+		<script src="js/services/plan_objects.js"></script>
+		<script src="js/marriage3.js"></script>
+	<?php endif ?>
 
 	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />

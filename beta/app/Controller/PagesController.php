@@ -51,9 +51,8 @@ class PagesController extends AppController {
  * @param mixed What page to display
  * @return void
  */
-	public function display() {
+	public function display () {
 		$path = func_get_args();
-//		error_log($path);
 
 		$count = count($path);
 		if (!$count) {
@@ -72,13 +71,6 @@ class PagesController extends AppController {
 		}
 
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
-
-		$path_components = explode('/', $path[0]);
-
-		if ($path_components[0] == 'plan' && count($path_components) > 1) {
-			// Allows for loading of just the partial, as routing is handled client-side by Angular for the plan page
-			$this->autoLayout = false;
-		}
 
 		$this->render(implode('/', $path));
 	}
