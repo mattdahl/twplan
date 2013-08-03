@@ -465,7 +465,7 @@ PlanModule.controller('StepOneController', ['$scope', 'Villages', 'GroupNames', 
 
 		debugger;
 
-		window.location.href = 'plan.php#/step_two';
+		window.location.href = 'plan#/step_two';
 	};
 
 	// Checks if villages have already been loaded (i.e. returning from step two or three)
@@ -537,7 +537,7 @@ PlanModule.controller('StepTwoController', ['$scope', 'AttackTypes', function ($
 			}
 		}
 
-		window.location.href = 'plan.php#/step_three';
+		window.location.href = 'plan#/step_three';
 	};
 }]);
 
@@ -567,7 +567,7 @@ PlanModule.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo
 
 		$scope.calculate_plan();
 
-		window.location.href = 'plan.php#/results';
+		window.location.href = 'plan#/results';
 	};
 
 	$scope.calculate_plan = function () {
@@ -746,7 +746,7 @@ PlanModule.controller('ResultsController', ['$scope', 'AttackTypes', function ($
 	};
 
 	if ($scope.countdown_timeout) {
-		$timeout.cancel($scope.countdown_timeout);
+		clearInterval($scope.countdown_timeout);
 	}
 
 	$scope.countdown();

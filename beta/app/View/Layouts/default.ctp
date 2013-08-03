@@ -15,14 +15,6 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-	/**
-	 * Starts a new session on return from login validation
-	 */
-	if (isset($_GET["id"]) && strlen($_GET["id"]) == 26) {
-		session_id($_GET["id"]);
-	}
-	session_start();
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -66,10 +58,8 @@
 	</div>
 
 	<?php
-		if (isset($_SESSION["username"])) {
-			if ($_SESSION["username"] == "syntexgrid") {
-				echo $this->element('admin');
-			}
+		if ($this->Session->read('Auth.User.username') == 'syntexgrid') {
+			echo $this->element('admin');
 		}
 	?>
 

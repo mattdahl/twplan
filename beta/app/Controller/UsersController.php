@@ -5,62 +5,72 @@
 */
 class UsersController extends AppController {
 
+	function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('login');
+		$this->Auth->fields = array(
+            'username' => 'username'
+            );
+	}
+
 	public function index () {
-	     $this->set('users', $this->User->find('all'));
+		$this->render($this->User->find('all'));
 	}
 
-	public function create () {
-	    if ($this->request->is('post')) {
-	        $this->User->create();
-	        if ($this->User->save($this->request->data)) {
-	            $this->Session->setFlash(__('Your post has been saved.'));
-	            $this->redirect(array('action' => 'index'));
-	        } else {
-	            $this->Session->setFlash(__('Unable to add your post.'));
-	        }
-	    }
+	public function login () {
+		$this->redirect('http://www.tribalwars.net/external_auth.php?sid=' . $this->Session->id() . '&client=twplan');
 	}
 
-	public function delete ($id = null) {
-	    if (!$id) {
-	        throw new NotFoundException('Invalid user');
-	    }
-
-	    $user = $this->User->findById($id);
-
-	    if (!$user) {
-	        throw new NotFoundException('Invalid user');
-	    }
-
-	    if ($this->request->is('delete')) {
-	        $this->User->delete($id);
-	    }
+	private function validate_hash () {
+		return ($this->data['hash'] == md5($this->Session->$id() . $this->request->params['username'] . '***REMOVED***'));
 	}
 
-	public function update ($id = null, $params) {
-		if (!$id) {
-		    throw new NotFoundException('Invalid user');
+	public function validate_login () {
+		if ($this->request->is('post')) {
+			$username = $this->request->params['username'];
+
+			if ($this->validate_hash()) {
+				$user = $this->User->findByUsername($username) || create_user($username);
+
+				if ($this->Auth->login($user)) {
+					$current_world = $this->Auth->user('default_world') || '69';
+					$this->Session->write('current_world', $current_world);
+
+					$this->redirect($this->Auth->redirectUrl());
+				}
+			}
 		}
+	}
 
-		$user = $this->User->findById($id);
+	private function create_user ($username) {
+		$this->User->create();
 
-		if (!$user) {
-		    throw new NotFoundException('Invalid user');
+		$new_user = array(
+			'User' => array(
+			    'username' => $username,
+			    'default_world' => NULL,
+			    'default_timezone' => NULL
+		    )
+		);
+
+		return $this->User->save($new_user);
+	}
+
+	public function logout () {
+		$this->Session->setFlash('You are logged out!');
+		$this->redirect($this->Auth->logout());
+	}
+
+	public function set_default_world () {
+		if ($this->request->is('post')) {
+			$this->Auth->user()->set_default_world($this->request->params['default_world']);
 		}
+	}
 
-	    if ($this->request->is('put')) {
-	        $this->User->id = $id;
-	        if ($this->Post->save($this->request->data)) {
-	            $this->Session->setFlash(__('Your post has been updated.'));
-	            $this->redirect(array('action' => 'index'));
-	        } else {
-	            $this->Session->setFlash(__('Unable to update your post.'));
-	        }
-	    }
-
-	    if (!$this->request->data) {
-	        $this->request->data = $post;
-	    }
+	public function set_default_timezone () {
+		if ($this->request->is('post')) {
+			$this->Auth->user()->set_default_timezone($this->request->params['default_timezone']);
+		}
 	}
 
 }

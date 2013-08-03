@@ -5,8 +5,6 @@
  */
 class User extends AppModel {
 
-	public static $id_counter = 0;
-
 	public $hasMany = array(
 		'Group' => array(
 			'className' => 'Group'
@@ -16,19 +14,10 @@ class User extends AppModel {
 		)
 	);
 
-	private $username;
 	private $id;
+	private $username;
 	private $default_world;
 	private $default_timezone;
-
-	public function __construct ($username, $default_world = NULL, $default_timezone = NULL) {
-		$this->$username = $username;
-		$this->$id = $id_counter;
-		$this->$default_world = $default_world;
-		$this->$default_timezone = $default_timezone;
-
-		$id_counter++;
-	}
 
 	public function username () {
 		return $this->$username;
@@ -42,8 +31,34 @@ class User extends AppModel {
 		return $this->$default_world;
 	}
 
+	public function set_default_world ($default_world) {
+		$this->default_world = $default_world;
+	}
+
 	public function default_timezone () {
 		return $this->$default_timezone;
+	}
+
+	public function set_default_timezone ($default_timezone) {
+		$this->default_timezone = $default_timezone;
+	}
+
+	public function groups ($id = NULL) {
+		if ($id) {
+			return $this->Group->findById($id);
+		}
+		else {
+			return $this->Group->find('all');
+		}
+	}
+
+	public function plans ($id = NULL) {
+		if ($id) {
+			return $this->Plan->findById($id);
+		}
+		else {
+			return $this->Plan->find('all');
+		}
 	}
 
 }
