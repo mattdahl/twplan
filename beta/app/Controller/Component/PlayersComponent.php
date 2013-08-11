@@ -16,7 +16,7 @@ class PlayersComponent extends Component {
 	 * Registers a Player model for the component, and dynamically assigns the appropriate table based on the current world
 	 * @return boolean
 	 */
-	public function initialize (Controller $controller) {
+	public function startup (Controller $controller) {
 	    $this->Player = ClassRegistry::init('Player');
 	    $this->Player->use_table($this->Session->read('current_world'));
 	}

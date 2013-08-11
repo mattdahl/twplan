@@ -34,7 +34,7 @@ class UsersController extends AppController {
 
 				if ($this->Auth->login($user)) {
 					$current_world = $this->Auth->user('default_world') || '69';
-					$this->Session->write('current_world', $current_world);
+					$this->set_current_world($current_world);
 
 					$this->redirect($this->Auth->redirectUrl());
 				}
@@ -73,6 +73,20 @@ class UsersController extends AppController {
 		}
 	}
 
+	public function set_current_world () {
+		$this->response = new CakeResponse();
+
+		if ($this->request->is('post')) {
+			$world = $this->request->params['world'];
+			$this->Session->write('current_world', $world);
+			$this->response->statusCode(200);
+		}
+		else {
+			$this->response->statusCode(405);
+		}
+
+		$this->response->send();
+	}
 }
 
 

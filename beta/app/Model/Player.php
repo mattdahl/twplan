@@ -23,15 +23,15 @@ class Player extends AppModel {
 	}
 
 	public function player_id () {
-		return $this->$player_id;
+		return $this->player_id;
 	}
 
 	public function username () {
-		return $this->$username;
+		return $this->username;
 	}
 
 	public function tribe_id () {
-		return $this->$tribe_id;
+		return $this->tribe_id;
 	}
 
 }

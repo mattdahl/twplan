@@ -10,7 +10,8 @@
 
 <?php else : ?>
 
-<div ng-app='PlanModule'>
+<!-- Manually bootstrapped -->
+<div id="plan_module">
 
 	<!-- Dynamic content loaded by $routeProvider using the appropriate partials for each step -->
 	<div ng-view></div>
