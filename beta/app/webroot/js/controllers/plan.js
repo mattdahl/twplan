@@ -1,7 +1,7 @@
 /**
  * The controller for the Step One page of /plan
  */
-TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, VillagesRequest, GroupNames, Units, AttackTypes) {
+TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'MetaData', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, MetaData, VillagesRequest, GroupNames, Units, AttackTypes) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 1;

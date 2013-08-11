@@ -1,9 +1,10 @@
 /**
  * The controller for the header
  */
-TWP.Header.controller('WelcomeController', ['$scope', '$http', function ($scope, $http) {
-	$scope.username = $('meta[name=username]').attr('content');
-	$scope.current_world = parseInt($('meta[name=current_world]').attr('content'));
+TWP.Header.controller('WelcomeController', ['$scope', '$http', 'MetaData', function ($scope, $http, MetaData) {
+	$scope.username = MetaData.username;
+	$scope.current_world = MetaData.current_world;
+	$scope.last_updated = MetaData.last_updated;
 
 	$scope.worlds = [
 		19,

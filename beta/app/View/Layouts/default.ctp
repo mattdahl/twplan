@@ -12,6 +12,7 @@
 	<script src="js/script.js"></script>
 	<script src="js/header_app_bootstrap.js"></script>
 	<script src="js/controllers/header.js"></script>
+	<script src="js/factories/meta_data.js"></script>
 	<script type="text/javascript"> /* Google Analytics */
 
 	  var _gaq = _gaq || [];
