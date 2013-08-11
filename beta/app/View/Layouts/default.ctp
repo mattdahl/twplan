@@ -47,6 +47,7 @@
 	<?php
 		echo $this->Html->meta(array('name' => 'username', 'content' => $this->Session->read('Auth.User.username') ? $this->Session->read('Auth.User.username') : ''));
 		echo $this->Html->meta(array('name' => 'current_world', 'content' => $this->Session->read('current_world') ? $this->Session->read('current_world') : ''));
+		echo $this->Html->meta(array('name' => 'last_updated', 'content' => $this->Session->read('last_updated') ? $this->Session->read('last_updated') : ''));
 	?>
 
 </head>

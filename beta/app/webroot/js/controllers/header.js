@@ -9,11 +9,6 @@ TWP.Header.controller('WelcomeController', ['$scope', '$http', 'MetaData', funct
 	$scope.worlds = [
 		19,
 		30,
-		38,
-		42,
-		46,
-		48,
-		56,
 		58,
 		59,
 		60,
