@@ -1,12 +1,7 @@
 /**
- * Creates a module that acts as the ng-app on the header
- */
-var HeaderModule = angular.module('HeaderModule', []);
-
-/**
  * The controller for the header
  */
-HeaderModule.controller('WelcomeController', ['$scope', '$http', function ($scope, $http) {
+TWP.Header.controller('WelcomeController', ['$scope', '$http', function ($scope, $http) {
 	$scope.username = $('meta[name=username]').attr('content');
 	$scope.current_world = parseInt($('meta[name=current_world]').attr('content'));
 

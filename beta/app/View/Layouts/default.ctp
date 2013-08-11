@@ -10,6 +10,7 @@
 	<script src="js/slider.js"></script>
 	<script src="js/onload.js"></script>
 	<script src="js/script.js"></script>
+	<script src="js/header_app_bootstrap.js"></script>
 	<script src="js/controllers/header.js"></script>
 	<script type="text/javascript"> /* Google Analytics */
 

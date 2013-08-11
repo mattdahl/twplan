@@ -1,4 +1,4 @@
-<header ng-app='HeaderModule'>
+<header ng-app='header_app'>
   <a href="index"><img id="logo" width="500" height="150" src="http://static-twplan.appspot.com/images/logo5.png" /></a>
 
   <?php
