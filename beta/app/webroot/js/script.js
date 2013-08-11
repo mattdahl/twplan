@@ -106,7 +106,7 @@ localOffset = 0;
 
 stepOneAvailable = {"nobles": 0, "nukes": 0, "supports": 0};
 stepTwoAvailable = {"nobles": 0, "nukes": 0, "supports": 0};
-
+/*
 window.onerror = function (msg, url, linenumber) {
 	reportThis = confirm('Error: ' + msg + '\n\nWould you like to report the error to improve TWplan?');
 	if (reportThis) {
@@ -132,6 +132,7 @@ window.onerror = function (msg, url, linenumber) {
 	return true;
 };
 
+*/
 /* ====== Back Functions ====== */
 /*
 function backToStep1() {
