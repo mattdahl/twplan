@@ -12,7 +12,7 @@ $start_time = microtime(true);
 $world = $argv[1];
 
 if (!$world) {
-	printf("No world supplied. \n Usage: $ php db_load_villages.php [world]");
+	printf("No world supplied.\nUsage: $ php db_load_villages.php [world]\n");
 	exit();
 }
 
