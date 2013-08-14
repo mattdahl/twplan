@@ -65,7 +65,7 @@ else {
 $create_query = "CREATE TABLE IF NOT EXISTS en{$world}
 			(
 				village_id INT NOT NULL,
-				name VARCHAR(100) NOT NULL,
+				village_name VARCHAR(100) NOT NULL,
 				x_coord INT NOT NULL,
 				y_coord INT NOT NULL,
 				player_id INT NOT NULL,
@@ -87,7 +87,7 @@ $load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE en{$world}
 			LINES TERMINATED BY '\n'
 			(
 				village_id,
-				name,
+				village_name,
 				x_coord,
 				y_coord,
 				player_id
