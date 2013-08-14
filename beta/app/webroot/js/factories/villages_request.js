@@ -9,8 +9,9 @@ TWP.Plan.Factories.factory('VillagesRequest', ['$http', '$q', function ($http, $
 		query: function () {
 			var deferred = $q.defer();
 
-			$http.post('scripts/loadvillagesforplan.php')
+			$http.post('users/villages')
 			.success(function (data, status, headers, config) {
+				debugger;
 				deferred.resolve(data);
 			}).error(function (data, status, headers, config) {
 				debugger;

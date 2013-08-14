@@ -1,7 +1,7 @@
 /**
  * The controller for the Step One page of /plan
  */
-TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'MetaData', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, MetaData, VillagesRequest, GroupNames, Units, AttackTypes) {
+TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, VillagesRequest, GroupNames, Units, AttackTypes) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 1;
@@ -15,37 +15,34 @@ TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'MetaData', 'Vil
 	$scope.AttackTypes = AttackTypes;
 
 	$scope.submitStepOne = function () {
-		debugger;
-		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length == 0) {
+		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length === 0) {
 			alert("You haven't added any villages! Please choose at least one.");
 			return false;
 		}
-
-		debugger;
 
 		window.location.href = 'plan#/step_two';
 	};
 
 	// Checks if villages have already been loaded (i.e. returning from step two or three)
-	if ($scope.villages.length == 0) {
+	if ($scope.villages.length === 0) {
 		VillagesRequest.query() // Returns a promise object
 		.then(function (data) { // Success
 			$.each(data, function (index, element) {
 				$scope.villages.push(new Village(
 					$scope,
-					element.villageid,
-					element.name.replace(/\+/g, ' '),
-					element.xcoord,
-					element.ycoord,
-					'K' + element.ycoord.substring(0, 1) + element.xcoord.substring(0, 1),
+					element.village_id,
+					element.village_name.replace(/\+/g, ' '),
+					element.x_coord,
+					element.y_coord,
+					'K' + element.y_coord.substring(0, 1) + element.x_coord.substring(0, 1),
 					null,
 					null));
 
 				$scope.$watch(function () {
-					return $('#' + element.villageid + '_add_button').attr('disabled');
+					return $('#' + element.village_id + '_add_button').attr('disabled');
 				},
 				function () {
-					$('#' + element.villageid + '_add_button').focus();
+					$('#' + element.village_id + '_add_button').focus();
 				});
 
 				debugger;
@@ -71,7 +68,7 @@ TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'MetaData', 'Vil
 /**
  * The controller for the Step Two page
  */
- TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
+TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 2;

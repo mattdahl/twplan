@@ -5,6 +5,10 @@
 */
 class UsersController extends AppController {
 
+	public $components = array(
+		'Villages'
+	);
+
 	function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('login');
@@ -15,6 +19,11 @@ class UsersController extends AppController {
 
 	public function index () {
 		$this->render($this->User->find('all'));
+	}
+
+	public function villages () {
+		$this->autoRender = false;
+		return json_encode($this->Villages->villages_for_world());
 	}
 
 	public function login () {
@@ -34,7 +43,8 @@ class UsersController extends AppController {
 
 				if ($this->Auth->login($user)) {
 					$current_world = $this->Auth->user('default_world') || '69';
-					$this->set_current_world($current_world);
+					$this->Session->write('current_world', $current_world);
+					// TODO: add Analytics inclusion and last_updated lookup
 
 					$this->redirect($this->Auth->redirectUrl());
 				}
@@ -71,21 +81,6 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Auth->user()->set_default_timezone($this->request->params['default_timezone']);
 		}
-	}
-
-	public function set_current_world () {
-		$this->response = new CakeResponse();
-
-		if ($this->request->is('post')) {
-			$world = $this->request->params['world'];
-			$this->Session->write('current_world', $world);
-			$this->response->statusCode(200);
-		}
-		else {
-			$this->response->statusCode(405);
-		}
-
-		$this->response->send();
 	}
 }
 
