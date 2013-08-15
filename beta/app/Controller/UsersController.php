@@ -1,5 +1,7 @@
 <?php
 
+App::import('Controller', 'Worlds');
+
 /**
 * A controller for the users
 */
@@ -44,7 +46,11 @@ class UsersController extends AppController {
 				if ($this->Auth->login($user)) {
 					$current_world = $this->Auth->user('default_world') || '69';
 					$this->Session->write('current_world', $current_world);
-					// TODO: add Analytics inclusion and last_updated lookup
+
+					// Grabs the last updated data for the new world
+					$Worlds = new WorldsController;
+					$Worlds->constructClasses();
+					$this->Session->write('last_updated', $Worlds->last_updated());
 
 					$this->redirect($this->Auth->redirectUrl());
 				}

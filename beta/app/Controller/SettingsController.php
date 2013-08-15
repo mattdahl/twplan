@@ -46,12 +46,7 @@ class SettingsController extends AppController {
 			// Grabs the last updated data for the new world
 			$Worlds = new WorldsController;
 			$Worlds->constructClasses();
-			$last_updated = $Worlds->last_updated() ? $Worlds->last_updated() : 0;
-			date_default_timezone_set("Europe/London");
-			$now = date('Y-m-d H:i:s', time());
-			$diff = strtotime($now) - strtotime($last_updated);
-			$last_updated_hours = round(($diff/60)/60);
-			$this->Session->write('last_updated', $last_updated_hours);
+			$this->Session->write('last_updated', $Worlds->last_updated());
 
 			// Sets the status code to OK
 			$this->response->statusCode(200);
