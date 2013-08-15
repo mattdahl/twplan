@@ -31,4 +31,11 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+	function afterFind($results, $primary = false) {
+		// Forces CakePHP to return objects NOT wrapped in arrays
+		if ($primary == true && !is_object($results)) {
+			return Set::map($results);
+		}
+	}
 }

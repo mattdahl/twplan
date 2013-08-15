@@ -27,7 +27,7 @@ class VillagesComponent extends Component {
 	 */
 	public function villages_for_world () {
 		$player_id = $this->Players->player_id_for_username();
-		return $this->Village->findByPlayerId($player_id);
+		return $this->Village->findAllByPlayerId($player_id);
 	}
 }
 
