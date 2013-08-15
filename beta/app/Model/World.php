@@ -1,19 +1,16 @@
 <?php
 
 /**
- * A model of a world object in the analytics database
+ * A model of a world object
  */
 class World extends AppModel {
 
-	public $useDbConfig = 'analytics';
-	public $useTable = 'worlds';
-
-	private $world;
+	private $world_number;
 	private $last_updated;
 	private $plans;
 
-	public function world () {
-		return $this->world;
+	public function world_number () {
+		return $this->world_number;
 	}
 
 	public function last_updated () {

@@ -102,6 +102,21 @@ else {
 	printf("Parsed csv into mysql...\n");
 }
 
+$mysqli->select_db('twp_users');
+
+date_default_timezone_set("Europe/London");
+$now = date("Y-m-d H:i:s");
+$last_updated_query = "UPDATE worlds SET last_updated='{$now}' WHERE world_number = '{$world}'";
+
+if (!$mysqli->query($last_updated_query)) {
+	printf("Error updating last_updated data with query \n %s \n", $last_updated_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
+}
+else {
+	printf("Updated last_updated data...\n");
+}
+
 $mysqli->close();
 
 $end_time = microtime(true);

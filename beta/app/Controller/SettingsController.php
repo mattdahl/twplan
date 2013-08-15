@@ -1,6 +1,6 @@
 <?php
 
-App::import('Controller', 'Analytics');
+App::import('Controller', 'Worlds');
 
 /**
 * A controller for the settings
@@ -44,9 +44,10 @@ class SettingsController extends AppController {
 			$this->Session->write('current_world', $world);
 
 			// Grabs the last updated data for the new world
-			$Analytics = new AnalyticsController;
-			debug($Analytics);
-			$last_updated = $Analytics->last_updated();
+			$Worlds = new WorldsController;
+			$Worlds->constructClasses();
+			$last_updated = $Worlds->last_updated() ? $Worlds->last_updated() : 0;
+			date_default_timezone_set("Europe/London");
 			$now = date('Y-m-d H:i:s', time());
 			$diff = strtotime($now) - strtotime($last_updated);
 			$last_updated_hours = round(($diff/60)/60);

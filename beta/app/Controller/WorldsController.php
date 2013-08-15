@@ -1,16 +1,14 @@
 <?php
 
 /**
-* A controller for the analytics data
+* A controller for the worlds data
 */
-class AnalyticsController extends AppController {
+class WorldsController extends AppController {
 
 	public $components = array(
 		'Session',
 		'RequestHandler'
 	);
-
-	public $uses = array('World');
 
 	function beforeFilter() {
 		parent::beforeFilter();
@@ -18,10 +16,8 @@ class AnalyticsController extends AppController {
 	}
 
 	public function last_updated () {
-		//$world = $this->World->findByWorld($this->Session->read('current_world'));
-		//return $world->last_updated();
-		var_dump($this->World->findByWorld(67));
-		return 2;
+		$world = $this->World->findByWorldNumber($this->Session->read('current_world'))['World'];
+		return $world['last_updated'];
 	}
 
 	public function set_last_updated () {
