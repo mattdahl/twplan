@@ -77,6 +77,39 @@ TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', f
 
 	$scope.AttackTypes = AttackTypes;
 
+	/**
+	 * Sets the source for the autocompletes on a set of elements. Elements must be <input>'s.
+	 * @param elements - A jQuery collection of elements
+	 * @param source - An array of Target objects
+	 */
+	$scope.update_autocomplete_fields = function (elements, targets) {
+		var source = [];
+
+		for (var i = 0; i < targets.length; i++) {
+			source.push(targets[i].x_coord + '|' + targets[i].y_coord);
+		}
+
+		for (var i = 0; i < elements.length; i++) {
+			$(elements[i]).autocomplete(
+				{source: source}
+			);
+		}
+	};
+
+	/**
+	 * Initializes the autocomplete plugin
+	 *
+	var initialize_autocomplete_fields = (function () {
+		var elements = $('.nuke_target_autocomplete, .noble_target_autocomplete, .support_target_autocomplete');
+		for (var i = 0; i < elements.length; i++) {
+			$(elements[i]).autocomplete(
+				{source: {}}
+			);
+		}
+	})(); */
+
+	$('.tooltip').tooltip({show: false});
+
 	$scope.submitStepTwo = function () {
 		if ($scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length == 0) {
 			alert("You haven't added any targets! Please enter at least one.");

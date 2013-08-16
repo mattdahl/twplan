@@ -6,7 +6,7 @@
 		<?php echo $title_for_layout; ?>
 	</title>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="js/slider.js"></script>
 	<script src="js/onload.js"></script>
 	<script src="js/script.js"></script>
@@ -29,7 +29,7 @@
 	</script>
 
 	<?php if ($page == 'plan') : ?>
-		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script src="js/plan_app_bootstrap.js"></script>
 		<script src="js/controllers/plan.js"></script>
 		<script src="js/plan_objects.js"></script>
@@ -39,6 +39,7 @@
 		<script src="js/factories/units.js"></script>
 		<script src="js/factories/villages_request.js"></script>
 		<script src="js/factories/world_info.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/autocomplete.css" />
 	<?php endif ?>
 
 	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />

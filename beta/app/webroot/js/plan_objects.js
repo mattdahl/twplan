@@ -444,7 +444,6 @@ TargetPasteInInterface = (function () {
 				var coord_components = coords[i].split('|');
 
 				for (var j = 0; j < this.nukes_quantity; j++) {
-					debugger;
 					this.scope.targets_in_plan.nukes.push(new Target(
 						this.scope,
 						coord_components[0],
@@ -471,6 +470,16 @@ TargetPasteInInterface = (function () {
 						this.scope.AttackTypes.Support
 						));
 				}
+			}
+
+			if (this.nukes_quantity) {
+				this.scope.update_autocomplete_fields($('.nuke_target_autocomplete'), this.scope.targets_in_plan.nukes);
+			}
+			if (this.nobles_quantity) {
+				this.scope.update_autocomplete_fields($('.noble_target_autocomplete'), this.scope.targets_in_plan.nobles);
+			}
+			if (this.supports_quantity) {
+				this.scope.update_autocomplete_fields($('.support_target_autocomplete'), this.scope.targets_in_plan.supports);
 			}
 
 			this.coords = '';
