@@ -90,28 +90,58 @@ TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', f
 		}
 
 		for (var i = 0; i < elements.length; i++) {
-			$(elements[i]).autocomplete(
-				{source: source}
-			);
+			$(elements[i]).autocomplete({
+				source: source,
+				select: function (event, ui) { // Callback fired when an item is chosen from the dropdown
+					var coord = ui.item.value;
+					var coord_components = coord.split('|');
+
+					var target;
+
+					switch (event.target.classList[0]) {
+						case 'nuke_target_autocomplete':
+							for (var j = 0; j < $scope.targets.nukes.length; j++) {
+								if ($scope.targets.nukes[j].x_coord === coord_components[0] && $scope.targets.nukes[j].y_coord === coord_components[1]) {
+									target = $scope.targets.nukes[j];
+									$scope.targets_in_plan.nukes.splice($scope.targets_in_plan.nukes.indexOf(target), 1);
+									break;
+								}
+							}
+							$scope.update_autocomplete_fields($('.nuke_target_autocomplete'), $scope.targets_in_plan.nukes);
+							break;
+						case 'noble_target_autocomplete':
+							for (var j = 0; j < $scope.targets.nobles.length; j++) {
+								if ($scope.targets.nobles[j].x_coord === coord_components[0] && $scope.targets.nobles[j].y_coord === coord_components[1]) {
+									target = $scope.targets.nobles[j];
+									$scope.targets_in_plan.nobles.splice($scope.targets_in_plan.nobles.indexOf(target), 1);
+									break;
+								}
+							}
+							$scope.update_autocomplete_fields($('.noble_target_autocomplete'), $scope.targets_in_plan.nobles);
+							break;
+						case 'support_target_autocomplete':
+							for (var j = 0; j < $scope.targets.supports.length; j++) {
+								if ($scope.targets.supports[j].x_coord === coord_components[0] && $scope.targets.supports[j].y_coord === coord_components[1]) {
+									target = $scope.targets.supports[j];
+									$scope.targets_in_plan.supports.splice($scope.targets_in_plan.supports.indexOf(target), 1);
+									break;
+								}
+							}
+							$scope.update_autocomplete_fields($('.support_target_autocomplete'), $scope.targets_in_plan.supports);
+							break;
+					}
+				}
+			});
 		}
 	};
 
 	/**
-	 * Initializes the autocomplete plugin
-	 *
-	var initialize_autocomplete_fields = (function () {
-		var elements = $('.nuke_target_autocomplete, .noble_target_autocomplete, .support_target_autocomplete');
-		for (var i = 0; i < elements.length; i++) {
-			$(elements[i]).autocomplete(
-				{source: {}}
-			);
-		}
-	})(); */
-
+	 * Initialize all the tooltips on the page
+	 */
 	$('.tooltip').tooltip({show: false});
 
 	$scope.submitStepTwo = function () {
-		if ($scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length == 0) {
+		if ($scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length === 0) {
 			alert("You haven't added any targets! Please enter at least one.");
 			return false;
 		}
@@ -132,7 +162,7 @@ TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', f
 /**
  * The controller for the Step Three page
  */
- TWP.Plan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo', 'PairCalculator', function ($rootScope, $scope, WorldInfo, PairCalculator) {
+TWP.Plan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo', 'PairCalculator', function ($rootScope, $scope, WorldInfo, PairCalculator) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 3;

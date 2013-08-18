@@ -44,13 +44,17 @@ TWP.Plan.run(['$rootScope', 'AttackTypes', function ($rootScope, AttackTypes) {
 			supports: []
 		};
 
-	$rootScope.targets_in_plan = {
+	$rootScope.targets = { // EVERY target that the user has added
+		nukes: [],
+		nobles: [],
+		supports: []
+	};
+	$rootScope.targets_in_plan = { // Excludes targets that have been manually assigned
 		nukes: [],
 		nobles: [],
 		supports: []
 	};
 
-	$rootScope.manual_commands = [];
 	$rootScope.AttackTypes = AttackTypes;
 	$rootScope.plan = null;
 	$rootScope.instructions = 'Choose the landing date and time for your attack. All times are in <b>TW Server Time</b> (see bottom of page)!\n\nTWplan\'s algorithm can intelligently plan your commands such that the launch times are at times during the day that are convenient to you. For instance, maybe you would prefer not to have any launch times when you would normally be asleep. If you check the Send Time Optimization box below, TWplan will try to plan commands to have launch times <i>between</i> the "early bound" and the "late bound".';

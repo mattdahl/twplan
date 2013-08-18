@@ -32,7 +32,7 @@
 				<th>Continent</th>
 				<th>Slowest Unit</th>
 				<th>Type of Attack</th>
-				<th>Target <img class="tooltip" src="images/tooltip.png" title="If you want, you can assign specific targets to your villages. Anything left blank will be auto-assigned by TWplan!" /></th>
+				<th>Target <img class="tooltip" src="images/tooltip.png" title="If you want, you can match specific targets to your villages. Anything left blank will be auto-assigned by TWplan!" /></th>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.nukes'>
 				<td>{{village.name}}</td>
@@ -69,19 +69,19 @@
 				<th>Type of Attack</th>
 				<th>Delete</th>
 			</tr>
-			<tr ng-repeat='target in targets_in_plan.nukes'>
+			<tr ng-repeat='target in targets.nukes'>
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
 				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
 			</tr>
-			<tr ng-repeat='target in targets_in_plan.nobles'>
+			<tr ng-repeat='target in targets.nobles'>
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
 				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
 			</tr>
-			<tr ng-repeat='target in targets_in_plan.supports'>
+			<tr ng-repeat='target in targets.supports'>
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
