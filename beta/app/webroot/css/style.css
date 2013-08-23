@@ -26,6 +26,13 @@ input[type="number"] {
 	font-weight: bold;
 }
 
+.nuke_target_autocomplete,
+.noble_target_autocomplete,
+.support_target_autocomplete {
+	width: 55px;
+	text-align: center;
+}
+
 #targets_paste_in {
   float: left;
   height: 60px;

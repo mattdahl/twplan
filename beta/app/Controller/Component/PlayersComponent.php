@@ -33,8 +33,8 @@ class PlayersComponent extends Component {
 	 * @return integer
 	 */
 	public function player_id_for_username () {
-		$player = $this->Player->findByUsername($this->Auth->user('username'))['Player'];
-		return $player['player_id'];
+		$player = $this->Player->findByUsername($this->Auth->user('username'));
+		return $player->player_id;
 	}
 
 }

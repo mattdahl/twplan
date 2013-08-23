@@ -171,12 +171,15 @@ Target = (function () {
 		removeFromPlan: function () {
 			switch (this.attack_type) {
 				case this.scope.AttackTypes.Nuke:
+					this.scope.targets.nukes.splice(this.scope.targets.nukes.indexOf(this), 1);
 					this.scope.targets_in_plan.nukes.splice(this.scope.targets_in_plan.nukes.indexOf(this), 1);
 					break;
 				case this.scope.AttackTypes.Noble:
+					this.scope.targets.nobles.splice(this.scope.targets.supports.indexOf(this), 1);
 					this.scope.targets_in_plan.nobles.splice(this.scope.targets_in_plan.supports.indexOf(this), 1);
 					break;
 				case this.scope.AttackTypes.Support:
+					this.scope.targets.supports.splice(this.scope.targets.supports.indexOf(this), 1);
 					this.scope.targets_in_plan.supports.splice(this.scope.targets_in_plan.supports.indexOf(this), 1);
 					break;
 			}
@@ -444,33 +447,51 @@ TargetPasteInInterface = (function () {
 				var coord_components = coords[i].split('|');
 
 				for (var j = 0; j < this.nukes_quantity; j++) {
-					debugger;
-					this.scope.targets_in_plan.nukes.push(new Target(
+					var new_target = new Target(
 						this.scope,
 						coord_components[0],
 						coord_components[1],
 						'K' + coord_components[1].substring(0, 1) + coord_components[0].substring(0, 1),
 						this.scope.AttackTypes.Nuke
-						));
+					);
+
+					this.scope.targets.nukes.push(new_target);
+					this.scope.targets_in_plan.nukes.push(new_target);
 				}
 				for (var j = 0; j < this.nobles_quantity; j++) {
-					this.scope.targets_in_plan.nobles.push(new Target(
+					var new_target = new Target(
 						this.scope,
 						coord_components[0],
 						coord_components[1],
 						'K' + coord_components[1].substring(0, 1) + coord_components[0].substring(0, 1),
 						this.scope.AttackTypes.Noble
-						));
+					);
+
+					this.scope.targets.nobles.push(new_target);
+					this.scope.targets_in_plan.nobles.push(new_target);
 				}
 				for (var j = 0; j < this.supports_quantity; j++) {
-					this.scope.targets_in_plan.supports.push(new Target(
+					var new_target = new Target(
 						this.scope,
 						coord_components[0],
 						coord_components[1],
 						'K' + coord_components[1].substring(0, 1) + coord_components[0].substring(0, 1),
 						this.scope.AttackTypes.Support
-						));
+					);
+
+					this.scope.targets.supports.push(new_target);
+					this.scope.targets_in_plan.supports.push(new_target);
 				}
+			}
+
+			if (this.nukes_quantity) {
+				this.scope.update_autocomplete_fields($('.nuke_target_autocomplete'), this.scope.targets_in_plan.nukes);
+			}
+			if (this.nobles_quantity) {
+				this.scope.update_autocomplete_fields($('.noble_target_autocomplete'), this.scope.targets_in_plan.nobles);
+			}
+			if (this.supports_quantity) {
+				this.scope.update_autocomplete_fields($('.support_target_autocomplete'), this.scope.targets_in_plan.supports);
 			}
 
 			this.coords = '';

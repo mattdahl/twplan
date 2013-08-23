@@ -23,7 +23,7 @@
 </span>
 
 <div id="target_assginment">
-	<div style="width: 45%; float:left;">
+	<div style="width: 55%; float:left;">
 		<h2>Villages in Plan</h2>
 		<table>
 			<tr>
@@ -32,7 +32,7 @@
 				<th>Continent</th>
 				<th>Slowest Unit</th>
 				<th>Type of Attack</th>
-				<th>Target</th>
+				<th>Target <img class="tooltip" src="images/tooltip.png" title="If you want, you can match specific targets to your villages. Anything left blank will be auto-assigned by TWplan!" /></th>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.nukes'>
 				<td>{{village.name}}</td>
@@ -40,7 +40,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td class='editable' contentEditable='true'></td>
+				<td><input class='nuke_target_autocomplete' /></td>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.nobles'>
 				<td>{{village.name}}</td>
@@ -48,7 +48,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td class='editable' contentEditable='true'></td>
+				<td><input class='noble_target_autocomplete' /></td>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.supports'>
 				<td>{{village.name}}</td>
@@ -56,11 +56,11 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td class='editable' contentEditable='true'></td>
+				<td><input class='support_target_autocomplete' /></td>
 			</tr>
 		</table>
 	</div>
-	<div style="width: 40%; float:left; margin-left: 15%;">
+	<div style="width: 40%; float:left; margin-left: 5%;">
 		<h2>Targets in Plan</h2>
 		<table>
 			<tr>
@@ -69,19 +69,19 @@
 				<th>Type of Attack</th>
 				<th>Delete</th>
 			</tr>
-			<tr ng-repeat='target in targets_in_plan.nukes'>
+			<tr ng-repeat='target in targets.nukes'>
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
 				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
 			</tr>
-			<tr ng-repeat='target in targets_in_plan.nobles'>
+			<tr ng-repeat='target in targets.nobles'>
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
 				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
 			</tr>
-			<tr ng-repeat='target in targets_in_plan.supports'>
+			<tr ng-repeat='target in targets.supports'>
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>

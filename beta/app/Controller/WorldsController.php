@@ -16,8 +16,8 @@ class WorldsController extends AppController {
 	}
 
 	public function last_updated () {
-		$world = $this->World->findByWorldNumber($this->Session->read('current_world'))['World'];
-		$last_updated = $world['last_updated'] ? $world['last_updated'] : 0;
+		$world = $this->World->findByWorldNumber($this->Session->read('current_world'));
+		$last_updated = $world->last_updated ? $world->last_updated : 0;
 
 		date_default_timezone_set("Europe/London");
 		$now = date('Y-m-d H:i:s', time());
