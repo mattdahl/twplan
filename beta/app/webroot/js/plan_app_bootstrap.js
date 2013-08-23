@@ -1,9 +1,10 @@
 var TWP = TWP || {};
 
 TWP.Plan = angular.module('plan_app', ['plan_app.controllers']);
-TWP.Plan.Controllers = angular.module('plan_app.controllers', ['plan_app.factories']);
+TWP.Plan.Controllers = angular.module('plan_app.controllers', ['plan_app.factories'], ['plan_app.directives']);
 
 TWP.Plan.Factories = angular.module('plan_app.factories', ['header_app.factories']);
+TWP.Plan.Directives = angular.module('plan_app.directives');
 
 /**
  * Provides configuration for the PlanModule, namely setting up route forwarding using $routeProvider for a single-page app experience
