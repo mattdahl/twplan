@@ -23,19 +23,35 @@ class UsersController extends AppController {
 		$this->render($this->User->find('all'));
 	}
 
+	/**
+	 * JSON endpoint for loading the villages for the current user
+	 * Used in the VillagesRequest.js service
+	 * @return [string]
+	 */
 	public function villages () {
 		$this->autoRender = false;
 		return json_encode($this->Villages->villages_for_world());
 	}
 
+	/**
+	 * Redirects the user to the TW external auth page, passing the session id and the client name
+	 */
 	public function login () {
 		$this->redirect('http://www.tribalwars.net/external_auth.php?sid=' . $this->Session->id() . '&client=twplan');
 	}
 
+	/**
+	 * Checks if the hash returned from TW is valid
+	 * @return [boolean]
+	 */
 	private function validate_hash () {
 		return ($this->data['hash'] == md5($this->Session->$id() . $this->request->params['username'] . '***REMOVED***'));
 	}
 
+	/**
+	 * Performs validation on the data returned from TW, logs in the user in, and, if necessary, creates a new account
+	 * @return [type] [description]
+	 */
 	public function validate_login () {
 		if ($this->request->is('post')) {
 			$username = $this->request->params['username'];
@@ -58,6 +74,11 @@ class UsersController extends AppController {
 		}
 	}
 
+	/**
+	 * Creates a new user in the database
+	 * @param  [string] $username
+	 * @return [boolean] - was successful?
+	 */
 	private function create_user ($username) {
 		$this->User->create();
 
@@ -72,21 +93,12 @@ class UsersController extends AppController {
 		return $this->User->save($new_user);
 	}
 
+	/**
+	 * Logs the user out
+	 */
 	public function logout () {
 		$this->Session->setFlash('You are logged out!');
 		$this->redirect($this->Auth->logout());
-	}
-
-	public function set_default_world () {
-		if ($this->request->is('post')) {
-			$this->Auth->user()->set_default_world($this->request->params['default_world']);
-		}
-	}
-
-	public function set_default_timezone () {
-		if ($this->request->is('post')) {
-			$this->Auth->user()->set_default_timezone($this->request->params['default_timezone']);
-		}
 	}
 }
 

@@ -15,6 +15,10 @@ class WorldsController extends AppController {
 		$this->RequestHandler->setContent('json', 'application/json');
 	}
 
+	/**
+	 * Gets the last updated time in hours from the current timestamp for the current world
+	 * @return [int]
+	 */
 	public function last_updated () {
 		$world = $this->World->findByWorldNumber($this->Session->read('current_world'));
 		$last_updated = $world->last_updated ? $world->last_updated : 0;
@@ -23,11 +27,6 @@ class WorldsController extends AppController {
 		$now = date('Y-m-d H:i:s', time());
 		$diff = strtotime($now) - strtotime($last_updated);
 		return round(($diff/60)/60); // Returns the difference in hours
-	}
-
-	public function set_last_updated () {
-		$world = $this->World->findByWorld($this->Session->read('current_world'));
-		$world->set_last_updated();
 	}
 }
 
