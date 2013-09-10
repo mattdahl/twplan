@@ -1,5 +1,0 @@
-AuthType	Basic
-AuthName	"Protected files."
-AuthUserFile	"/domains/t/twplan.com/htdocs/www/protected/.htpasswd"
-Require		valid-user
-
