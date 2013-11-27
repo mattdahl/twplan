@@ -111,6 +111,7 @@ else {
 }
 
 $mysqli->select_db("twplanco_villages");
+<<<<<<< HEAD
 
 $truncate_query = "DROP TABLE IF EXISTS en{$world}";
 
@@ -122,6 +123,8 @@ if (!$mysqli->query($truncate_query)) {
 else {
 	printf("Truncated old table...\n");
 }
+=======
+>>>>>>> 6e81ee33b53f589c951437144e3316ec6858e9b0
 
 $create_query = "CREATE TABLE IF NOT EXISTS en{$world}
       (
