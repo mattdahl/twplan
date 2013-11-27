@@ -91,23 +91,15 @@ else {
 	printf("Created table (IF NOT EXISTS)...\n");
 }
 
-$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE en{$world}
-			FIELDS TERMINATED BY '>'
-			LINES TERMINATED BY '\n'
-			(
-				player_id,
-				username,
-				tribe_id
-			)";
+$local_filepath_handle = fopen($local_filepath, "r");
+    while (($data = fgetcsv($local_filepath_handle, 1000, ">"))) {
+    	$load_query = "INSERT INTO en{$world} values('" . implode('\',\'', $data) . "')";
+        $mysqli->query($load_query) or printf("Error loading player data with query \n %s \n Error message: %s \n", $load_query, $mysqli->error);
 
-if (!$mysqli->query($load_query)) {
-    printf("Error loading player data with query \n %s \n", $load_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
-}
-else {
-	printf("Parsed csv into mysql...\n");
-}
+    }
+fclose($local_filepath_handle);
+
+printf("Parsed csv into mysql...\n");
 
 $decode_query = "UPDATE en{$world} SET username = REPLACE(username, '+', ' ')";
 
