@@ -5,6 +5,9 @@
  * $ php db_load_players.php 70
  */
 
+error_reporting(-1);
+ini_set('display_errors', true);
+
 // Tracks execution time
 $start_time = microtime(true);
 
@@ -17,7 +20,7 @@ if (!$world) {
 }
 
 $filepath = 'http://en' . $world. '.tribalwars.net/map/player.txt.gz';
-$local_filepath = '/code/twplan/beta/app/tmp/data/players/en' . $world . '_player_data.txt';
+$local_filepath = '../../tmp/data/players/en' . $world . '_player_data.txt';
 
 // Unzips the remote data file into an array
 $player_file = gzfile($filepath);
@@ -37,7 +40,6 @@ else {
 	printf("Processed data... \n");
 }
 
-// Pulls the processed csv file into the tmp folder
 if (!file_put_contents($local_filepath, $write_to)) {
 	printf("Error writing remote file %s to path %s\n", $filepath, $local_filepath);
 	exit();

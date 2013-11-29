@@ -5,13 +5,18 @@
  * $ php db_load_players.php 70
  */
 
+error_reporting(-1);
+ini_set('display_errors', true);
+
 // Tracks execution time
 $start_time = microtime(true);
 
-session_start();
+// Loads the database data from app/Config/database.php
+include('../../Config/database.php');
+$db_config = get_class_vars('DATABASE_CONFIG');
+$player_db_config = $db_config['analytics'];
 
-// Connects to the database
-$mysqli = new mysqli("localhost", "twplanco", "@Uo54KjjtsLgxMx3NK2gd&!C", "twplanco_analytics");
+$mysqli = new mysqli($player_db_config['host'], $player_db_config['login'], $player_db_config['password'], $player_db_config['database']);
 
 // Checks for connection error
 if ($mysqli->connect_errno) {
@@ -87,7 +92,7 @@ else {
 set_time_limit(60); // in seconds; 1 min should be ample
 
 $filepath = 'http://en' . $world. '.tribalwars.net/map/village.txt.gz';
-$local_filepath = '/tmp/data/villages/en' . $world . '_village_data.txt';
+$local_filepath = '../../tmp/data/players/en' . $world . '_village_data.txt';
 
 // Unzips the remote data file into an array
 $village_file = gzfile($filepath);
@@ -167,9 +172,9 @@ $message = "Database villages successfully loaded village data for table en{$wor
 mail("site@twplan.com", "TWplan Village Database Updated", $message);
 
 
-$mysqli->select_db("twplanco_analytics", $con);
+$mysqli->select_db("twplanco_analytics");
 
-$updatetime = "UPDATE `analytics`.`lastUpdated` SET dateTime='$currenttime' WHERE `world` = '$world'";
+$updatetime = "UPDATE `twplanco_analytics`.`lastUpdated` SET dateTime='$currenttime' WHERE `world` = '$world'";
 $mysqli->query($updatetime);
 
 $mysqli->close();
