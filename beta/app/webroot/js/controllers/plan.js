@@ -1,7 +1,7 @@
 /**
  * The controller for the Step One page of /plan
  */
-TWP.Plan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, VillagesRequest, GroupNames, Units, AttackTypes) {
+TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, VillagesRequest, GroupNames, Units, AttackTypes) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 1;
@@ -162,7 +162,7 @@ TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', f
 /**
  * The controller for the Step Three page
  */
-TWP.Plan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo', 'PairCalculator', function ($rootScope, $scope, WorldInfo, PairCalculator) {
+TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo', 'PairCalculator', function ($rootScope, $scope, WorldInfo, PairCalculator) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 3;
@@ -324,7 +324,7 @@ TWP.Plan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 
 /**
  * The controller for the Results page
  */
- TWP.Plan.Controllers.controller('ResultsController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
+ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
 	$scope.$watch(function () { console.log("A digest was executed!"); });
 
 	$scope.current_step = 4;

@@ -1,4 +1,4 @@
-TWP.Plan.Factories.factory('GroupNames', ['$http', '$q', function ($http, $q) {
+TWP.twplan.Factories.factory('GroupNames', ['$http', '$q', function ($http, $q) {
 	return {
 		getGroupNames: function () {
 			var deferred = $q.defer();

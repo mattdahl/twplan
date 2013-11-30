@@ -1,14 +1,17 @@
+// TWP is the twplan.com namespace
+// twplan is an Angular object representing a module
+// Propeties on the twplan object are its controllers, factories, directives, etc. modulated for dependency injection
+
 var TWP = TWP || {};
 
-TWP.Plan = angular.module('plan_app', ['plan_app.controllers']);
-TWP.Plan.Controllers = angular.module('plan_app.controllers', ['plan_app.factories']);
-
-TWP.Plan.Factories = angular.module('plan_app.factories', ['header_app.factories']);
+TWP.twplan = angular.module('twplan_app', ['twplan_app.controllers']);
+TWP.twplan.Controllers = angular.module('twplan_app.controllers', ['twplan_app.factories']);
+TWP.twplan.Factories = angular.module('twplan_app.factories', []);
 
 /**
  * Provides configuration for the PlanModule, namely setting up route forwarding using $routeProvider for a single-page app experience
  */
-TWP.Plan.config(['$routeProvider', function ($routeProvider) {
+TWP.twplan.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 		.when('/step_one',
 		{
@@ -34,9 +37,9 @@ TWP.Plan.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 /**
- * Once the PlanModule has been initialized and the DOM has loaded, sets up the $rootScope variables
+ * Once the twplan module has been initialized and the DOM has loaded, sets up the $rootScope variables
  */
-TWP.Plan.run(['$rootScope', 'AttackTypes', function ($rootScope, AttackTypes) {
+TWP.twplan.run(['$rootScope', 'MetaData', function ($rootScope, MetaData) {
 	$rootScope.villages = [];
 	$rootScope.villages_in_plan = {
 			nukes: [],
@@ -55,13 +58,11 @@ TWP.Plan.run(['$rootScope', 'AttackTypes', function ($rootScope, AttackTypes) {
 		supports: []
 	};
 
-	$rootScope.AttackTypes = AttackTypes;
 	$rootScope.plan = null;
 	$rootScope.instructions = 'Choose the landing date and time for your attack. All times are in <b>TW Server Time</b> (see bottom of page)!\n\nTWplan\'s algorithm can intelligently plan your commands such that the launch times are at times during the day that are convenient to you. For instance, maybe you would prefer not to have any launch times when you would normally be asleep. If you check the Send Time Optimization box below, TWplan will try to plan commands to have launch times <i>between</i> the "early bound" and the "late bound".';
-	$rootScope.current_world = sessionStorage.currentWorld;
-}]);
 
-// Bootstraps the plan module (necessary because the header module is already on the page)
-angular.element(document).ready(function () {
-	angular.bootstrap($('#plan_module'), ['plan_app']);
-});
+	$rootScope.username = MetaData.username;
+	$rootScope.user_id = MetaData.user_id;
+	$rootScope.current_world = MetaData.current_world;
+	$rootScope.last_updated = MetaData.last_updated;
+}]);

@@ -1,4 +1,4 @@
-<div id="welcome" ng-controller="WelcomeController">
+<div id="welcome">
   Welcome
     <span id="username" ng-bind="username"></span>
   | World:

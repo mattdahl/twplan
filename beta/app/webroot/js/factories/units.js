@@ -1,4 +1,4 @@
-TWP.Plan.Factories.factory('Units', function () {
+TWP.twplan.Factories.factory('Units', function () {
 	return {
 		Spear: {
 			id: 0,
