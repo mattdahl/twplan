@@ -1,4 +1,4 @@
-TWP.Plan.Factories.factory('AttackTypes', function () {
+TWP.twplan.Factories.factory('AttackTypes', function () {
 	return {
 		Nuke: 0,
 		Noble: 1,

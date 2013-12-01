@@ -10,7 +10,7 @@
 	<script src="js/slider.js"></script>
 	<script src="js/onload.js"></script>
 	<script src="js/script.js"></script>
-	<script src="js/header_app_bootstrap.js"></script>
+	<script src="js/twplan_app_bootstrap.js"></script>
 	<script src="js/controllers/header.js"></script>
 	<script src="js/factories/meta_data.js"></script>
 	<script type="text/javascript"> /* Google Analytics */
@@ -30,7 +30,6 @@
 
 	<?php if ($page == 'plan') : ?>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-		<script src="js/plan_app_bootstrap.js"></script>
 		<script src="js/controllers/plan.js"></script>
 		<script src="js/plan_objects.js"></script>
 		<script src="js/factories/attack_types.js"></script>
@@ -53,7 +52,7 @@
 	?>
 
 </head>
-<body>
+<body ng-app="twplan_app">
 	<?php echo $this->element('header'); ?>
 
 	<noscript>It looks like you have Javascript turned off! TWplan requires Javascript functionality to work. Please turn it on :)</noscript>

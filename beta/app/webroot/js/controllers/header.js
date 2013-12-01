@@ -1,11 +1,7 @@
 /**
  * The controller for the header
  */
-TWP.Header.controller('WelcomeController', ['$scope', '$http', 'MetaData', function ($scope, $http, MetaData) {
-	$scope.username = MetaData.username;
-	$scope.current_world = MetaData.current_world;
-	$scope.last_updated = MetaData.last_updated;
-
+TWP.twplan.controller('HeaderController', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 	$scope.worlds = [
 		19,
 		30,
@@ -26,7 +22,7 @@ TWP.Header.controller('WelcomeController', ['$scope', '$http', 'MetaData', funct
 	$scope.change_world = function () {
 		$http.post(
 			'/settings/set_current_world',
-			{world: $scope.current_world}
+			{world: $rootScope.current_world}
 		).success(function (data, status, headers, config) {
 			debugger;
 			location.reload();

@@ -1,4 +1,4 @@
-TWP.Plan.Factories.factory('PairCalculator', ['Units', function (Units) {
+TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 	return {
 		pair: function (villages, targets, landing_datetime, early_bound, late_bound) {
 			var grooms = []; // holds villages wrapped in a MarriageWrapper object

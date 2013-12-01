@@ -1,4 +1,4 @@
-TWP.Plan.Factories.factory('WorldInfo', function () {
+TWP.twplan.Factories.factory('WorldInfo', function () {
 	return {
 		11: {
 			speed: 1,
