@@ -10,11 +10,7 @@
 
 <?php else : ?>
 
-<div>
-
-	<!-- Dynamic content loaded by $routeProvider using the appropriate partials for each step -->
-	<div ng-view></div>
-
-</div>
+<!-- Dynamic content loaded by $routeProvider using the appropriate partials for each step -->
+<div ng-view></div>
 
 <?php endif; ?>
