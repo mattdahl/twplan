@@ -40,7 +40,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td><input ng-model="manual_target_coords" manual-nuke-target-input /></td>
+				<td><input ng-model="manual_target.label" manual-nuke-target-input /></td>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.nobles'>
 				<td>{{village.name}}</td>
@@ -48,7 +48,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td><input ng-model="manual_target_coords" manual-noble-target-input /></td>
+				<td><input ng-model="manual_target.label" manual-noble-target-input /></td>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.supports'>
 				<td>{{village.name}}</td>
@@ -56,7 +56,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td><input ng-model="manual_target_coords" manual-support-target-input /></td>
+				<td><input ng-model="manual_target.label" manual-support-target-input /></td>
 			</tr>
 		</table>
 	</div>

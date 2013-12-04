@@ -4,7 +4,7 @@
  * @param{AngularObject} $q - An AngularPromise object
  * @return {AngularPromise} - A promise of completion of the lookup query
  */
-TWP.Plan.Factories.factory('VillagesRequest', ['$http', '$q', function ($http, $q) {
+TWP.twplan.Factories.factory('VillagesRequest', ['$http', '$q', function ($http, $q) {
 	return {
 		query: function () {
 			var deferred = $q.defer();

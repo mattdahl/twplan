@@ -175,8 +175,8 @@ Target = (function () {
 					this.scope.targets_in_plan.nukes.splice(this.scope.targets_in_plan.nukes.indexOf(this), 1);
 					break;
 				case this.scope.AttackTypes.Noble:
-					this.scope.targets.nobles.splice(this.scope.targets.supports.indexOf(this), 1);
-					this.scope.targets_in_plan.nobles.splice(this.scope.targets_in_plan.supports.indexOf(this), 1);
+					this.scope.targets.nobles.splice(this.scope.targets.nobles.indexOf(this), 1);
+					this.scope.targets_in_plan.nobles.splice(this.scope.targets_in_plan.nobles.indexOf(this), 1);
 					break;
 				case this.scope.AttackTypes.Support:
 					this.scope.targets.supports.splice(this.scope.targets.supports.indexOf(this), 1);
@@ -482,16 +482,6 @@ TargetPasteInInterface = (function () {
 					this.scope.targets.supports.push(new_target);
 					this.scope.targets_in_plan.supports.push(new_target);
 				}
-			}
-
-			if (this.nukes_quantity) {
-				this.scope.update_autocomplete_fields($('.nuke_target_autocomplete'), this.scope.targets_in_plan.nukes);
-			}
-			if (this.nobles_quantity) {
-				this.scope.update_autocomplete_fields($('.noble_target_autocomplete'), this.scope.targets_in_plan.nobles);
-			}
-			if (this.supports_quantity) {
-				this.scope.update_autocomplete_fields($('.support_target_autocomplete'), this.scope.targets_in_plan.supports);
 			}
 
 			this.coords = '';
