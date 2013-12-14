@@ -1,12 +1,12 @@
 <h1>Planning - Step 1</h1>
-<p id="instructions">Below is a list of your villages. Select the ones you wish to include in the plan and choose the slowest traveling times, respectively. Choose how you want to classify each attack (noble, nuke, support). Common defaults are in place, but change them accordingly if needed (i.e. sending HC as an attack instead of support).
-	<br />At the bottom of the page is a table with all the villages you add to your plan.
+<p id="instructions">
+	Add your villages to your plan. Choose the slowest traveling time for each villages' attack, and how each attack should be classified (nuke, noble, or support). Villages can be added more than once!
 </p>
 <br />
 
-<h2>Add Villages by Paste-In <a href=" javascript:void(0)" class="collapsebutton" onClick="handleCollapse(this, 'mass');">[collapse]</a></h2>
+<h2>Add Villages by Copy/Paste <a href=" javascript:void(0)" class="collapsebutton" onClick="handleCollapse(this, 'mass');">[collapse]</a></h2>
 <div>
-	<p>Paste in a list of coordinates, copied from a TW overview screen or otherwise; coordinates will be parsed out.</p>
+	<p>Paste in a chunck of text containing coordinates, i.e. copied from a TW overview screen. Coordinates will be parsed out.</p>
 	<textarea id="villages_paste_in" style="float:left" ng-model='village_paste_in_interface.coords'></textarea>
 	<table style="float:left">
 		<tr>
@@ -38,7 +38,7 @@
 	<button ng-click="village_paste_in_interface.addToPlan()" style="margin-left:2%;">Add Villages to Plan</button>
 </div>
 <h2 style="clear:left"><br />Add Villages from Group</h2>
-<p ng-hide='(group_names.length > 0)'>You have no groups configured. Go to the <a href="groups.php">groups</a> tab to create village groups.</p>
+<p ng-hide='(group_names.length > 0)'>You have no groups configured. Go to the <a href="groups">groups</a> page to create village groups.</p>
 <div id='group_dropdown' ng-show='(group_names.length > 0)'>
 	<select id='choosegroup' style='float:left;width:315px;'>
 		<option>Choose a group to use in plan...</option>
