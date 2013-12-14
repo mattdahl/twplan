@@ -15,20 +15,33 @@ TWP.twplan.Factories.factory('AutocompleteBuilder', [function () {
 						}
 					}
 
-					debugger;
 					response(nuke_source);
 				},
 				select: function (event, ui) {
-					debugger;
 					element.scope().update_manual_target(ui.item); // When a new manual target is selected, pass it to the element's scope
-					this._trigger('change', event, ui);
+					element.scope().was_selected = true; // Sets a flag to prevent trigger of change() event when select() was
+					$(element).trigger('blur.autocomplete'); // Causes the change() callback to always be fired (left alone, behavior is unpredicable)
 				},
 				change: function (event, ui) {
-					debugger;
-					// Prevents the user from inputting an invalid target
-					if (element.val().length && !ui.item) {
+					if (element.scope().was_selected) {
+						element.scope().was_selected = false;
+						return;
+					}
+					if (element.val().length) { // If the change is one that writes a new target *without* selecting from the dropdown...
+						// Check to see if the manual submission is valid
+						for (var i = 0; i < scope.targets_in_plan.nukes.length; i++) {
+							if (scope.targets_in_plan.nukes[i].x_coord + '|' + scope.targets_in_plan.nukes[i].y_coord === element.val()) {
+								// If so, update the manual target like normal
+								element.scope().update_manual_target(scope.targets_in_plan.nukes[i]);
+								return;
+							}
+						}
+						// If not, don't allow the manual submission
 						alert('You must make a valid target selection from the dropdown!');
 						element.scope().restore_manual_target();
+					}
+					else { // Otherwise, if the change is one that just deletes the current target, relinquish that manual target
+						element.scope().update_manual_target(null);
 					}
 				}
 			});
