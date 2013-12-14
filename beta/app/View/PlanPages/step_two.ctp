@@ -69,19 +69,19 @@
 				<th>Type of Attack</th>
 				<th>Delete</th>
 			</tr>
-			<tr ng-repeat='target in targets.nukes' ng-class="{manually_assigned: target.manually_assigned}">
+			<tr ng-repeat='target in targets.nukes' ng-class="{manually_assigned: target.is_manually_assigned}">
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
 				<td><button ng-click='this.target.removeFromPlan()'>Remove</button></td>
 			</tr>
-			<tr ng-repeat='target in targets.nobles' ng-class="{manually_assigned: target.manually_assigned}">
+			<tr ng-repeat='target in targets.nobles' ng-class="{manually_assigned: target.is_manually_assigned}">
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
 				<td><button ng-click='this.target.removeFromPlan()'>Remove</button></td>
 			</tr>
-			<tr ng-repeat='target in targets.supports' ng-class="{manually_assigned: target.manually_assigned}">
+			<tr ng-repeat='target in targets.supports' ng-class="{manually_assigned: target.is_manually_assigned}">
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>

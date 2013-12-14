@@ -24,7 +24,7 @@ TWP.twplan.Directives.directive('manualNukeTargetInput', ['AutocompleteBuilder',
 			toggle_manually_assigned_state = function (target) {
 				for (var i = 0; i < scope.targets.nukes.length; i++) {
 					if (scope.targets.nukes[i].x_coord === target.x_coord && scope.targets.nukes[i].y_coord === target.y_coord) {
-						scope.targets.nukes[i].manually_assigned = !scope.targets.nukes[i].manually_assigned;
+						scope.targets.nukes[i].is_manually_assigned = !scope.targets.nukes[i].is_manually_assigned;
 						break;
 					}
 				}
