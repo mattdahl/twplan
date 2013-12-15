@@ -271,6 +271,46 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 				)
 			);
 		}
+		for (var i = 0; i < assigned_noble_villages.length; i++) {
+			var target = new Target(
+				assigned_noble_villages[i].manual_target.scope,
+				assigned_noble_villages[i].manual_target.x_coord,
+				assigned_noble_villages[i].manual_target.y_coord,
+				assigned_noble_villages[i].manual_target.continent,
+				assigned_noble_villages[i].manual_target.attack_type
+			);
+
+			var traveling_time = $scope.calculate_traveling_time(assigned_noble_villages[i], target);
+
+			$rootScope.plan.commands.push(new Command(
+				$scope,
+				assigned_noble_villages[i],
+				target,
+				traveling_time,
+				$scope.calculate_launch_time(landing_datetime, traveling_time)
+				)
+			);
+		}
+		for (var i = 0; i < assigned_support_villages.length; i++) {
+			var target = new Target(
+				assigned_support_villages[i].manual_target.scope,
+				assigned_support_villages[i].manual_target.x_coord,
+				assigned_support_villages[i].manual_target.y_coord,
+				assigned_support_villages[i].manual_target.continent,
+				assigned_support_villages[i].manual_target.attack_type
+			);
+
+			var traveling_time = $scope.calculate_traveling_time(assigned_support_villages[i], target);
+
+			$rootScope.plan.commands.push(new Command(
+				$scope,
+				assigned_support_villages[i],
+				target,
+				traveling_time,
+				$scope.calculate_launch_time(landing_datetime, traveling_time)
+				)
+			);
+		}
 
 		$rootScope.plan.sort();
 	};
@@ -288,7 +328,6 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 		// Gets difference; positive if west of UTC, negative if east
 		// +1 when daylight savings is active!
 
-		debugger;
 		var before_offset = new Date(landing_datetime - traveling_time);
 
 		return new Date(before_offset.setHours(before_offset.getHours() + offset));
@@ -328,7 +367,7 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 /**
  * The controller for the Results page
  */
- TWP.twplan.Controllers.controller('ResultsController', ['$scope', function ($scope) {
+TWP.twplan.Controllers.controller('ResultsController', ['$scope', function ($scope) {
 	$scope.$watch(function () { console.log("A digest was executed!"); });
 
 	$scope.current_step = 4;
