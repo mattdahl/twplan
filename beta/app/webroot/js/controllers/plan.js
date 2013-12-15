@@ -68,7 +68,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 /**
  * The controller for the Step Two page
  */
-TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
+TWP.twplan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 2;
@@ -78,67 +78,11 @@ TWP.Plan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', f
 	$scope.AttackTypes = AttackTypes;
 
 	/**
-	 * Sets the source for the autocompletes on a set of elements. Elements must be <input>'s.
-	 * @param elements - A jQuery collection of elements
-	 * @param source - An array of Target objects
-	 */
-	$scope.update_autocomplete_fields = function (elements, targets) {
-		var source = [];
-
-		for (var i = 0; i < targets.length; i++) {
-			source.push(targets[i].x_coord + '|' + targets[i].y_coord);
-		}
-
-		for (var i = 0; i < elements.length; i++) {
-			$(elements[i]).autocomplete({
-				source: source,
-				select: function (event, ui) { // Callback fired when an item is chosen from the dropdown
-					var coord = ui.item.value;
-					var coord_components = coord.split('|');
-
-					var target;
-
-					switch (event.target.classList[0]) {
-						case 'nuke_target_autocomplete':
-							for (var j = 0; j < $scope.targets.nukes.length; j++) {
-								if ($scope.targets.nukes[j].x_coord === coord_components[0] && $scope.targets.nukes[j].y_coord === coord_components[1]) {
-									target = $scope.targets.nukes[j];
-									$scope.targets_in_plan.nukes.splice($scope.targets_in_plan.nukes.indexOf(target), 1);
-									break;
-								}
-							}
-							$scope.update_autocomplete_fields($('.nuke_target_autocomplete'), $scope.targets_in_plan.nukes);
-							break;
-						case 'noble_target_autocomplete':
-							for (var j = 0; j < $scope.targets.nobles.length; j++) {
-								if ($scope.targets.nobles[j].x_coord === coord_components[0] && $scope.targets.nobles[j].y_coord === coord_components[1]) {
-									target = $scope.targets.nobles[j];
-									$scope.targets_in_plan.nobles.splice($scope.targets_in_plan.nobles.indexOf(target), 1);
-									break;
-								}
-							}
-							$scope.update_autocomplete_fields($('.noble_target_autocomplete'), $scope.targets_in_plan.nobles);
-							break;
-						case 'support_target_autocomplete':
-							for (var j = 0; j < $scope.targets.supports.length; j++) {
-								if ($scope.targets.supports[j].x_coord === coord_components[0] && $scope.targets.supports[j].y_coord === coord_components[1]) {
-									target = $scope.targets.supports[j];
-									$scope.targets_in_plan.supports.splice($scope.targets_in_plan.supports.indexOf(target), 1);
-									break;
-								}
-							}
-							$scope.update_autocomplete_fields($('.support_target_autocomplete'), $scope.targets_in_plan.supports);
-							break;
-					}
-				}
-			});
-		}
-	};
-
-	/**
 	 * Initialize all the tooltips on the page
 	 */
-	$('.tooltip').tooltip({show: false});
+	$('.tooltip').tooltip({
+		show: false
+	});
 
 	$scope.submitStepTwo = function () {
 		if ($scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length === 0) {
@@ -230,7 +174,8 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 		$rootScope.plan = new Plan(
 			$rootScope,
 			"Attack Plan Landing on " + $scope.landing_date + " at " + $scope.landing_time + " (ST)",
-			landing_datetime);
+			landing_datetime
+		);
 
 		for (var i = 0; i < paired_nukes.length; i++) {
 			var traveling_time = $scope.calculate_traveling_time(paired_nukes[i][0], paired_nukes[i][1]);
@@ -241,7 +186,8 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 				$scope.targets_in_plan.nukes[paired_nukes[i]],
 				traveling_time,
 				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				));
+				)
+			);
 		}
 
 		for (var i = 0; i < paired_nobles.length; i++) {
@@ -253,7 +199,8 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 				$scope.targets_in_plan.nobles[paired_nobles[i]],
 				traveling_time,
 				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				));
+				)
+			);
 		}
 
 		for (var i = 0; i < paired_supports.length; i++) {

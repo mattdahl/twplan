@@ -38,6 +38,10 @@
 		<script src="js/factories/units.js"></script>
 		<script src="js/factories/villages_request.js"></script>
 		<script src="js/factories/world_info.js"></script>
+		<script src="js/factories/autocomplete_builder.js"></script>
+		<script src="js/directives/manual_noble_target_input.js"></script>
+		<script src="js/directives/manual_nuke_target_input.js"></script>
+		<script src="js/directives/manual_support_target_input.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/autocomplete.css" />
 	<?php endif ?>
 

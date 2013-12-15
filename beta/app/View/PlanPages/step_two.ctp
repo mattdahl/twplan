@@ -1,5 +1,5 @@
 <h1>Planning - Step 2</h1>
-<p id="instructions">Next, enter the coordinates of your targets. Choose how many of each command (noble, nuke, and support) you want to send to each village - the commands available are determined by your village selections in Step 1.</p>
+<p id="instructions">Next, enter the coordinates of your targets. Choose how many of each attack (nuke, noble, and support) you want to send to each village - the number of attacks available are determined by your village selections in Step 1.</p>
 <br />
 
 <h2>Add Targets</h2>
@@ -7,7 +7,7 @@
 <textarea id="targets_paste_in" ng-model='target_paste_in_interface.coords'></textarea>
 <table style="float:left; margin-left: 40px; width:auto; clear:right;">
 	<tr>
-		<th colspan="3">Quantity Commands to Send to These Villages</th>
+		<th colspan="3">Number of Attacks to Send to Each of These Villages</th>
 	</tr>
 	<tr>
 		<td>Nukes <input type='number' min='0' id='bulktargetnobles' ng-model='target_paste_in_interface.nukes_quantity' /></td>
@@ -32,7 +32,7 @@
 				<th>Continent</th>
 				<th>Slowest Unit</th>
 				<th>Type of Attack</th>
-				<th>Target <img class="tooltip" src="images/tooltip.png" title="If you want, you can match specific targets to your villages. Anything left blank will be auto-assigned by TWplan!" /></th>
+				<th>Target <span class="tooltip" style="color: #804000" title="If you want, you can match specific targets to your villages. Anything left blank will be auto-assigned by TWplan!" />(?)</span></th>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.nukes'>
 				<td>{{village.name}}</td>
@@ -40,7 +40,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td><input class='nuke_target_autocomplete' /></td>
+				<td><input ng-model="village.manual_target.label" manual-nuke-target-input /></td>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.nobles'>
 				<td>{{village.name}}</td>
@@ -48,7 +48,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td><input class='noble_target_autocomplete' /></td>
+				<td><input ng-model="village.manual_target.label" manual-noble-target-input /></td>
 			</tr>
 			<tr ng-repeat='village in villages_in_plan.supports'>
 				<td>{{village.name}}</td>
@@ -56,7 +56,7 @@
 				<td>{{village.continent}}</td>
 				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
 				<td>{{AttackTypes.toString[village.attack_type]}}</td>
-				<td><input class='support_target_autocomplete' /></td>
+				<td><input ng-model="village.manual_target.label" manual-support-target-input /></td>
 			</tr>
 		</table>
 	</div>
@@ -69,23 +69,23 @@
 				<th>Type of Attack</th>
 				<th>Delete</th>
 			</tr>
-			<tr ng-repeat='target in targets.nukes'>
+			<tr ng-repeat='target in targets.nukes' ng-class="{manually_assigned: target.is_manually_assigned}">
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
-				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
+				<td><button ng-click='this.target.removeFromPlan()'>Remove</button></td>
 			</tr>
-			<tr ng-repeat='target in targets.nobles'>
+			<tr ng-repeat='target in targets.nobles' ng-class="{manually_assigned: target.is_manually_assigned}">
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
-				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
+				<td><button ng-click='this.target.removeFromPlan()'>Remove</button></td>
 			</tr>
-			<tr ng-repeat='target in targets.supports'>
+			<tr ng-repeat='target in targets.supports' ng-class="{manually_assigned: target.is_manually_assigned}">
 				<td>{{target.x_coord}}|{{target.y_coord}}</td>
 				<td>{{target.continent}}</td>
 				<td>{{AttackTypes.toString[target.attack_type]}}</td>
-				<td><button ng-click='this.target.removeFromPlan()'>REMOVE</button></td>
+				<td><button ng-click='this.target.removeFromPlan()'>Remove</button></td>
 			</tr>
 		</table>
 	</div>

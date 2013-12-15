@@ -508,6 +508,10 @@ a.collapsebutton:hover {
 	border: 1px solid black;
 }
 
+.manually_assigned {
+	color: rgba(0, 0, 0, 0.4) !important;
+}
+
 /* ======= Planning Step 3 ====== */
 
 /* ======== Planning Step Results ===== */
