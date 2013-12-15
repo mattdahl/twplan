@@ -9,7 +9,7 @@ TWP.twplan.Directives.directive('manualSupportTargetInput', ['AutocompleteBuilde
 			AutocompleteBuilder.support_autocomplete(elm);
 
 			// The autocomplete widget mangles our custom Target object, so it is necessary to check the coords to determine equality
-			index_of_target = function (target) {
+			scope.index_of_target = function (target) {
 				if (!target) {
 					return Infinity;
 				}
@@ -34,7 +34,7 @@ TWP.twplan.Directives.directive('manualSupportTargetInput', ['AutocompleteBuilde
 				}
 
 				// Remove the manual target from the scope.targets_in_plan.supports array
-				scope.targets_in_plan.supports.splice(index_of_target(target), 1);
+				scope.targets_in_plan.supports.splice(scope.index_of_target(target), 1);
 				scope.manual_target = target;
 			};
 
