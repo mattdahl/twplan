@@ -190,10 +190,38 @@ Target = (function () {
 				case this.scope.AttackTypes.Noble:
 					this.scope.targets.nobles.splice(this.scope.targets.nobles.indexOf(this), 1);
 					this.scope.targets_in_plan.nobles.splice(this.scope.targets_in_plan.nobles.indexOf(this), 1);
+
+					// This is so ugly! Is there a more Angular way to do this?
+					// Problem is that we don't have a reference to the target-assigning scope, so we have to traverse the DOM to find and check them all
+					if (this.is_manually_assigned) {
+						var noble_inputs = $('input[manual-noble-target-input]');
+						var self = this;
+						noble_inputs.each(function (index, element) {
+							var manual_target = angular.element(element).scope().village.manual_target;
+							if (manual_target && manual_target.label === self.x_coord + '|' + self.y_coord) {
+								angular.element(element).scope().update_manual_target(null);
+								return false; // equivalent to break for jQuery loops
+							}
+						});
+					}
 					break;
 				case this.scope.AttackTypes.Support:
 					this.scope.targets.supports.splice(this.scope.targets.supports.indexOf(this), 1);
 					this.scope.targets_in_plan.supports.splice(this.scope.targets_in_plan.supports.indexOf(this), 1);
+
+					// This is so ugly! Is there a more Angular way to do this?
+					// Problem is that we don't have a reference to the target-assigning scope, so we have to traverse the DOM to find and check them all
+					if (this.is_manually_assigned) {
+						var support_inputs = $('input[manual-support-target-input]');
+						var self = this;
+						support_inputs.each(function (index, element) {
+							var manual_target = angular.element(element).scope().village.manual_target;
+							if (manual_target && manual_target.label === self.x_coord + '|' + self.y_coord) {
+								angular.element(element).scope().update_manual_target(null);
+								return false; // equivalent to break for jQuery loops
+							}
+						});
+					}
 					break;
 			}
 		}
