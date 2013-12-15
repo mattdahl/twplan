@@ -1,7 +1,7 @@
 /**
  * The controller for the Step One page of /plan
  */
-TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', 'AttackTypes', function ($scope, VillagesRequest, GroupNames, Units, AttackTypes) {
+TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', function ($scope, VillagesRequest, GroupNames, Units) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 1;
@@ -12,7 +12,6 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 	$scope.group_names = [];
 
 	$scope.Units = Units;
-	$scope.AttackTypes = AttackTypes;
 
 	$scope.submitStepOne = function () {
 		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length === 0) {
@@ -68,14 +67,12 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 /**
  * The controller for the Step Two page
  */
-TWP.twplan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
+TWP.twplan.Controllers.controller('StepTwoController', ['$scope', function ($scope) {
 	$scope.$watch(function() { console.log("A digest was executed!"); });
 
 	$scope.current_step = 2;
 
 	$scope.target_paste_in_interface = new TargetPasteInInterface($scope);
-
-	$scope.AttackTypes = AttackTypes;
 
 	/**
 	 * Initialize all the tooltips on the page
@@ -85,15 +82,15 @@ TWP.twplan.Controllers.controller('StepTwoController', ['$scope', 'AttackTypes',
 	});
 
 	$scope.submitStepTwo = function () {
-		if ($scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length === 0) {
+		if ($scope.targets.nukes.length + $scope.targets.nobles.length + $scope.targets.supports.length === 0) {
 			alert("You haven't added any targets! Please enter at least one.");
 			return false;
 		}
-		else if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length < $scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length) {
+		else if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length < $scope.targets.nukes.length + $scope.targets.nobles.length + $scope.targets.supports.length) {
 			alert("You've added more targets than you selected villages in Step One. Please remove some targets or go back and add more villages.");
 			return false;
 		}
-		else if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length > $scope.targets_in_plan.nukes.length + $scope.targets_in_plan.nobles.length + $scope.targets_in_plan.supports.length) {
+		else if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length > $scope.targets.nukes.length + $scope.targets.nobles.length + $scope.targets.supports.length) {
 			if (!confirm("You have more villages than targets! Is this okay?")) {
 				return false;
 			}
@@ -116,6 +113,10 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 	$scope.optimization_checked = false;
 	$scope.early_bound;
 	$scope.late_bound;
+
+	$scope.toggle_launch_time_optimization_details = function () {
+		$('#launch_time_optimization_details').toggle();
+	};
 
 	$scope.submitStepThree = function () {
 		if ($scope.landing_date == '') {
@@ -153,23 +154,55 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 		}
 		*/
 
+		var assigned_nuke_villages = [], unassigned_nuke_villages = [];
+		var assigned_noble_villages = [], unassigned_noble_villages = [];
+		var assigned_support_villages = [], unassigned_support_villages = [];
+
+		for (var i = 0; i < $scope.villages_in_plan.nukes.length; i++) {
+			if ($scope.villages_in_plan.nukes[i].manual_target && $scope.villages_in_plan.nukes[i].manual_target.scope) {
+				assigned_nuke_villages.push($scope.villages_in_plan.nukes[i]);
+			}
+			else {
+				unassigned_nuke_villages.push($scope.villages_in_plan.nukes[i]);
+			}
+		}
+		for (var i = 0; i < $scope.villages_in_plan.nobles.length; i++) {
+			if ($scope.villages_in_plan.nobles[i].manual_target && $scope.villages_in_plan.nobles[i].manual_target.scope) {
+				assigned_noble_villages.push($scope.villages_in_plan.nobles[i]);
+			}
+			else {
+				unassigned_noble_villages.push($scope.villages_in_plan.nobles[i]);
+			}
+		}
+		for (var i = 0; i < $scope.villages_in_plan.supports.length; i++) {
+			if ($scope.villages_in_plan.supports[i].manual_target && $scope.villages_in_plan.supports[i].manual_target.scope) {
+				assigned_support_villages.push($scope.villages_in_plan.supports[i]);
+			}
+			else {
+				unassigned_support_villages.push($scope.villages_in_plan.supports[i]);
+			}
+		}
+
+		/*
+
 		var paired_nukes = [];
 		var paired_nobles = [];
 		var paired_supports = [];
 
 		if ($scope.optimization_checked) {
 			// Returns an array where index=village location and value=target location
-			paired_nukes = PairCalculator.pair($scope.villages_in_plan.nukes, $scope.targets_in_plan.nukes, landing_datetime, $scope.early_bound, $scope.late_bound);
-			paired_nobles = PairCalculator.pair($scope.villages_in_plan.nobles, $scope.targets_in_plan.nobles, landing_datetime, $scope.early_bound, $scope.late_bound);
-			paired_supports = PairCalculator.pair($scope.villages_in_plan.supports, $scope.targets_in_plan.supports, landing_datetime, $scope.early_bound, $scope.late_bound);
+			paired_nukes = PairCalculator.pair(unassigned_nuke_villages, $scope.targets_in_plan.nukes, landing_datetime, $scope.early_bound, $scope.late_bound);
+			paired_nobles = PairCalculator.pair(unassigned_noble_villages, $scope.targets_in_plan.nobles, landing_datetime, $scope.early_bound, $scope.late_bound);
+			paired_supports = PairCalculator.pair(unassigned_support_villages, $scope.targets_in_plan.supports, landing_datetime, $scope.early_bound, $scope.late_bound);
 		}
 		else {
 			// Returns an array where index=village location and value=target location
-			paired_nukes = PairCalculator.pair($scope.villages_in_plan.nukes, $scope.targets_in_plan.nukes, landing_datetime);
-			paired_nobles = PairCalculator.pair($scope.villages_in_plan.nobles, $scope.targets_in_plan.nobles, landing_datetime);
-			paired_supports = PairCalculator.pair($scope.villages_in_plan.supports, $scope.targets_in_plan.supports, landing_datetime);
+			paired_nukes = PairCalculator.pair(unassigned_nuke_villages, $scope.targets_in_plan.nukes, landing_datetime);
+			paired_nobles = PairCalculator.pair(unassigned_noble_villages, $scope.targets_in_plan.nobles, landing_datetime);
+			paired_supports = PairCalculator.pair(unassigned_support_villages, $scope.targets_in_plan.supports, landing_datetime);
 
 		}
+		*/
 
 		$rootScope.plan = new Plan(
 			$rootScope,
@@ -177,6 +210,8 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 			landing_datetime
 		);
 
+		// Adds the paired commands to the plan
+		/*
 		for (var i = 0; i < paired_nukes.length; i++) {
 			var traveling_time = $scope.calculate_traveling_time(paired_nukes[i][0], paired_nukes[i][1]);
 			debugger;
@@ -189,7 +224,6 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 				)
 			);
 		}
-
 		for (var i = 0; i < paired_nobles.length; i++) {
 			var traveling_time = $scope.calculate_traveling_time(paired_nobles[i][0], paired_nobles[i][1]);
 
@@ -202,7 +236,6 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 				)
 			);
 		}
-
 		for (var i = 0; i < paired_supports.length; i++) {
 			var traveling_time = $scope.calculate_traveling_time(paired_supports[i][0], paired_supports[i][1]);
 
@@ -212,7 +245,31 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 				$scope.targets_in_plan.supports[paired_supports[i]],
 				traveling_time,
 				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				));
+				)
+			);
+		}
+		*/
+
+		// Adds the manually assigned commands to the plan
+		for (var i = 0; i < assigned_nuke_villages.length; i++) {
+			var target = new Target(
+				assigned_nuke_villages[i].manual_target.scope,
+				assigned_nuke_villages[i].manual_target.x_coord,
+				assigned_nuke_villages[i].manual_target.y_coord,
+				assigned_nuke_villages[i].manual_target.continent,
+				assigned_nuke_villages[i].manual_target.attack_type
+			);
+
+			var traveling_time = $scope.calculate_traveling_time(assigned_nuke_villages[i], target);
+
+			$rootScope.plan.commands.push(new Command(
+				$scope,
+				assigned_nuke_villages[i],
+				target,
+				traveling_time,
+				$scope.calculate_launch_time(landing_datetime, traveling_time)
+				)
+			);
 		}
 
 		$rootScope.plan.sort();
@@ -271,14 +328,12 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 /**
  * The controller for the Results page
  */
- TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'AttackTypes', function ($scope, AttackTypes) {
+ TWP.twplan.Controllers.controller('ResultsController', ['$scope', function ($scope) {
 	$scope.$watch(function () { console.log("A digest was executed!"); });
 
 	$scope.current_step = 4;
 
 	$scope.countdown_timeout = null;
-
-	$scope.AttackTypes = AttackTypes;
 
 	$scope.table_export = $scope.plan.export_as_table();
 	$scope.text_export = $scope.plan.export_as_text();

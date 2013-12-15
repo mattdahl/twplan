@@ -478,7 +478,7 @@ TargetPasteInInterface = (function () {
 				return false;
 			}
 			else if (this.nukes_quantity + this.nobles_quantity + this.supports_quantity <= 0) {
-				alert('Please enter numbers greater than zero in the Quantity Commands to Send box.');
+				alert('Please enter numbers greater than zero in the Number of Attacks to Send box.');
 				return false;
 			}
 
@@ -550,10 +550,8 @@ Command = (function () {
 		this.traveling_time = traveling_time;
 		this.launch_datetime = launch_datetime;
 		this.time_remaining = (new Date(this.launch_datetime - new Date())).getTime() / 1000; // Seconds
-		this.url = "http://en" + sessionStorage.currentWorld + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
+		this.url = "http://en" + this.scope.current_world + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
 	}
-
-	debugger;
 
 	Command.prototype = {
 		decrement_time_remaining: function () {
@@ -591,7 +589,7 @@ Plan = (function () {
 	Plan.prototype = {
 		sort: function () {
 			this.commands.sort(function (a, b) {
-				return a.launchtime - b.launch_datetime;
+				return b.launchtime - a.launch_datetime;
 			});
 		},
 		recalculate: function () {
@@ -601,7 +599,7 @@ Plan = (function () {
 
 		},
 		export_as_text: function () {
-			var s = this.name + "\n \n";
+			var s = this.name + "\n\n";
 
 			for (var i = 0; i < this.commands.length; i++) {
 				s += "Send "

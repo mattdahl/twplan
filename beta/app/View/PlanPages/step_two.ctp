@@ -17,9 +17,9 @@
 </table>
 <input type="button" id="step_two_add_button" value='Add Targets' ng-click="target_paste_in_interface.addToPlan()" />
 <span style="font-family:Arial;font-size:12px;float:left;clear:both;top:10px;position:relative;">
-	<span ng-class='{red: (villages_in_plan.nukes.length < targets_in_plan.nukes.length), green: (villages_in_plan.nukes.length == targets_in_plan.nukes.length)}'>{{villages_in_plan.nukes.length - targets_in_plan.nukes.length}}</span> nukes,
-	<span ng-class='{red: (villages_in_plan.nobles.length < targets_in_plan.nobles.length), green: (villages_in_plan.nobles.length == targets_in_plan.nobles.length)}'>{{villages_in_plan.nobles.length - targets_in_plan.nobles.length}}</span> nobles, and
-	<span ng-class='{red: (villages_in_plan.supports.length < targets_in_plan.supports.length), green: (villages_in_plan.supports.length == targets_in_plan.supports.length)}'>{{villages_in_plan.supports.length - targets_in_plan.supports.length}}</span> supports available for assignment (from Step 1).
+	<span ng-class='{red: (villages_in_plan.nukes.length < targets.nukes.length), green: (villages_in_plan.nukes.length == targets.nukes.length)}'>{{villages_in_plan.nukes.length - targets.nukes.length}}</span> nukes,
+	<span ng-class='{red: (villages_in_plan.nobles.length < targets.nobles.length), green: (villages_in_plan.nobles.length == targets.nobles.length)}'>{{villages_in_plan.nobles.length - targets.nobles.length}}</span> nobles, and
+	<span ng-class='{red: (villages_in_plan.supports.length < targets.supports.length), green: (villages_in_plan.supports.length == targets.supports.length)}'>{{villages_in_plan.supports.length - targets.supports.length}}</span> supports available for assignment (from Step 1).
 </span>
 
 <div id="target_assginment">

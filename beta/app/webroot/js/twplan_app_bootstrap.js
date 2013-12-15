@@ -40,7 +40,7 @@ TWP.twplan.config(['$routeProvider', function ($routeProvider) {
 /**
  * Once the twplan module has been initialized and the DOM has loaded, sets up the $rootScope variables
  */
-TWP.twplan.run(['$rootScope', 'MetaData', function ($rootScope, MetaData) {
+TWP.twplan.run(['$rootScope', 'MetaData', 'AttackTypes', function ($rootScope, MetaData, AttackTypes) {
 	$rootScope.villages = [];
 	$rootScope.villages_in_plan = {
 			nukes: [],
@@ -59,6 +59,7 @@ TWP.twplan.run(['$rootScope', 'MetaData', function ($rootScope, MetaData) {
 		supports: []
 	};
 
+	$rootScope.AttackTypes = AttackTypes;
 	$rootScope.plan = null;
 
 	$rootScope.username = MetaData.username;

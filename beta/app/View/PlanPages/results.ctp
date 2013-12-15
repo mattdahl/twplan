@@ -46,8 +46,8 @@
 <div id="redoplan">
 	<b>Recalculate Plan With Different Landing Information</b> <br /> <br />
 	<form>
-		Landing Date (mm/dd/yyyy): <input type="date" id="newlandingdate" />
-		Landing Time (hh:mm:ss): <input type="text" id="newlandingtime" /> <br /> <br />
+		Landing Date: <input type="date" id="newlandingdate" placeholder="mm/dd/yyyy" />
+		Landing Time: <input type="text" id="newlandingtime" placeholder="hh:mm:ss" /> <br /> <br />
 		<input type="submit" value="Recalculate Plan" onClick="reSubmitHungarian(); return false;" />
 	</form>
 </div>
