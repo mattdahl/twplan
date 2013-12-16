@@ -24,7 +24,7 @@
 		<td>{{command.launch_datetime.toString().slice(0, 24)}}</td>
 		<td>Local Launch Time</td>
 		<td>{{format_seconds(command.time_remaining)}}</td>
-		<td><a href='{{command.url}}'>Launch</a></td>
+		<td><a href='{{command.launch_url}}'>Launch</a></td>
 	</tr>
 </table>
 
@@ -38,9 +38,11 @@
 </div>
 <div style="height: 200px; width: 350px; margin-right: 2%; position: relative; float: left;">
 	<p class="resultsubtitle">Save Plan</p>
-	<label id="plannamelabel" for="planname">Plan Name:</label> <input type="text" id="planname" /><button id="save" onClick="doesPlanExist()">Save</button>
+	<label id="plannamelabel" for="planname">Plan Name:</label>
+	<input type="text" id="planname" ng-model="saved_plan_name" />
+	<button id="save" ng-click="save_plan()">Save</button>
 	<img id="loadingcircle" src="http://static-twplan.appspot.com/images/loadingcircle.gif" />
-	<div id="saveresults"></div>
+	<div id="saveresults" ng-bind="save_status"></div>
 </div>
 
 <div id="redoplan">
@@ -48,6 +50,6 @@
 	<form>
 		Landing Date: <input type="date" id="newlandingdate" placeholder="mm/dd/yyyy" />
 		Landing Time: <input type="text" id="newlandingtime" placeholder="hh:mm:ss" /> <br /> <br />
-		<input type="submit" value="Recalculate Plan" onClick="reSubmitHungarian(); return false;" />
+		<input type="submit" value="Recalculate Plan" ng-click="recalculate_plan()" />
 	</form>
 </div>

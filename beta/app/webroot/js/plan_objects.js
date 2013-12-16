@@ -550,7 +550,7 @@ Command = (function () {
 		this.traveling_time = traveling_time;
 		this.launch_datetime = launch_datetime;
 		this.time_remaining = (new Date(this.launch_datetime - new Date())).getTime() / 1000; // Seconds
-		this.url = "http://en" + this.scope.current_world + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
+		this.launch_url = "http://en" + this.scope.current_world + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
 	}
 
 	Command.prototype = {
@@ -591,12 +591,6 @@ Plan = (function () {
 			this.commands.sort(function (a, b) {
 				return b.launchtime - a.launch_datetime;
 			});
-		},
-		recalculate: function () {
-
-		},
-		save: function () {
-
 		},
 		export_as_text: function () {
 			var s = this.name + "\n\n";

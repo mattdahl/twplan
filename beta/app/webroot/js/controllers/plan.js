@@ -367,7 +367,7 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 /**
  * The controller for the Results page
  */
-TWP.twplan.Controllers.controller('ResultsController', ['$scope', function ($scope) {
+TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest', function ($scope, PlanRequest) {
 	$scope.$watch(function () { console.log("A digest was executed!"); });
 
 	$scope.current_step = 4;
@@ -376,6 +376,28 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', function ($sco
 
 	$scope.table_export = $scope.plan.export_as_table();
 	$scope.text_export = $scope.plan.export_as_text();
+
+	$scope.saved_plan_name = '';
+	$scope.save_status = '';
+
+	$scope.recalculate_plan = function () {
+
+	};
+
+	$scope.save_plan = function () {
+		$('#loadingcircle').show();
+
+		PlanRequest.save($scope.saved_plan_name, $scope.plan) // Returns a promise object
+		.then(function (data) { // Success
+			$scope.save_status = 'Success! Your plan ' + data + ' has been saved. Go to the saved tab to view it.';
+			$scope.saved_plan_name = '';
+			$('#loadingcircle').hide();
+			debugger;
+		}, function (data) { // Error
+			$('#loadingcircle').hide();
+			debugger;
+		});
+	};
 
 	$scope.format_seconds = function (secs) {
 		if (secs == 'Expired!') {
