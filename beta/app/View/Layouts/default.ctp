@@ -13,6 +13,7 @@
 	<script src="js/twplan_app_bootstrap.js"></script>
 	<script src="js/controllers/header.js"></script>
 	<script src="js/factories/meta_data.js"></script>
+	<script src="js/factories/attack_types.js"></script>
 	<script type="text/javascript"> /* Google Analytics */
 
 	  var _gaq = _gaq || [];
@@ -32,13 +33,13 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script src="js/controllers/plan.js"></script>
 		<script src="js/plan_objects.js"></script>
-		<script src="js/factories/attack_types.js"></script>
 		<script src="js/factories/group_names.js"></script>
 		<script src="js/factories/pair_calculator.js"></script>
 		<script src="js/factories/units.js"></script>
 		<script src="js/factories/villages_request.js"></script>
 		<script src="js/factories/world_info.js"></script>
 		<script src="js/factories/autocomplete_builder.js"></script>
+		<script src="js/factories/plan_request.js"></script>
 		<script src="js/directives/manual_noble_target_input.js"></script>
 		<script src="js/directives/manual_nuke_target_input.js"></script>
 		<script src="js/directives/manual_support_target_input.js"></script>

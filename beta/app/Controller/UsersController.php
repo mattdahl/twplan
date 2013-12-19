@@ -45,7 +45,7 @@ class UsersController extends AppController {
 	 * @return [boolean]
 	 */
 	private function validate_hash () {
-		return ($this->data['hash'] == md5($this->Session->$id() . $this->request->params['username'] . '***REMOVED***'));
+		return ($this->data['hash'] == md5($this->Session->id() . $this->request->params['username'] . '***REMOVED***'));
 	}
 
 	/**
@@ -57,7 +57,7 @@ class UsersController extends AppController {
 			$username = $this->request->params['username'];
 
 			if ($this->validate_hash()) {
-				$user = $this->User->findByUsername($username) || create_user($username);
+				$user = $this->User->findByUsername($username) || $this->create_user($username);
 
 				if ($this->Auth->login($user)) {
 					$current_world = $this->Auth->user('default_world') || '69';
