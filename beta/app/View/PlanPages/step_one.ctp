@@ -75,7 +75,13 @@
 	<button onClick="village_group_interface.addToPlan();" style="float:left;margin-left:2%;">Add Group to Plan</button>
 </div>
 
-<h2 style="clear:left"><br />Add Villages from List <a href=" javascript:void(0)" class="collapsebutton" onClick="handleCollapse(this, 'single');">[collapse]</a></h2>
+<h2 style="clear:left"><br />Add Villages from List</h2>
+
+<ul ng-repeat="pages in paginated_villages">
+	<li><a href="javascript:void(0);" ng-click="switch_page($index)">[{{$index + 1}}]</a></li>
+</ul>
+
+<input type="text" placeholder="Search villages..." ng-model="search_term" />
 
 <table>
 	<tr>
@@ -89,7 +95,7 @@
 	<tr ng-hide='(villages.length > 0)'>
 		<td colspan="16"><img src="http://static-twplan.appspot.com/images/loading.gif" /></td>
 	</tr>
-	<tr ng-repeat='village in villages' id='{{village.village_id}}_row'>
+	<tr ng-repeat='village in page_villages' id='{{village.village_id}}_row'>
 		<td style='display:none'><input type='checkbox' id='{{village.village_id}}' name='selectedVillages[]' /></td>
 		<td class='villagename'>{{village.name}}</td>
 		<td class='coordsearch' id='{{village.village_id}}c'>{{village.x_coord}}|{{village.y_coord}}</td>

@@ -13,6 +13,43 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 
 	$scope.Units = Units;
 
+	$scope.search_term = '';
+
+	$scope.paginated_villages = []; // Holds the villages paginated into arrays of length 20
+	$scope.page_villages = []; // Holds the villages to be displayed on the current page
+
+	$scope.search_villages = function () {
+		if ($scope.search_term.length < 2) { // Need at least two characters to search (to minimize performance issues)
+			return;
+		}
+
+		var search_results = [];
+
+		for (var v in villages) {
+			if (v.name.indexOf($scope.search_term) || (v.x_coord + '|' + v.y_coord).indexOf($scope.search_term) || v.continent.indexOf($scope.search_term)) {
+				search_results.push(v);
+			}
+		}
+
+		$scope.paginate_villages(search_results);
+		$scope.switch_page(1);
+	};
+
+	$scope.paginate_villages = function (villages) {
+		for (var v in villages) {
+			var index = parseInt(villages.length / 20, 10);
+			if ($scope.paginated_villages[index]) {
+				$scope.paginated_villages[index].push(v);
+			} else {
+				$scope.paginated_villages[index] = [v];
+			}
+		}
+	};
+
+	$scope.switch_page = function (index) {
+		$scope.page_villages = $scope.paginate_villages[index - 1];
+	};
+
 	$scope.submitStepOne = function () {
 		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length === 0) {
 			alert("You haven't added any villages! Please choose at least one.");
@@ -37,14 +74,10 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 					null,
 					null));
 
-				$scope.$watch(function () {
-					return $('#' + element.village_id + '_add_button').attr('disabled');
-				},
-				function () {
-					$('#' + element.village_id + '_add_button').focus();
-				});
-
 				debugger;
+
+				$scope.paginate_villages($scope.villages);
+				$scope.page_villages = $scope.paginated_villages[0];
 			});
 		}, function (data) { // Error
 			debugger;

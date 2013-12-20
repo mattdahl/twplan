@@ -127,8 +127,10 @@ Village = (function () {
 					break;
 			}
 
-			$("#" + this.village_id + '_row').effect("highlight", {color: "#a9a96f"}, 2000);
-			$('#' + this.village_id + '_add_button').blur();
+			this.scope.$apply(function (argument) {
+				$("#" + this.village_id + '_row').effect("highlight", {color: "#a9a96f"}, 2000);
+				$('#' + this.village_id + '_add_button').blur();
+			})
 
 			this.slowest_unit = null;
 			this.attack_type = null;
