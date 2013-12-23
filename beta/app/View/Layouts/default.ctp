@@ -44,6 +44,10 @@
 		<script src="js/directives/manual_nuke_target_input.js"></script>
 		<script src="js/directives/manual_support_target_input.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/autocomplete.css" />
+	<?php elseif ($page == 'plans') : ?>
+		<script src="js/controllers/plans.js"></script>
+		<script src="js/plan_objects.js"></script>
+		<script src="js/factories/plan_request.js"></script>
 	<?php endif ?>
 
 	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />

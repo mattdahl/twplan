@@ -23,7 +23,7 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 				});
 			}
 
-			$http.post('plans', {
+			$http.post('plans/plan', {
 				name: plan_name,
 				landing_datetime: plan.landing_datetime.getTime() / 1000,
 				world: plan.scope.current_world,
@@ -37,12 +37,11 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 				deferred.reject(data);
 			});
 			return deferred.promise;
-<<<<<<< HEAD
 		},
 		query: function () {
 			var deferred = $q.defer();
 
-			$http.get('plans')
+			$http.get('plans/plan')
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);
@@ -64,8 +63,6 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 				deferred.reject(data);
 			});
 			return deferred.promise;
-=======
->>>>>>> e3bdbd9c75b4cc2ac4d26cbb9c021862441d86f4
 		}
 	};
 }]);
