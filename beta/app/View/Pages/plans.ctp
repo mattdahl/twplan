@@ -1,7 +1,7 @@
 <div ng-controller="PlansController">
 	<h1>Saved Plan</h1>
 
-	<select ng-model="current_plan" ng-options="p.name for p in plan"></select>
+	<select ng-model="current_plan" ng-options="p.name for p in plans"></select>
 
 	<table>
 		<tr>
@@ -15,7 +15,7 @@
 			<th>Time Remaining</th>
 			<th>TW Link</th>
 		</tr>
-		<tr ng-repeat='command in current_plan.commands'>
+		<tr ng-repeat="command in current_plan.commands">
 			<td>{{command.village}}</td>
 			<td>{{command.target}}</td>
 			<td><img src='http://static-twplan.appspot.com/images/units/{{command.village.slowest_unit.url}}' /></td>
