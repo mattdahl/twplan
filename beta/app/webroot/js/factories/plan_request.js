@@ -37,6 +37,7 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 				deferred.reject(data);
 			});
 			return deferred.promise;
+<<<<<<< HEAD
 		},
 		query: function () {
 			var deferred = $q.defer();
@@ -63,6 +64,8 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 				deferred.reject(data);
 			});
 			return deferred.promise;
+=======
+>>>>>>> e3bdbd9c75b4cc2ac4d26cbb9c021862441d86f4
 		}
 	};
 }]);
