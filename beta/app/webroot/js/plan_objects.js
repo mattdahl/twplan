@@ -39,7 +39,14 @@ Village = (function () {
 					this.attack_type = this.scope.AttackTypes.Support;
 					break;
 			}
-			$('#' + this.village_id + '_add_button').focus();
+			//this.scope.$apply(function (argument) {
+			//});
+			var self = this;
+			setTimeout(function () {
+				self.scope.$apply(function () {
+					$('#' + self.village_id + '_add_button').trigger('focus');
+				});
+			}, 50);
 		},
 		setAttackType: function (attack_type) {
 			this.attack_type = attack_type;
@@ -56,39 +63,14 @@ Village = (function () {
 						break;
 				}
 			}
-			$('#' + this.village_id + '_add_button').focus();
-		},
-		makeManualCommand: function () {
-			if (this.manual_target != '' && this.manual_target.match(/[0-9]{3}\|[0-9]{3}/g)) {
-				var coord_components = this.manual_target.split('|');
 
-				var targets_concat = this.scope.villages_in_plan.nukes.concat(this.scope.villages_in_plan.nobles, this.scope.villages_in_plan.supports);
-
-				for (var i = 0; i < targets_concat; i++) {
-					if (targets_concat[i].x_coord == coord_components[0] && targets_concat[i].y_coord == coord_components[1] && targets_concat[i].attack_type == this.attack_type) {
-						var coord_components = this.manual_target.split('|');
-						this.scope.manual_commands.push(new Command(
-							this.scope,
-							this,
-							new Target(
-								this.scope,
-								coord_components[10],
-								coord_components[1],
-								'K' + coord_components[1].substring(0, 1) + coord_components[0].substring(0, 1),
-								this.attack_type
-								),
-							null,
-							null
-							));
-
-						this.is_manual = true;
-						break;
-					}
-				}
-			}
-			else {
-				this.is_manual = false;
-			}
+			// Workaround to focus the appropriate add button since angular quashes the trigger() for some reason
+			var self = this;
+			setTimeout(function () {
+				self.scope.$apply(function () {
+					$('#' + self.village_id + '_add_button').trigger('focus');
+				});
+			}, 50);
 		},
 		addToPlan: function () {
 			switch (this.attack_type) {
@@ -127,10 +109,8 @@ Village = (function () {
 					break;
 			}
 
-			this.scope.$apply(function (argument) {
-				$("#" + this.village_id + '_row').effect("highlight", {color: "#a9a96f"}, 2000);
-				$('#' + this.village_id + '_add_button').blur();
-			})
+			$("#" + this.village_id + '_row').effect("highlight", {color: "#a9a96f"}, 2000);
+			$('#' + this.village_id + '_add_button').blur();
 
 			this.slowest_unit = null;
 			this.attack_type = null;

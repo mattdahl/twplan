@@ -435,16 +435,6 @@ td.unit {
   width:50px;
 }
 
-.collapsebutton {
-	font-family:arial;
-	font-size:12px;
-	color:#804000;
-}
-
-a.collapsebutton:hover {
-	color:#a85400;
-}
-
 #villages_list {
 	clear: right;
 }

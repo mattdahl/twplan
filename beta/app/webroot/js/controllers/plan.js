@@ -2,8 +2,6 @@
  * The controller for the Step One page of /plan
  */
 TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', function ($scope, VillagesRequest, GroupNames, Units) {
-	$scope.$watch(function() { console.log("A digest was executed!"); });
-
 	$scope.current_step = 1;
 
 	$scope.village_paste_in_interface = new VillagePasteInInterface($scope);
@@ -118,8 +116,6 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
  * The controller for the Step Two page
  */
 TWP.twplan.Controllers.controller('StepTwoController', ['$scope', function ($scope) {
-	$scope.$watch(function() { console.log("A digest was executed!"); });
-
 	$scope.current_step = 2;
 
 	$scope.target_paste_in_interface = new TargetPasteInInterface($scope);
@@ -154,8 +150,6 @@ TWP.twplan.Controllers.controller('StepTwoController', ['$scope', function ($sco
  * The controller for the Step Three page
  */
 TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo', 'PairCalculator', function ($rootScope, $scope, WorldInfo, PairCalculator) {
-	$scope.$watch(function() { console.log("A digest was executed!"); });
-
 	$scope.current_step = 3;
 
 	$scope.landing_date = '';
@@ -418,8 +412,6 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
  * The controller for the Results page
  */
 TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest', function ($scope, PlanRequest) {
-	$scope.$watch(function () { console.log("A digest was executed!"); });
-
 	$scope.current_step = 4;
 
 	$scope.countdown_timeout = null;
