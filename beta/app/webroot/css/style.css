@@ -445,6 +445,37 @@ a.collapsebutton:hover {
 	color:#a85400;
 }
 
+#villages_list {
+	clear: right;
+}
+
+#search_box {
+	float: right;
+	margin-left: 2%;
+	margin-right: 14%;
+	margin-bottom: 10px;
+}
+
+#page_marker {
+	list-style-type:none;
+	float: right;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+#page_marker li a {
+	color: #804000;
+}
+
+#page_marker li a:hover {
+	color: white;
+}
+
+.selected_page_marker a, .selected_page_marker a:hover {
+	cursor: default;
+	color: black !important;
+}
+
 
 /* ======= Planning Step 2 ======= */
 

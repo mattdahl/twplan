@@ -75,15 +75,15 @@
 	<button onClick="village_group_interface.addToPlan();" style="float:left;margin-left:2%;">Add Group to Plan</button>
 </div>
 
-<h2 style="clear:left"><br />Add Villages from List</h2>
+<h2 style="clear:left; margin-bottom: 0;"><br />Add Villages from List</h2>
 
-<ul ng-repeat="pages in paginated_villages">
-	<li><a href="javascript:void(0);" ng-click="switch_page($index)">[{{$index + 1}}]</a></li>
+<input type="text" id="search_box" placeholder="Search villages..." ng-model="search_term" ng-change="search_villages()" />
+
+<ul id="page_marker" ng-repeat="pages in paginated_villages" ng-hide="paginated_villages.length < 2">
+	<li ng-class="{selected_page_marker: ($index == current_page)}"><a href="javascript:void(0);" ng-click="switch_page($index)">[{{$index + 1}}]</a></li>
 </ul>
 
-<input type="text" placeholder="Search villages..." ng-model="search_term" />
-
-<table>
+<table id="villages_list">
 	<tr>
 		<th>Village Name</th>
 		<th>Coordinates</th>

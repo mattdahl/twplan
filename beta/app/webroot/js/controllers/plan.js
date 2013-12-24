@@ -17,37 +17,49 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 
 	$scope.paginated_villages = []; // Holds the villages paginated into arrays of length 20
 	$scope.page_villages = []; // Holds the villages to be displayed on the current page
+	$scope.current_page = 0;
 
 	$scope.search_villages = function () {
-		if ($scope.search_term.length < 2) { // Need at least two characters to search (to minimize performance issues)
+		if ($scope.search_term.length === 0) { // Reset the display when the search box has been cleared
+			$scope.paginate_villages($scope.villages);
+			$scope.page_villages = $scope.paginated_villages[0];
+		}
+		else if ($scope.search_term.length < 2) { // Need at least two characters to search (to minimize performance issues)
 			return;
 		}
 
 		var search_results = [];
 
-		for (var v in villages) {
-			if (v.name.indexOf($scope.search_term) || (v.x_coord + '|' + v.y_coord).indexOf($scope.search_term) || v.continent.indexOf($scope.search_term)) {
-				search_results.push(v);
+		for (var i = 0; i < $scope.villages.length; i++) {
+			if ($scope.villages[i].name.indexOf($scope.search_term) >= 0 || ($scope.villages[i].x_coord + '|' + $scope.villages[i].y_coord).indexOf($scope.search_term) >= 0 || $scope.villages[i].continent.indexOf($scope.search_term) >= 0) {
+				search_results.push($scope.villages[i]);
 			}
 		}
 
 		$scope.paginate_villages(search_results);
-		$scope.switch_page(1);
+		$scope.switch_page(0);
 	};
 
 	$scope.paginate_villages = function (villages) {
-		for (var v in villages) {
+		$scope.paginated_villages = [];
+
+		if (!villages.length) {
+			$scope.paginated_villages[0] = [{name: 'No search results.'}];
+		}
+
+		for (var i = 0; i < villages.length; i++) {
 			var index = parseInt(villages.length / 20, 10);
 			if ($scope.paginated_villages[index]) {
-				$scope.paginated_villages[index].push(v);
+				$scope.paginated_villages[index].push(villages[i]);
 			} else {
-				$scope.paginated_villages[index] = [v];
+				$scope.paginated_villages[index] = [villages[i]];
 			}
 		}
 	};
 
 	$scope.switch_page = function (index) {
-		$scope.page_villages = $scope.paginate_villages[index - 1];
+		$scope.current_page = index;
+		$scope.page_villages = $scope.paginated_villages[$scope.current_page];
 	};
 
 	$scope.submitStepOne = function () {
@@ -77,7 +89,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 				debugger;
 
 				$scope.paginate_villages($scope.villages);
-				$scope.page_villages = $scope.paginated_villages[0];
+				$scope.page_villages = $scope.paginated_villages[$scope.current_page];
 			});
 		}, function (data) { // Error
 			debugger;
