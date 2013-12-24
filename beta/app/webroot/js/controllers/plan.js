@@ -62,6 +62,12 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 		$scope.page_villages = $scope.paginated_villages[$scope.current_page];
 	};
 
+	$scope.sort_villages = function (villages) {
+		villages.sort(function (a, b) {
+			return a.name.localeCompare(b.name);
+		});
+	};
+
 	$scope.submitStepOne = function () {
 		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length === 0) {
 			alert("You haven't added any villages! Please choose at least one.");
@@ -87,6 +93,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 					null
 				));
 			});
+			$scope.sort_villages($scope.villages);
 			$scope.paginate_villages($scope.villages);
 			$scope.page_villages = $scope.paginated_villages[$scope.current_page];
 		}, function (data) { // Error
