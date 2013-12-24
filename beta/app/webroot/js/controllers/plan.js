@@ -48,7 +48,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 		}
 
 		for (var i = 0; i < villages.length; i++) {
-			var index = parseInt(villages.length / 20, 10);
+			var index = parseInt(i / 20, 10);
 			if ($scope.paginated_villages[index]) {
 				$scope.paginated_villages[index].push(villages[i]);
 			} else {
@@ -84,13 +84,11 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 					element.y_coord,
 					'K' + element.y_coord.substring(0, 1) + element.x_coord.substring(0, 1),
 					null,
-					null));
-
-				debugger;
-
-				$scope.paginate_villages($scope.villages);
-				$scope.page_villages = $scope.paginated_villages[$scope.current_page];
+					null
+				));
 			});
+			$scope.paginate_villages($scope.villages);
+			$scope.page_villages = $scope.paginated_villages[$scope.current_page];
 		}, function (data) { // Error
 			debugger;
 		});

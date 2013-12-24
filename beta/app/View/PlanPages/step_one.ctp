@@ -79,9 +79,11 @@
 
 <input type="text" id="search_box" placeholder="Search villages..." ng-model="search_term" ng-change="search_villages()" />
 
-<ul id="page_marker" ng-repeat="pages in paginated_villages" ng-hide="paginated_villages.length < 2">
-	<li ng-class="{selected_page_marker: ($index == current_page)}"><a href="javascript:void(0);" ng-click="switch_page($index)">[{{$index + 1}}]</a></li>
-</ul>
+<div style="float: right;">
+	<ul id="page_marker" ng-repeat="pages in paginated_villages" ng-hide="paginated_villages.length < 2">
+		<li ng-class="{selected_page_marker: ($index == current_page)}"><a href="javascript:void(0);" ng-click="switch_page($index)">[{{$index + 1}}]</a></li>
+	</ul>
+</div>
 
 <table id="villages_list">
 	<tr>

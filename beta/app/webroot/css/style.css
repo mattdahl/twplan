@@ -458,9 +458,10 @@ a.collapsebutton:hover {
 
 #page_marker {
 	list-style-type:none;
-	float: right;
+	float: left;
 	margin: 0;
 	margin-bottom: 10px;
+	padding-left: 6px;
 }
 
 #page_marker li a {
