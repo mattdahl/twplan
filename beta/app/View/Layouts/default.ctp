@@ -43,11 +43,14 @@
 		<script src="js/directives/manual_noble_target_input.js"></script>
 		<script src="js/directives/manual_nuke_target_input.js"></script>
 		<script src="js/directives/manual_support_target_input.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/autocomplete.css" />
+		<link rel="stylesheet" type="text/css" href="css/jqueryui.css" />
 	<?php elseif ($page == 'plans') : ?>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script src="js/controllers/plans.js"></script>
 		<script src="js/plan_objects.js"></script>
 		<script src="js/factories/plan_request.js"></script>
+		<script src="js/factories/units.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/jqueryui.css" />
 	<?php endif ?>
 
 	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />

@@ -646,3 +646,28 @@ td.unit {
   border: 2px solid black;
   background-color: #c4101d;
 }
+
+.tooltip {
+	color: #804000;
+	font-weight: bold;
+	cursor: default;
+}
+
+.ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+	border-width: 2px;
+}
+
+.ui-tooltip-content {
+	font-size: 12px;
+}
+
+/* =========== Saved Plans ========= */
+#current_plan_table, #current_plan_options {
+	margin-top: 15px;
+}

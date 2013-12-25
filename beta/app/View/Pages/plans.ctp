@@ -1,30 +1,64 @@
 <div ng-controller="PlansController">
-	<h1>Saved Plan</h1>
+	<h1>Saved Plans</h1>
+	<p>Plans that you have created and saved can be viewed here.</p>
+	<p ng-hide="plans.length > 1">You haven't saved any plans yet! Go to the <a href="/plan">plan</a> page to create a plan, and then save it.</p>
 
-	<select ng-model="current_plan" ng-options="p.name for p in plans"></select>
+	<div ng-show="plans.length > 1">
+		<b>Plan:</b> <select ng-model="current_plan" ng-options="p.name for p in plans" ng-change="countdown()"></select>
+		<div ng-show="current_plan != plans[0]">
+			<table id="current_plan_options">
+				<tr>
+					<th colspan=2>
+						Options
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Publish <span class="tooltip" title="Published plans are only available to those who have the link." />(?)</span>
+					</td>
+					<td>
+						<select>
+							<option value="true">Yes</option>
+							<option value="false" selected>No</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Delete
+					</td>
+					<td>
+						<input type="button" value="Delete" />
+					</td>
+				</tr>
+			</table>
 
-	<table>
-		<tr>
-			<th>Village</th>
-			<th>Target</th>
-			<th>Slowest Unit</th>
-			<th>Attack Type</th>
-			<th>Traveling Time</th>
-			<th>ST Launch Time</th>
-			<th>Local Launch Time</th>
-			<th>Time Remaining</th>
-			<th>TW Link</th>
-		</tr>
-		<tr ng-repeat="command in current_plan.commands">
-			<td>{{command.village}}</td>
-			<td>{{command.target}}</td>
-			<td><img src='http://static-twplan.appspot.com/images/units/{{command.village.slowest_unit.url}}' /></td>
-			<td>{{AttackTypes.toString[command.village.attack_type]}}</td>
-			<td>{{format_seconds(command.traveling_time.getTime() / 1000)}}</td>
-			<td>{{command.launch_datetime.toString().slice(0, 24)}}</td>
-			<td>Local Launch Time</td>
-			<td>{{format_seconds(command.time_remaining)}}</td>
-			<td><a href='{{command.launch_url}}'>Launch</a></td>
-		</tr>
-	</table>
+			<table id="current_plan_table">
+				<tr>
+					<th>Village</th>
+					<th>Target</th>
+					<th>Slowest Unit</th>
+					<th>Attack Type</th>
+					<th>Traveling Time</th>
+					<th>ST Launch Time</th>
+					<th>Local Launch Time</th>
+					<th>Time Remaining</th>
+					<th>TW Link</th>
+					<th>Delete Command</th>
+				</tr>
+				<tr ng-repeat="command in current_plan.commands">
+					<td>{{command.village}}</td>
+					<td>{{command.target}}</td>
+					<td><img src='http://static-twplan.appspot.com/images/units/{{slowest_unit_url_lookup(command.slowest_unit)}}' /></td>
+					<td>{{AttackTypes.toString[command.attack_type]}}</td>
+					<td>{{command.travel_time}}</td>
+					<td>{{command.launch_datetime.toString().slice(0, 24)}}</td>
+					<td>Local Launch Time</td>
+					<td>{{format_seconds(command.time_remaining)}}</td>
+					<td><a href="{{command.launch_url}}">Launch</a></td>
+					<td><input type="button" value="Delete"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </div>
