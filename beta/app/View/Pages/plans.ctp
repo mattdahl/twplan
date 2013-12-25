@@ -28,7 +28,7 @@
 						Delete
 					</td>
 					<td>
-						<input type="button" value="Delete" />
+						<input type="button" value="Delete" ng-click="delete_plan()" />
 					</td>
 				</tr>
 			</table>

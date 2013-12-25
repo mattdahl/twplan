@@ -37,6 +37,17 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 		show: false
 	});
 
+	$scope.delete_plan = function () {
+		PlanRequest.destroy($scope.current_plan.id) // Returns a promise object
+		.then(function (data) { // Success
+			debugger;
+			alert('Plan "' + $scope.current_plan.name + '" deleted!');
+			$scope.plans.splice($scope.plans.indexOf($scope.current_plan), 1);
+		}, function (data) { // Error
+			debugger;
+		});
+	};
+
 	$scope.countdown = function () {
 		if ($scope.countdown_timeout) {
 			clearInterval($scope.countdown_timeout);

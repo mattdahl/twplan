@@ -54,7 +54,20 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 		update: function (plan_id, new_plan) {
 			var deferred = $q.defer();
 
-			$http.post('plans/' + plan_id, new_plan)
+			$http.post('plans/plan/' + plan_id, new_plan)
+			.success(function (data, status, headers, config) {
+				debugger;
+				deferred.resolve(data);
+			}).error(function (data, status, headers, config) {
+				debugger;
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		},
+		destroy: function (plan_id) {
+			var deferred = $q.defer();
+
+			$http.delete('plans/plan/' + plan_id)
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);

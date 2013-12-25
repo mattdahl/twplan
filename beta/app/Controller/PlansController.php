@@ -71,6 +71,20 @@ class PlansController extends AppController {
 
 		return(json_encode($plans));
 	}
+
+	public function delete ($plan_id) {
+		$this->autoRender = false;
+
+		$this->Plan->query("
+			DELETE FROM `twp_users`.`plans`
+			WHERE `id` = $plan_id
+		");
+
+		$this->Plan->query("
+			DELETE FROM `twp_users`.`commands`
+			WHERE `plan_id` = $plan_id
+		");
+	}
 }
 
 ?>
