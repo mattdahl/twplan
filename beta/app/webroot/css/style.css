@@ -343,6 +343,8 @@ li a:link, li a:visited {
   position:relative;
   left: 12%;
   z-index: 5;
+  width: 500px;
+  height: 150px;
 }
 
 #lastupdatetext {
@@ -374,6 +376,10 @@ footer {
   color:#ede5d0;
   background: black;
   background: rgba(0, 0, 0, .6);
+}
+
+footer a {
+	color: #ede5d0 !important;
 }
 
 /* ========= Tables ======== */

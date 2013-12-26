@@ -1,7 +1,7 @@
-<li><a class="navlink" href="index">Home</a></li>
-<li><a class="navlink" href="news">News</a></li>
-<li id="plannavbaritem"><a class="navlink" href="plan">Plan</a></li>
-<li style="width: 110px"><a class="navlink" style="width: 110px" href="bug_report">Bug Report</a></li>
-<li style="width: 80px"><a class="navlink" href="settings">Settings</a></li>
-<li><a class="navlink" href="help">Help</a></li>
-<li style="width: 80px"><a class="navlink" style="width: 80px" href="logout">Logout</a></li>
+<li><?php echo $this->Html->link('Home', '/index', array('class' => 'navlink')); ?></li>
+<li><?php echo $this->Html->link('News', '/news', array('class' => 'navlink')); ?></li>
+<li id="plannavbaritem"><?php echo $this->Html->link('Plan', '/plan', array('class' => 'navlink')); ?></li>
+<li style="width: 110px"><?php echo $this->Html->link('Bug Report', '/bug_report', array('class' => 'navlink')); ?></li>
+<li style="width: 80px"><?php echo $this->Html->link('Settings', '/settings', array('class' => 'navlink')); ?></li>
+<li><?php echo $this->Html->link('Help', '/help', array('class' => 'navlink')); ?></li>
+<li style="width: 80px"><?php echo $this->Html->link('Logout', '/logout', array('class' => 'navlink')); ?></li>

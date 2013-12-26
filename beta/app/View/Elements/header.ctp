@@ -1,5 +1,7 @@
 <header ng-controller="HeaderController">
-  <a href="index"><img id="logo" width="500" height="150" src="http://static-twplan.appspot.com/images/logo5.png" /></a>
+  <?php
+    echo $this->Html->link($this->Html->image("http://static-twplan.appspot.com/images/logo5.png", array('id' => 'logo')), '/index', array('escape' => false));
+  ?>
 
   <?php
     if ($this->Session->read('Auth.User')) {
@@ -20,9 +22,9 @@
     </ul>
     <div id="dropdownmenu" style="visibility:hidden">
       <ul>
-          <li><a class="navlink" href="groups">Groups</a></li>
-          <li><a class="navlink" href="plans">Saved</a></li>
-          <li><a class="navlink" href="generateScript">Script</a></li>
+          <li><?php echo $this->Html->link('Groups', '/groups', array('class' => 'navlink')); ?></li>
+          <li><?php echo $this->Html->link('Saved', '/plans', array('class' => 'navlink')); ?></li>
+          <li><?php echo $this->Html->link('Script', '/user_scripts', array('class' => 'navlink')); ?></li>
         </ul>
     </div>
     </nav>

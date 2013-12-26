@@ -124,6 +124,38 @@ class PlansController extends AppController {
 			WHERE `plan_id` = $plan_id
 		");
 	}
+
+	public function public_display ($published_hash) {
+		// Find the appropriate plan
+		$plan = $this->Plan->query("
+			SELECT * FROM `twp_users`.`plans`
+			WHERE `published_hash` = '$published_hash'
+		");
+
+		if (!count($plan) || !isset($plan[0]) || !isset($plan[0]['plans']) || !isset($plan[0]['plans']['is_published']) || (!isset($plan[0]['plans']['is_published']) && !$plan[0]['plans']['is_published'])) {
+			$this->Session->setFlash('<h1>Public Plan</h1> There is no published plan for this url indentifier.', 'plain_flash_message');
+			$this->set(compact('page', 'title_for_layout'));
+		}
+		else { // Find the plans's commands
+			$plan = $plan[0]['plans'];
+			$plan_id = $plan['id'];
+			$commands = $this->Plan->query("SELECT * FROM `twp_users`.`commands` WHERE `plan_id` = $plan_id");
+			$commands_array = [];
+			foreach ($commands as $c) {
+				array_push($commands_array, $c['commands']);
+			}
+			$plan['commands'] = $commands_array;
+
+			$this->set(compact('page', 'title_for_layout', 'plan'));
+		}
+
+		$title_for_layout = "Public Plan";
+		$page = $path = 'plans';
+
+		$this->set(compact('page', 'title_for_layout', 'plan'));
+
+		$this->render('../Pages/' . $path);
+	}
 }
 
 ?>
