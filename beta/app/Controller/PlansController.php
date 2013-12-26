@@ -41,7 +41,7 @@ class PlansController extends AppController {
 
 		$this->Plan->saveAssociated($new_plan, array('deep' => true));
 
-		return(json_encode($new_plan['Plan']['name']));
+		return json_encode($new_plan['Plan']['name']);
 	}
 
 	public function get () {
@@ -69,7 +69,46 @@ class PlansController extends AppController {
 			$p['Plan']['commands'] = $commands_array;
 		}
 
-		return(json_encode($plans));
+		return json_encode($plans);
+	}
+
+	public function update ($plan_id) {
+		$this->autoRender = false;
+
+		$data = $this->request->input('json_decode', 'true');
+
+		$was_published = $this->Plan->query("SELECT `is_published` FROM `twp_users`.`plans` WHERE `id` = $plan_id")[0]['plans']['is_published'];
+
+		if ($data['is_published'] != 'false' && !$was_published) { // Setup the published_hash
+			$this->Plan->query("
+				UPDATE `twp_users`.`plans`
+				SET `is_published` = 1
+				WHERE `id` = $plan_id
+			");
+
+			$published_hash = md5(time() . $this->Auth->user('id'));
+
+			$this->Plan->query("
+				UPDATE `twp_users`.`plans`
+				SET `published_hash` = '$published_hash'
+				WHERE `id` = $plan_id
+			");
+		}
+		else if ($data['is_published'] == 'false' && $was_published) {
+			$this->Plan->query("
+				UPDATE `twp_users`.`plans`
+				SET `is_published` = 0
+				WHERE `id` = $plan_id
+			");
+
+			$this->Plan->query("
+				UPDATE `twp_users`.`plans`
+				SET `published_hash` = NULL
+				WHERE `id` = $plan_id
+			");
+		}
+
+		return json_encode($this->Plan->query("SELECT * FROM `twp_users`.`plans` WHERE `id` = $plan_id"));
 	}
 
 	public function delete ($plan_id) {

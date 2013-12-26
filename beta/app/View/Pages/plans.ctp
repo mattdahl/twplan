@@ -17,10 +17,13 @@
 						Publish <span class="tooltip" title="Published plans are only available to those who have the link." />(?)</span>
 					</td>
 					<td>
-						<select>
+						<select ng-model="current_plan.is_published" ng-change="publish_plan()">
 							<option value="true">Yes</option>
 							<option value="false" selected>No</option>
 						</select>
+						<span ng-show="current_plan.is_published">
+							(<a href="http://twplan.com/public/plans/{{current_plan.published_hash}}">http://twplan.com/public/plans/{{current_plan.published_hash}}</a>)
+						</span>
 					</td>
 				</tr>
 				<tr>

@@ -431,7 +431,7 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 
 		PlanRequest.save($scope.saved_plan_name, $scope.plan) // Returns a promise object
 		.then(function (data) { // Success
-			$scope.save_status = 'Success! Your plan ' + data + ' has been saved. Go to the saved tab to view it.';
+			$scope.save_status = 'Success! Your plan ' + data + ' has been saved. Go to the <a href="/saved">saved</a> tab to view it.';
 			$scope.saved_plan_name = '';
 			$('#loadingcircle').hide();
 			debugger;

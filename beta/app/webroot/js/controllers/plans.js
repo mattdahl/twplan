@@ -48,6 +48,16 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 		});
 	};
 
+	$scope.publish_plan = function () {
+		PlanRequest.update($scope.current_plan.id, $scope.current_plan) // Returns a promise object
+		.then(function (data) { // Success
+			debugger;
+			$scope.current_plan.published_hash = data[0].plans.published_hash;
+		}, function (data) { // Error
+			debugger;
+		});
+	};
+
 	$scope.countdown = function () {
 		if ($scope.countdown_timeout) {
 			clearInterval($scope.countdown_timeout);
