@@ -59,7 +59,7 @@
 					<td>Local Launch Time</td>
 					<td>{{format_seconds(command.time_remaining)}}</td>
 					<td><a href="{{command.launch_url}}">Launch</a></td>
-					<td><input type="button" value="Delete"></td>
+					<td><input type="button" value="Delete" ng-click="current_plan.remove_command(command)"></td>
 				</tr>
 			</table>
 		</div>

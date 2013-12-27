@@ -21,6 +21,11 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 				};
 			});
 
+			plan.remove_command = function (command) {
+				this.commands.splice(this.commands.indexOf(command), 1);
+				$scope.update_plan(this);
+			};
+
 			$scope.plans.push(plan);
 			debugger;
 		});
@@ -51,6 +56,15 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 		.then(function (data) { // Success
 			debugger;
 			$scope.current_plan.published_hash = data[0].plans.published_hash;
+		}, function (data) { // Error
+			debugger;
+		});
+	};
+
+	$scope.update_plan = function (plan) {
+		PlanRequest.update(plan.id, plan) // Returns a promise object
+		.then(function (data) { // Success
+			debugger;
 		}, function (data) { // Error
 			debugger;
 		});

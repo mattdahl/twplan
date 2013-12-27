@@ -82,7 +82,25 @@ class PlansController extends AppController {
 			$this->Plan->saveField('published_hash', NULL);
 		}
 
-		return json_encode($this->Plan->findById($plan_id));
+		// Refresh the plan's commands
+		$this->Plan->Command->deleteAll(array('Command.plan_id' => $plan_id), false);
+
+		$updated_plan = array(
+			'Plan' => array(
+				'id' => $plan_id,
+				'user_id' => $this->Auth->user('id'),
+			    'name' => $data['name'],
+			    'landing_datetime' => $data['landing_datetime'],
+			    'world' => $data['world']
+		    ),
+		    'Command' => $data['commands']
+		);
+
+		$this->Plan->saveAssociated($updated_plan, array('deep' => true));
+
+		$updated_plan = $this->Plan->findById($plan_id);
+		$updated_plan->commands = $this->Plan->Command->findAllByPlanId($plan_id);
+		return json_encode($updated_plan);
 	}
 
 	public function delete ($plan_id) {
