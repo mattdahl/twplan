@@ -55,16 +55,47 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 		});
 	};
 
-	$scope.load_group = function (group) {
+	$scope.load_group = function () {
 		$scope.should_show_instructions = false;
+		history.pushState(null, null, 'groups/group/' + $scope.current_group.id);
 	};
+
+	$scope.return_to_instructions = function () {
+		$scope.current_group = $scope.groups[0];
+		$scope.should_show_instructions = true;
+	};
+
+	$(window).on('popstate', function (e) {
+		if ($scope.new_group && confirm('You haven\'t saved your new group! Are you sure you want to navigate away?')) {
+			$scope.new_group = null;
+			$scope.$apply(function () {
+				$scope.return_to_instructions();
+			});
+		}
+		else if ($scope.new_group) {
+			history.pushState(null, null, 'groups/new_group');
+		}
+		else {
+			$scope.$apply(function () {
+				$scope.return_to_instructions();
+			});
+		}
+	});
+
+	$(window).on('beforeunload', function (e) {
+		if ($scope.new_group) {
+			return 'You haven\'t saved your new group! Are you sure you want to nagivate away?';
+		}
+		else if ($scope.current_group != $scope.groups[0]) {
+			return 'You haven\'t saved your changes! Are you sure you want to nagivate away?';
+		}
+	});
 
 	$scope.delete_group = function (group) {
 		GroupRequest.destroy(group.id) // Returns a promise object
 		.then(function (data) { // Success
 			$scope.groups.splice($scope.groups.indexOf(group), 1);
-			$scope.current_group = $scope.groups[0];
-			$scope.should_show_instructions = true;
+			$scope.return_to_instructions();
 			debugger;
 		}, function (data) { // Error
 			debugger;
@@ -77,6 +108,7 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 			name: $scope.new_group_name,
 			villages: []
 		};
+		history.pushState(null, null, 'groups/new_group');
 	};
 
 	$scope.save_group = function (group) {
@@ -87,7 +119,7 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 			$scope.groups.push($scope.new_group);
 			$scope.new_group = null;
 			$scope.new_group_name = '';
-			$scope.should_show_instructions = true;
+			$scope.return_to_instructions();
 			debugger;
 		}, function (data) { // Error
 			debugger;
@@ -98,8 +130,7 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 		GroupRequest.update(group.id, group) // Returns a promise object
 		.then(function (data) { // Success
 			$scope.current_group.date_last_updated = new Date();
-			$scope.current_group = $scope.groups[0];
-			$scope.should_show_instructions = true;
+			$scope.return_to_instructions();
 			debugger;
 		}, function (data) { // Error
 			debugger;
