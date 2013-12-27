@@ -8,9 +8,7 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 
 	PlanRequest.query() // Returns a promise object
 	.then(function (data) { // Success
-		$.each(data, function (index, element) {
-			var plan = element.Plan;
-
+		$.each(data, function (index, plan) {
 			$.each(plan.commands, function (index, command) {
 				command.time_remaining = new Date(new Date(command.launch_datetime) - new Date()).getTime() / 1000; // Seconds
 				command.decrement_time_remaining = function () {

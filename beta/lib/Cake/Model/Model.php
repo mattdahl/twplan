@@ -2439,7 +2439,15 @@ class Model extends Object implements CakeEventListener {
 
 						if (!empty($records)) {
 							foreach ($records as $record) {
-								$model->delete($record[$model->alias][$model->primaryKey]);
+								// Edited by Matt Dahl on 12/27/13
+								// Checks if the dependent model is of type Command, because that particular model is
+								// returned as an object, not a string (avoids the fatal error in the else clause)
+								if (get_class($model) == 'Command') {
+									$model->delete($record->id);
+								}
+								else {
+									$model->delete($record[$model->alias][$model->primaryKey]);
+								}
 							}
 						}
 					}

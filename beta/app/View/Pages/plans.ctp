@@ -1,7 +1,7 @@
 <div ng-controller="PlansController">
 	<h1>Saved Plans</h1>
 	<p>Plans that you have created and saved can be viewed here.</p>
-	<p ng-hide="plans.length > 1">You haven't saved any plans yet! Go to the <a href="/plan">plan</a> page to create a plan, and then save it.</p>
+	<p ng-hide="plans.length > 1">You haven't saved any plans yet! Go to the <?php echo $this->Html->link('plan', '/plan'); ?> page to create a plan, and then save it.</p>
 
 	<div ng-show="plans.length > 1">
 		<b>Plan:</b> <select ng-model="current_plan" ng-options="p.name for p in plans" ng-change="countdown()"></select>

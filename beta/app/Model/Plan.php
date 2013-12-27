@@ -2,7 +2,8 @@
 
 class Plan extends AppModel {
 
-	public $belongsTo = 'User';
+	// Having trouble setting up association
+	//public $belongsTo = 'User';
 	public $hasMany = array(
 	    'Command' => array(
 	        'className' => 'Command',

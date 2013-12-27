@@ -49,24 +49,13 @@ class PlansController extends AppController {
 
 		$user_id = $this->Auth->user('id');
 
-		// This should work, can't figure out why it returns true instead of an array of the result...
-		//$plans = $this->Plan->findByUserId($this->Auth->user('id'));
-		// So run the manual query instead
-		$plans = $this->Plan->query("
-			SELECT * FROM `twp_users`.`plans` AS `Plan`
-				LEFT JOIN `twp_users`.`users` AS `User` ON (`Plan`.`user_id` = `User`.`id`)
-			WHERE `user_id` = $user_id
-		");
+		$plans = $this->Plan->findAllByUserId($user_id);
 
 		// Now find each plans's commands
 		foreach ($plans as &$p) { // '&' passes the element by reference
-			$plan_id = $p['Plan']['id'];
-			$commands = $this->Plan->query("SELECT * FROM `twp_users`.`commands` WHERE `plan_id` = $plan_id");
-			$commands_array = [];
-			foreach ($commands as $c) {
-				array_push($commands_array, $c['commands']);
-			}
-			$p['Plan']['commands'] = $commands_array;
+			$plan_id = $p->id;
+			$commands = $this->Plan->Command->findAllByPlanId($plan_id);
+			$p->commands = $commands;
 		}
 
 		return json_encode($plans);
@@ -114,15 +103,7 @@ class PlansController extends AppController {
 	public function delete ($plan_id) {
 		$this->autoRender = false;
 
-		$this->Plan->query("
-			DELETE FROM `twp_users`.`plans`
-			WHERE `id` = $plan_id
-		");
-
-		$this->Plan->query("
-			DELETE FROM `twp_users`.`commands`
-			WHERE `plan_id` = $plan_id
-		");
+		$this->Plan->delete($plan_id, true); // Deletes all associated commands also
 	}
 
 	public function public_display ($published_hash) {
