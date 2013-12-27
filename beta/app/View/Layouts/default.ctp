@@ -36,13 +36,13 @@
 			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js');
 			echo $this->Html->script('controllers/plan');
 			echo $this->Html->script('plan_objects');
-			echo $this->Html->script('factories/group_names');
 			echo $this->Html->script('factories/pair_calculator');
 			echo $this->Html->script('factories/units');
 			echo $this->Html->script('factories/villages_request');
+			echo $this->Html->script('factories/plan_request');
+			echo $this->Html->script('factories/group_request');
 			echo $this->Html->script('factories/world_info');
 			echo $this->Html->script('factories/autocomplete_builder');
-			echo $this->Html->script('factories/plan_request');
 			echo $this->Html->script('directives/manual_noble_target_input');
 			echo $this->Html->script('directives/manual_nuke_target_input');
 			echo $this->Html->script('directives/manual_support_target_input');

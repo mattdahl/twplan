@@ -1,13 +1,14 @@
 /**
  * The controller for the Step One page of /plan
  */
-TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupNames', 'Units', function ($scope, VillagesRequest, GroupNames, Units) {
+TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupRequest', 'Units', function ($scope, VillagesRequest, GroupRequest, Units) {
 	$scope.current_step = 1;
 
 	$scope.village_paste_in_interface = new VillagePasteInInterface($scope);
 	$scope.village_group_interface = new VillageGroupInterface($scope);
 
-	$scope.group_names = [];
+	$scope.groups = [{name: 'Choose a group to add to your plan...'}];
+	$scope.village_group_interface.selected_group = $scope.groups[0];
 
 	$scope.Units = Units;
 
@@ -100,10 +101,14 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 	}
 
 	// Checks if group name have already been loaded (i.e. returning from step two or three)
-	if (!$scope.group_names) {
-		GroupNames.getGroupNames() // Returns a promise object
+	if ($scope.groups.length === 1) {
+		GroupRequest.query() // Returns a promise object
 			.then(function (data) { // Success
-				$scope.group_names = data;
+				$.each(data, function (index, element) {
+					delete element._name_;
+					element.villages = JSON.parse(element.villages);
+					$scope.groups.push(element);
+				});
 				debugger;
 			}, function (data) { // Error
 				debugger;

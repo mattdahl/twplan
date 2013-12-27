@@ -38,12 +38,9 @@
 	<button ng-click="village_paste_in_interface.addToPlan()" style="margin-left:2%;">Add Villages to Plan</button>
 </div>
 <h2 style="clear:left"><br />Add Villages from Group</h2>
-<p ng-hide='(group_names.length > 0)'>You have no groups configured. Go to the <a href="groups">groups</a> page to create village groups.</p>
-<div id='group_dropdown' ng-show='(group_names.length > 0)'>
-	<select id='choosegroup' style='float:left;width:315px;'>
-		<option>Choose a group to use in plan...</option>
-		<option ng-repeat='group in groups'>{{this.group.name}}</option>
-	</select>
+<p ng-hide="groups.length > 1">You have no groups configured. Go to the <a href="groups">groups</a> page to create village groups.</p>
+<div id="group_dropdown" ng-show="groups.length > 1">
+	<select id="choosegroup" style="float:left;width:315px;margin-right:20px;" ng-model="village_group_interface.selected_group" ng-options="g.name for g in groups"></select>
 
 	<table style="float:left">
 		<tr>
@@ -65,14 +62,14 @@
 			<td ng-class='{slowestUnit: (village_group_interface.slowest_unit == Units.Noble)}' ng-click='village_group_interface.setSlowestUnit(Units.Noble)'><img src='http://static-twplan.appspot.com/images/units/noble.png' /></td>
 			<td class='attacktype'>
 				<form>
-					<label for='group_nuke'>Nuke</label><input type='radio' name='attacktype' id='group_nuke' value='{{AttackTypes.Nuke}}' ng-click='group_row.setAttackType(AttackTypes.Nuke)' ng-model='group_row.attack_type' />
-					<label for='group_noble'>Noble</label><input type='radio' name='attacktype' id='group_noble' value='{{AttackTypes.Noble}}' ng-click='group_row.setAttackType(AttackTypes.Noble)' ng-model='group_row.attack_type' />
-					<label for='group_support'>Support</label><input type='radio' name='attacktype' id='group_support' value='{{AttackTypes.Support}}' ng-click='group_row.setAttackType(AttackTypes.Support)' ng-model='group_row.attack_type' />
+					<label for='group_nuke'>Nuke</label><input type='radio' name='attacktype' id='group_nuke' value='{{AttackTypes.Nuke}}' ng-click='village_group_interface.setAttackType(AttackTypes.Nuke)' ng-model='village_group_interface.attack_type' />
+					<label for='group_noble'>Noble</label><input type='radio' name='attacktype' id='group_noble' value='{{AttackTypes.Noble}}' ng-click='village_group_interface.setAttackType(AttackTypes.Noble)' ng-model='village_group_interface.attack_type' />
+					<label for='group_support'>Support</label><input type='radio' name='attacktype' id='group_support' value='{{AttackTypes.Support}}' ng-click='village_group_interface.setAttackType(AttackTypes.Support)' ng-model='village_group_interface.attack_type' />
 				</form>
 			</td>
 		</tr>
 	</table>
-	<button onClick="village_group_interface.addToPlan();" style="float:left;margin-left:2%;">Add Group to Plan</button>
+	<button ng-click="village_group_interface.addToPlan();" style="float:left;margin-left:2%;">Add Group to Plan</button>
 </div>
 
 <h2 style="clear:left; margin-bottom: 0;"><br />Add Villages from List</h2>

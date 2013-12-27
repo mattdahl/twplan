@@ -331,8 +331,7 @@ VillageGroupInterface = (function () {
 	function VillageGroupInterface(scope) {
 		this.scope = scope;
 
-		this.selected_group = '';
-
+		this.selected_group = null;
 		this.slowest_unit = null;
 		this.attack_type = null;
 	}
@@ -380,16 +379,16 @@ VillageGroupInterface = (function () {
 			$('#' + this.village_id + '_add_button').focus();
 		},
 		addToPlan: function () {
-			if (this.selected_group == '') {
+			if (this.selected_group == this.scope.groups[0]) {
 				alert("Please select the group in the dropdown menu you want to add!");
 				return false;
 			}
 
-			var coords; // lookup group coords from server
+			var coords = this.selected_group.villages;
 
 			for (var i = 0; i < this.scope.villages.length; i++) {
 				for (var j = 0; j < coords.length; j++) {
-					var coord_components = coords[j].split('|');
+					var coord_components = coords[j].coordinates.split('|');
 
 					if (this.scope.villages[i].x_coord == coord_components[0] && this.scope.villages[i].y_coord == coord_components[1]) {
 						switch (this.attack_type) {
