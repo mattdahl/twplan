@@ -66,38 +66,23 @@ class PlansController extends AppController {
 
 		$data = $this->request->input('json_decode', 'true');
 
-		$was_published = $this->Plan->query("SELECT `is_published` FROM `twp_users`.`plans` WHERE `id` = $plan_id")[0]['plans']['is_published'];
+		$this->Plan->id = $plan_id;
 
-		if ($data['is_published'] != 'false' && !$was_published) { // Setup the published_hash
-			$this->Plan->query("
-				UPDATE `twp_users`.`plans`
-				SET `is_published` = 1
-				WHERE `id` = $plan_id
-			");
+		$was_published = $this->Plan->findById($plan_id)->is_published;
+
+		if ($data['is_published'] == 'true' && !$was_published) { // Setup the published_hash
+			$this->Plan->saveField('is_published', true);
 
 			$published_hash = md5(time() . $this->Auth->user('id'));
 
-			$this->Plan->query("
-				UPDATE `twp_users`.`plans`
-				SET `published_hash` = '$published_hash'
-				WHERE `id` = $plan_id
-			");
+			$this->Plan->saveField('published_hash', $published_hash);
 		}
 		else if ($data['is_published'] == 'false' && $was_published) {
-			$this->Plan->query("
-				UPDATE `twp_users`.`plans`
-				SET `is_published` = 0
-				WHERE `id` = $plan_id
-			");
-
-			$this->Plan->query("
-				UPDATE `twp_users`.`plans`
-				SET `published_hash` = NULL
-				WHERE `id` = $plan_id
-			");
+			$this->Plan->saveField('is_published', false);
+			$this->Plan->saveField('published_hash', NULL);
 		}
 
-		return json_encode($this->Plan->query("SELECT * FROM `twp_users`.`plans` WHERE `id` = $plan_id"));
+		return json_encode($this->Plan->findById($plan_id));
 	}
 
 	public function delete ($plan_id) {
@@ -108,30 +93,22 @@ class PlansController extends AppController {
 
 	public function public_display ($published_hash) {
 		// Find the appropriate plan
-		$plan = $this->Plan->query("
-			SELECT * FROM `twp_users`.`plans`
-			WHERE `published_hash` = '$published_hash'
-		");
+		$plan = $this->Plan->findByPublishedHash($published_hash);
 
-		if (!count($plan) || !isset($plan[0]) || !isset($plan[0]['plans']) || !isset($plan[0]['plans']['is_published']) || (!isset($plan[0]['plans']['is_published']) && !$plan[0]['plans']['is_published'])) {
+		if (!count($plan) || !$plan->is_published) {
 			$this->Session->setFlash('<h1>Public Plan</h1> There is no published plan for this url indentifier.', 'plain_flash_message');
 			$this->set(compact('page', 'title_for_layout'));
 		}
 		else {
 			// Find the plans's commands
-			$plan = $plan[0]['plans'];
-			$plan_id = $plan['id'];
-			$commands = $this->Plan->query("SELECT * FROM `twp_users`.`commands` WHERE `plan_id` = $plan_id");
-			$commands_array = [];
-			foreach ($commands as $c) {
-				array_push($commands_array, $c['commands']);
-			}
-			$plan['commands'] = $commands_array;
+			$commands = $this->Plan->Command->findAllByPlanId($plan->id);
+
+			$plan->commands = $commands;
 
 			// Find the username of the plan owner
-			$user_id = $plan['user_id'];
+			$user_id = $plan->user_id;
 			$user = $this->Plan->query("SELECT * FROM `twp_users`.`users` WHERE `id` = $user_id");
-			$plan['owner'] = $user[0]['users']['username'];
+			$plan->owner = $user[0]['users']['username'];
 
 			$this->set(compact('page', 'title_for_layout', 'plan'));
 		}
