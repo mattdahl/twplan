@@ -55,7 +55,7 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 		PlanRequest.update($scope.current_plan.id, $scope.current_plan) // Returns a promise object
 		.then(function (data) { // Success
 			debugger;
-			$scope.current_plan.published_hash = data[0].plans.published_hash;
+			$scope.current_plan.published_hash = data.published_hash;
 		}, function (data) { // Error
 			debugger;
 		});

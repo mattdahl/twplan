@@ -6,7 +6,7 @@
 
 <h2>Add Villages by Copy/Paste</h2>
 <div>
-	<p>Paste in a chunck of text containing coordinates, i.e. copied from a TW overview screen. Coordinates will be parsed out.</p>
+	<p>Paste in a chunk of text containing coordinates, i.e. copied from a TW overview screen. Coordinates will be parsed out.</p>
 	<textarea id="villages_paste_in" style="float:left" ng-model='village_paste_in_interface.coords'></textarea>
 	<table style="float:left">
 		<tr>

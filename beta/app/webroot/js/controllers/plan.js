@@ -107,6 +107,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 				$.each(data, function (index, element) {
 					delete element._name_;
 					element.villages = JSON.parse(element.villages);
+					element.name = element.name + ' (' + element.villages.length + ' villages)';
 					$scope.groups.push(element);
 				});
 				debugger;
