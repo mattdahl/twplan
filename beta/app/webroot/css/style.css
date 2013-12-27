@@ -687,3 +687,7 @@ td.unit {
 	float: left;
 	margin-top: 20px;
 }
+
+#current_group_details {
+	margin-bottom: 20px;
+}

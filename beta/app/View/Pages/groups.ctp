@@ -13,27 +13,39 @@
 
 	<div id="current_group_display" ng-hide="current_group == groups[0]">
 		<h1>Groups</h1>
-		<p><b>Group Name:</b> {{current_group.name}}</p>
-		<p><b>Date Created:</b> {{current_group.date_created}}</p>
-		<p><b>Last Updated:</b> {{current_group.date_last_updated}}</p>
-		<p><b>Delete Group:</b> <input type="button" value="Delete" ng-click="delete_group(current_group)" /></p>
-		<p><b>Save Group:</b> <input type="button" value="Save" ng-click="save_group(current_group)" ></p>
+		<table id="current_group_details">
+			<th colspan=2>
+				Group: <input type="text" ng-model="current_group.name" />
+			</th>
+			<tr>
+				<td><b>Date Created</b></td>
+				<td>{{current_group.date_created}}</td>
+			</tr>
+			<tr>
+				<td><b>Last Updated</b></td>
+				<td>{{current_group.date_last_updated}}</td>
+			</tr>
+			<tr>
+				<td><b>Delete Group</b></td>
+				<td><input type="button" value="Delete" ng-click="delete_group(current_group)" /></td>
+			</tr>
+			<tr>
+				<td><b>Save Group</b></td>
+				<td><input type="button" value="Save" ng-click="save_group(current_group)" ></td>
+			</tr>
+		</table>
 
 		<table>
 			<tr>
 				<th>Village Name</th>
 				<th>Coordinates</th>
 				<th>Continent</th>
-				<th>Slowest Unit</th>
-				<th>Type of Attack</th>
 				<th>Remove Village from Plan</th>
 			</tr>
 			<tr ng-repeat="village in current_group.villages">
 				<td>{{village.name}}</td>
-				<td>{{village.x_coord}}|{{village.y_coord}}</td>
+				<td>{{village.coordinates}}</td>
 				<td>{{village.continent}}</td>
-				<td><img src='http://static-twplan.appspot.com/images/units/{{village.slowest_unit.url}}' /></td>
-				<td>{{AttackTypes.toString[village.attack_type]}}</td>
 				<td><input type="button" ng-click="current_group.remove_village(this)" value="Remove Village" /></td>
 			</tr>
 		</table>

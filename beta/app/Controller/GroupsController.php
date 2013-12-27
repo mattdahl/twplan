@@ -38,6 +38,20 @@ class GroupsController extends AppController {
 
 		return json_encode($new_group['Group']['name']);
 	}
+
+	public function get () {
+		$this->autoRender = false;
+
+		$groups = $this->Group->findAllByUserIdAndWorld($this->Auth->user('id'), $this->Session->read('current_world'));
+
+		if (is_array($groups)) {
+			return json_encode($groups);
+		}
+		else {
+			return json_encode([$groups]);
+		}
+
+	}
 }
 
 ?>

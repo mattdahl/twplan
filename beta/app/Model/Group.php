@@ -1,8 +1,11 @@
 <?php
 
+App::uses('AppModel', 'Model');
+
 class Group extends AppModel {
 
-	public $belongsTo = 'User';
+	// Defining this causes find() calls not to work... something wrong with the User model?
+	//public $belongsTo = 'User';
 
 	public $name;
 	public $world;

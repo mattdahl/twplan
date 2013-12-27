@@ -14,7 +14,6 @@ class User extends AppModel {
 		)
 	);
 
-	public $user_id;
 	public $username;
 	public $default_world;
 	public $default_timezone;
