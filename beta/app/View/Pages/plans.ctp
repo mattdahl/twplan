@@ -3,7 +3,7 @@
 	<h1>Public Plan</h1>
 	<p><b>Plan:</b> {{public_plan.name}}</p>
 	<p><b>World:</b> {{public_plan.world}}</p>
-	<p><b>Owner:</b> {{public_plan.user_id}}</p>
+	<p><b>Owner:</b> {{public_plan.owner}}</p>
 
 	<table id="current_plan_table">
 		<tr>

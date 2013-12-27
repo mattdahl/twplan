@@ -136,7 +136,8 @@ class PlansController extends AppController {
 			$this->Session->setFlash('<h1>Public Plan</h1> There is no published plan for this url indentifier.', 'plain_flash_message');
 			$this->set(compact('page', 'title_for_layout'));
 		}
-		else { // Find the plans's commands
+		else {
+			// Find the plans's commands
 			$plan = $plan[0]['plans'];
 			$plan_id = $plan['id'];
 			$commands = $this->Plan->query("SELECT * FROM `twp_users`.`commands` WHERE `plan_id` = $plan_id");
@@ -145,6 +146,11 @@ class PlansController extends AppController {
 				array_push($commands_array, $c['commands']);
 			}
 			$plan['commands'] = $commands_array;
+
+			// Find the username of the plan owner
+			$user_id = $plan['user_id'];
+			$user = $this->Plan->query("SELECT * FROM `twp_users`.`users` WHERE `id` = $user_id");
+			$plan['owner'] = $user[0]['users']['username'];
 
 			$this->set(compact('page', 'title_for_layout', 'plan'));
 		}
