@@ -7,10 +7,9 @@
 TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q) {
 	return {
 		save: function (group) {
-			debugger;
 			var deferred = $q.defer();
 
-			$http.post('groups', group)
+			$http.post('groups/group', group)
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);
@@ -23,7 +22,7 @@ TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q
 		query: function () {
 			var deferred = $q.defer();
 
-			$http.get('groups')
+			$http.get('groups/group')
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);
@@ -36,7 +35,7 @@ TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q
 		update: function (group_id, new_group) {
 			var deferred = $q.defer();
 
-			$http.post('groups/' + group_id, new_group)
+			$http.post('groups/group/' + group_id, new_group)
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);

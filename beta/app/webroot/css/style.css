@@ -677,3 +677,13 @@ td.unit {
 #current_plan_table, #current_plan_options {
 	margin-top: 15px;
 }
+
+/* =========== Groups ============== */
+#available_villages {
+	margin-right: 15%;
+}
+
+#available_villages, #villages_in_group {
+	float: left;
+	margin-top: 20px;
+}

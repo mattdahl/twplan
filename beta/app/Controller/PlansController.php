@@ -15,7 +15,7 @@ class PlansController extends AppController {
 
 	/**
 	 * Endpoint for saving a new plan
-	 * Used in the SaveRequest.js service
+	 * Used in the PlanRequest.js service
 	 * @return [string] The saved plan's name
 	 */
 	public function add () {
