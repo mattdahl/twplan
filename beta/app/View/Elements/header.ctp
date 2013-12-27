@@ -1,6 +1,6 @@
 <header ng-controller="HeaderController">
   <?php
-    echo $this->Html->link($this->Html->image("http://static-twplan.appspot.com/images/logo5.png", array('id' => 'logo')), '/index', array('escape' => false));
+    echo $this->Html->link($this->Html->image("http://static-twplan.appspot.com/images/logo.png", array('id' => 'logo')), '/index', array('escape' => false));
   ?>
 
   <?php

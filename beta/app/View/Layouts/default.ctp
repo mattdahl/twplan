@@ -75,7 +75,7 @@
 	?>
 
 
-	<link rel="icon" href="localhost/twplan/beta/images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="http://static-twplan.appspot.com/images/favicon.ico" type="image/x-icon" />
 	<meta name="description" content="TWplan is a dynamic and intelligent mass attack planner for the popular online game Tribalwars." />
 	<?php
 		echo $this->Html->meta(array('name' => 'username', 'content' => $this->Session->read('Auth.User.username') ? $this->Session->read('Auth.User.username') : ''));
