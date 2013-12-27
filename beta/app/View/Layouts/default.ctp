@@ -9,7 +9,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<?php
 		echo $this->Html->script('slider');
-		echo $this->Html->script('onload');
+		echo $this->Html->script('dropdown_navbar');
 		echo $this->Html->script('twplan_app_bootstrap');
 		echo $this->Html->script('controllers/header');
 		echo $this->Html->script('factories/meta_data');
