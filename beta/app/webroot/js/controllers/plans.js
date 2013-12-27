@@ -1,38 +1,34 @@
 /**
  * The controller for the /plans page
  */
-TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', 'Units', '$window', function ($scope, PlanRequest, Units, $window) {
+TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', 'Units', function ($scope, PlanRequest, Units) {
 	$scope.plans = [{name: 'Choose a plan...'}];
 	$scope.current_plan = $scope.plans[0];
 	$scope.countdown_timeout = null;
 
-	$scope.public_plan = $window.TWP.public_plan || null;
+	PlanRequest.query() // Returns a promise object
+	.then(function (data) { // Success
+		$.each(data, function (index, element) {
+			var plan = element.Plan;
 
-	if (!$scope.public_plan) {
-		PlanRequest.query() // Returns a promise object
-		.then(function (data) { // Success
-			$.each(data, function (index, element) {
-				var plan = element.Plan;
-
-				$.each(plan.commands, function (index, command) {
-					command.time_remaining = new Date(new Date(command.launch_datetime) - new Date()).getTime() / 1000; // Seconds
-					command.decrement_time_remaining = function () {
-						if (this.time_remaining > 0) {
-							this.time_remaining--;
-						}
-						else {
-							this.time_remaining = 'Expired!';
-						}
-					};
-				});
-
-				$scope.plans.push(plan);
-				debugger;
+			$.each(plan.commands, function (index, command) {
+				command.time_remaining = new Date(new Date(command.launch_datetime) - new Date()).getTime() / 1000; // Seconds
+				command.decrement_time_remaining = function () {
+					if (this.time_remaining > 0) {
+						this.time_remaining--;
+					}
+					else {
+						this.time_remaining = 'Expired!';
+					}
+				};
 			});
-		}, function (data) { // Error
+
+			$scope.plans.push(plan);
 			debugger;
 		});
-	}
+	}, function (data) { // Error
+		debugger;
+	});
 
 	/**
 	 * Initialize all the tooltips on the page

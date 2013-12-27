@@ -60,6 +60,15 @@
 				echo "<script>TWP.public_plan = " . json_encode($plan) . ";</script>";
 			}
 		}
+		else if ($page == 'public_plans') {
+			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js');
+			echo $this->Html->script('controllers/public_plans');
+			echo $this->Html->script('plan_objects');
+			echo $this->Html->script('factories/units');
+			echo $this->Html->css('jqueryui');
+
+			echo "<script>TWP.public_plan = " . json_encode($plan) . ";</script>";
+		}
 
 		echo $this->Html->css('style');
 

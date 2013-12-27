@@ -156,7 +156,7 @@ class PlansController extends AppController {
 		}
 
 		$title_for_layout = "Public Plan";
-		$page = $path = 'plans';
+		$page = $path = 'public_plans';
 
 		$this->set(compact('page', 'title_for_layout', 'plan'));
 
