@@ -691,3 +691,9 @@ td.unit {
 #current_group_details {
 	margin-bottom: 20px;
 }
+
+/* =========== Bug Report ============ */
+.bug_report_item {
+	width: 400px;
+	height: 50px;
+}

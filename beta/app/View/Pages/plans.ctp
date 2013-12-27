@@ -46,7 +46,7 @@
 					<th>ST Launch Time</th>
 					<th>Local Launch Time</th>
 					<th>Time Remaining</th>
-					<th>TW Link</th>
+					<th>TW Link <span class="tooltip" title="Click the link and then run the attack quickbar script from the scripts page to automatically launch the attack." />(?)</span></th>
 					<th>Delete Command</th>
 				</tr>
 				<tr ng-repeat="command in current_plan.commands">

@@ -2,7 +2,7 @@
 	<div id="instructions" ng-show="should_show_instructions">
 		<h1>Groups</h1>
 		<p>Create groups of your villages for easy use in planning. For instance, consider making a group for all your offensive villages to load with one click on the step one planning page.</p>
-		<p>You can manually configure your groups here, or automatically import your existing Tribalwars groups using the quickbar script found on the <?php echo $this->Html->link('scripts', '/user_scripts'); ?> page.</p>
+		<p>You can manually configure your groups here, or you can automatically import your existing Tribalwars groups using the quickbar script found on the <?php echo $this->Html->link('scripts', '/user_scripts'); ?> page.</p>
 
 		<b>New Group:</b> <input type="text" ng-model="new_group_name" /> <input type="button" ng-click="create_group()" value="Create" />
 		<br />
