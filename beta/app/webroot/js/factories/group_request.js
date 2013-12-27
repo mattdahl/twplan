@@ -35,7 +35,20 @@ TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q
 		update: function (group_id, new_group) {
 			var deferred = $q.defer();
 
-			$http.post('groups/group/' + group_id, new_group)
+			$http.put('groups/group/' + group_id, new_group)
+			.success(function (data, status, headers, config) {
+				debugger;
+				deferred.resolve(data);
+			}).error(function (data, status, headers, config) {
+				debugger;
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		},
+		destroy: function (group_id) {
+			var deferred = $q.defer();
+
+			$http.delete('groups/group/' + group_id)
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);

@@ -50,7 +50,13 @@ class GroupsController extends AppController {
 		else {
 			return json_encode([$groups]);
 		}
+	}
 
+	// TODO: Add check to make sure the group being deleted is owned by the current user
+	public function delete ($group_id) {
+		$this->autoRender = false;
+
+		$this->Group->delete($group_id);
 	}
 }
 

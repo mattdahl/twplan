@@ -427,6 +427,13 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 	$scope.saved_plan_name = '';
 	$scope.save_status = '';
 
+	/**
+	 * Initialize all the tooltips on the page
+	 */
+	$('.tooltip').tooltip({
+		show: false
+	});
+
 	$scope.recalculate_plan = function () {
 
 	};

@@ -57,9 +57,11 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 	};
 
 	$scope.delete_group = function (group) {
-		GroupRequest.destroy(group) // Returns a promise object
+		GroupRequest.destroy(group.id) // Returns a promise object
 		.then(function (data) { // Success
-			$scope.groups.slice($scope.groups.indexOf(group), 1);
+			$scope.groups.splice($scope.groups.indexOf(group), 1);
+			$scope.current_group = $scope.groups[0];
+			$scope.should_show_instructions = true;
 			debugger;
 		}, function (data) { // Error
 			debugger;
