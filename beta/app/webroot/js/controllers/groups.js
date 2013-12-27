@@ -15,6 +15,9 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 		$.each(data, function (index, element) {
 			delete element._name_;
 			element.villages = JSON.parse(element.villages);
+			element.remove_village = function (village) {
+				this.villages.splice(this.villages.indexOf(village), 1);
+			};
 			$scope.groups.push(element);
 			debugger;
 		});
@@ -91,4 +94,15 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 		});
 	};
 
+	$scope.update_group = function (group) {
+		GroupRequest.update(group.id, group) // Returns a promise object
+		.then(function (data) { // Success
+			$scope.current_group.date_last_updated = new Date();
+			$scope.current_group = $scope.groups[0];
+			$scope.should_show_instructions = true;
+			debugger;
+		}, function (data) { // Error
+			debugger;
+		});
+	};
 }]);

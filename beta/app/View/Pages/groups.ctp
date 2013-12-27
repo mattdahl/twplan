@@ -31,7 +31,7 @@
 			</tr>
 			<tr>
 				<td><b>Save Group</b></td>
-				<td><input type="button" value="Save" ng-click="save_group(current_group)" ></td>
+				<td><input type="button" value="Save" ng-click="update_group(current_group)" ></td>
 			</tr>
 		</table>
 
