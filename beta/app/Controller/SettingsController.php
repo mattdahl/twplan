@@ -52,14 +52,14 @@ class SettingsController extends AppController {
 			$Users->constructClasses();
 
 			$Users->User->id = $this->Auth->user('id');
-			$Users->User->saveField('local_timezone', $data['local_timezone']['name']);
+			$Users->User->saveField('local_timezone', $data['local_timezone']['offset']);
 
 			// Relogin the user to update the Auth component
 			$this->Auth->login(array(
 				'id' => $this->Auth->user('id'),
 				'username' => $this->Auth->user('username'),
 				'default_world' => $this->Auth->user('default_world'),
-				'local_timezone' => $data['local_timezone']['name']
+				'local_timezone' => $data['local_timezone']['offset']
 			));
 
 			return json_encode($this->Session->read('Auth.User'));
