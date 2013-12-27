@@ -69,6 +69,9 @@
 			echo $this->Html->script('factories/group_request');
 			echo $this->Html->script('factories/villages_request');
 		}
+		else if ($page == 'settings') {
+			echo $this->Html->script('controllers/settings');
+		}
 
 		echo $this->Html->css('style');
 
@@ -82,6 +85,8 @@
 		echo $this->Html->meta(array('name' => 'user_id', 'content' => $this->Session->read('Auth.User.id') ? $this->Session->read('Auth.User.id') : ''));
 		echo $this->Html->meta(array('name' => 'current_world', 'content' => $this->Session->read('current_world') ? $this->Session->read('current_world') : ''));
 		echo $this->Html->meta(array('name' => 'last_updated', 'content' => $this->Session->read('last_updated') ? $this->Session->read('last_updated') : 0));
+		echo $this->Html->meta(array('name' => 'default_world', 'content' => $this->Session->read('Auth.User.default_world') ? $this->Session->read('Auth.User.default_world') : ''));
+		echo $this->Html->meta(array('name' => 'local_timezone', 'content' => $this->Session->read('Auth.User.local_timezone') ? $this->Session->read('Auth.User.local_timezone') : ''));
 	?>
 
 </head>

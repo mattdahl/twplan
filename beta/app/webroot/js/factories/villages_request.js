@@ -9,7 +9,7 @@ TWP.twplan.Factories.factory('VillagesRequest', ['$http', '$q', function ($http,
 		query: function () {
 			var deferred = $q.defer();
 
-			$http.post('users/villages')
+			$http.get('users/villages')
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);

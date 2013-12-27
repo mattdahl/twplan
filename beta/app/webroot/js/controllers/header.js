@@ -21,7 +21,7 @@ TWP.twplan.controller('HeaderController', ['$rootScope', '$scope', '$http', func
 
 	$scope.change_world = function () {
 		$http.post(
-			'/settings/set_current_world',
+			'settings/set_current_world',
 			{world: $rootScope.current_world}
 		).success(function (data, status, headers, config) {
 			debugger;

@@ -1,10 +1,11 @@
 <?php
 
 App::import('Controller', 'Worlds');
+App::import('Controller', 'Users');
 
 /**
 * A controller for the settings
-* Some data is backend by ActiveRecord and persisted, other data is merely stored in the Session
+* Some data is backed by ActiveRecord and persisted, other data is merely stored in the Session
 */
 class SettingsController extends AppController {
 
@@ -17,22 +18,53 @@ class SettingsController extends AppController {
 		$this->RequestHandler->setContent('json', 'application/json');
 	}
 
-	public function index () {
-		$page = $subpage = $title_for_layout = 'Settings';
-		$this->set(compact('page', 'subpage', 'title_for_layout'));
-
-		$this->render('/settings');
-	}
-
 	public function set_default_world () {
+		$this->autoRender = false;
+
 		if ($this->request->is('post')) {
-			$this->Auth->user()->set_default_world($this->request->params['default_world']);
+			$data = $this->request->input('json_decode', 'true');
+
+			$Users = new UsersController;
+			$Users->constructClasses();
+
+			$Users->User->id = $this->Auth->user('id');
+			$Users->User->saveField('default_world', $data['default_world']);
+
+			// Relogin the user to update the Auth component
+			$this->Auth->login(array(
+				'id' => $this->Auth->user('id'),
+				'username' => $this->Auth->user('username'),
+				'default_world' => $data['default_world'],
+				'local_timezone' => $this->Auth->user('local_timezone')
+			));
+
+			return json_encode($Users->User->findById($this->Auth->user('id'))->local_timezone);
 		}
 	}
 
-	public function set_default_timezone () {
+	public function set_local_timezone () {
+		$this->autoRender = false;
+
 		if ($this->request->is('post')) {
-			$this->Auth->user()->set_default_timezone($this->request->params['default_timezone']);
+			$data = $this->request->input('json_decode', 'true');
+
+			$Users = new UsersController;
+			$Users->constructClasses();
+
+			$Users->User->id = $this->Auth->user('id');
+			$Users->User->saveField('local_timezone', $data['local_timezone']['name']);
+
+			// Relogin the user to update the Auth component
+			$this->Auth->login(array(
+				'id' => $this->Auth->user('id'),
+				'username' => $this->Auth->user('username'),
+				'default_world' => $this->Auth->user('default_world'),
+				'local_timezone' => $data['local_timezone']['name']
+			));
+
+			return json_encode($this->Session->read('Auth.User'));
+
+			return json_encode($Users->User->findById($this->Auth->user('id'))->local_timezone);
 		}
 	}
 
