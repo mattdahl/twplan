@@ -435,6 +435,12 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 		show: false
 	});
 
+	$scope.format_local_launchtime = function (date) {
+		var launchtime = new Date(date);
+		var local_launchtime = new Date(launchtime.setHours(launchtime.getHours() + $scope.MetaData.local_timezone));
+		return local_launchtime.toString().slice(0, 24);
+	};
+
 	$scope.recalculate_plan = function () {
 
 	};

@@ -60,6 +60,7 @@ TWP.twplan.run(['$rootScope', 'MetaData', 'AttackTypes', function ($rootScope, M
 	};
 
 	$rootScope.AttackTypes = AttackTypes;
+	$rootScope.MetaData = MetaData;
 	$rootScope.plan = null;
 
 	$rootScope.username = MetaData.username;

@@ -1,7 +1,7 @@
 /**
  * The controller for the /settings page
  */
-TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', 'MetaData', function ($scope, $http, MetaData) {
+TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', function ($scope, $http) {
 	$scope.worlds = [
 		19,
 		30,
@@ -56,8 +56,8 @@ TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', 'Met
 		return null;
 	};
 
-	$scope.default_world = parseInt(MetaData.default_world, 10);
-	$scope.local_timezone = $scope.timezone_in_array({offset: MetaData.local_timezone});
+	$scope.default_world = $scope.MetaData.default_world;
+	$scope.local_timezone = $scope.timezone_in_array({offset: $scope.MetaData.local_timezone});
 
 	$scope.change_local_timezone = function () {
 		$http.post(

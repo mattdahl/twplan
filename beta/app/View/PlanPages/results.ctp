@@ -22,7 +22,7 @@
 		<td>{{AttackTypes.toString[command.village.attack_type]}}</td>
 		<td>{{format_seconds(command.traveling_time.getTime() / 1000)}}</td>
 		<td>{{command.launch_datetime.toString().slice(0, 24)}}</td>
-		<td>Local Launch Time</td>
+		<td>{{format_local_launchtime(command.launch_datetime)}}</td>
 		<td>{{format_seconds(command.time_remaining)}}</td>
 		<td><a href='{{command.launch_url}}'>Launch</a></td>
 	</tr>
