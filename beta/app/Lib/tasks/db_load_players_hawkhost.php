@@ -1,8 +1,6 @@
 <?php
 /**
- * Intended for command line usage for local development. Loads player data into the local database. Example syntax for world 70:
- *
- * $ php db_load_players.php 70
+ * Intended for cron job usage for live development. Loads player data into the hawkhost database.
  */
 
 error_reporting(-1);
