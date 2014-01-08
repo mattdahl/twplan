@@ -72,6 +72,9 @@
 		else if ($page == 'settings') {
 			echo $this->Html->script('controllers/settings');
 		}
+		else if ($page == 'user_scripts') {
+			echo $this->Html->script('controllers/user_scripts');
+		}
 
 		echo $this->Html->css('style');
 

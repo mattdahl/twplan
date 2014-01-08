@@ -227,6 +227,21 @@
 		)
 	);
 
+	Router::connect('/user_scripts',
+		array(
+			'controller' => 'pages',
+			'action' => 'display',
+			'user_scripts'
+		)
+	);
+
+	Router::connect('/public/*',
+		array(
+			'controller' => 'public',
+			'action' => 'display'
+		)
+	);
+
 /**
  * Load all plugin routes.  See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
