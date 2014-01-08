@@ -32,82 +32,82 @@ else {
 	$write_to = '';
 	for ($i = 0; $i < count($village_file); $i++) {
 		$line = explode(',', $village_file[$i]);
-		$write_to .= $line[0] . '>' . urldecode($line[1]) . '>' . $line[2] . '>' . $line[3] . '>' . $line[4] . "\n"; // Delimit using '>' because TW doesn't allow this character
-	}
-	printf("Processed data... \n");
-}
+                $write_to .= $line[0] . '>' . urldecode($line[1]) . '>' . $line[2] . '>' . $line[3] . '>' . $line[4] . "\n"; // Delimit using '>' because TW doesn't allow this character
+            }
+            printf("Processed data... \n");
+        }
 
 // Pulls the processed csv file into the tmp folder
-if (!file_put_contents($local_filepath, $write_to)) {
-	printf("Error writing remote file %s to path %s\n", $filepath, $local_filepath);
-	exit();
-}
-else {
-	printf("Wrote data to tmp folder... \n");
-}
+        if (!file_put_contents($local_filepath, $write_to)) {
+        	printf("Error writing remote file %s to path %s\n", $filepath, $local_filepath);
+        	exit();
+        }
+        else {
+        	printf("Wrote data to tmp folder... \n");
+        }
 
 // Loads the database data from app/Config/database.php
-include('../../Config/database.php');
-$db_config = get_class_vars('DATABASE_CONFIG');
-$village_db_config = $db_config['villages'];
+        include('../../Config/database.php');
+        $db_config = get_class_vars('DATABASE_CONFIG');
+        $village_db_config = $db_config['villages'];
 
-$mysqli = new mysqli($village_db_config['host'], $village_db_config['login'], $village_db_config['password'], $village_db_config['database']);
+        $mysqli = new mysqli($village_db_config['host'], $village_db_config['login'], $village_db_config['password'], $village_db_config['database']);
 
 // Checks for connection error
-if ($mysqli->connect_errno) {
-    printf("Connect failed: %s\n", $mysqli->connect_error);
-    exit();
-}
-else {
-	printf("Connected to database... \n");
-}
+        if ($mysqli->connect_errno) {
+        	printf("Connect failed: %s\n", $mysqli->connect_error);
+        	exit();
+        }
+        else {
+        	printf("Connected to database... \n");
+        }
 
-$truncate_query = "DROP TABLE IF EXISTS en{$world}";
+        $truncate_query = "DROP TABLE IF EXISTS en{$world}";
 
-if (!$mysqli->query($truncate_query)) {
-    printf("Error truncating old table with query \n %s \n", $create_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
-}
-else {
-	printf("Truncated old table...\n");
-}
+        if (!$mysqli->query($truncate_query)) {
+        	printf("Error truncating old table with query \n %s \n", $create_query);
+        	printf("Error message: %s \n", $mysqli->error);
+        	exit();
+        }
+        else {
+        	printf("Truncated old table...\n");
+        }
 
-$create_query = "CREATE TABLE IF NOT EXISTS en{$world}
-			(
-				village_id INT NOT NULL,
-				village_name VARCHAR(100) NOT NULL,
-				x_coord INT NOT NULL,
-				y_coord INT NOT NULL,
-				player_id INT NOT NULL,
-			PRIMARY KEY
-				(village_id)
-			)";
+        $create_query = "CREATE TABLE IF NOT EXISTS en{$world}
+        (
+        	village_id INT NOT NULL,
+        	village_name VARCHAR(100) NOT NULL,
+        	x_coord INT NOT NULL,
+        	y_coord INT NOT NULL,
+        	player_id INT NOT NULL,
+        	PRIMARY KEY
+        	(village_id)
+        	)";
 
 if (!$mysqli->query($create_query)) {
-    printf("Error creating table with query \n %s \n", $create_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
+	printf("Error creating table with query \n %s \n", $create_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
 }
 else {
 	printf("Created table (IF NOT EXISTS)...\n");
 }
 
 $load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE en{$world}
-			FIELDS TERMINATED BY '>'
-			LINES TERMINATED BY '\n'
-			(
-				village_id,
-				village_name,
-				x_coord,
-				y_coord,
-				player_id
-			)";
+FIELDS TERMINATED BY '>'
+LINES TERMINATED BY '\n'
+(
+	village_id,
+	village_name,
+	x_coord,
+	y_coord,
+	player_id
+	)";
 
 if (!$mysqli->query($load_query)) {
-    printf("Error loading village data with query \n %s \n", $load_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
+	printf("Error loading village data with query \n %s \n", $load_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
 }
 else {
 	printf("Parsed csv into mysql...\n");
