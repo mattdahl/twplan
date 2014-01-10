@@ -9,7 +9,7 @@ TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q
 		save: function (group) {
 			var deferred = $q.defer();
 
-			$http.post('groups/group', group)
+			$http.post('group', group) // relative URL is different because the pushState/popState mechanism mangles the base URL
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);
@@ -35,7 +35,7 @@ TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q
 		update: function (group_id, new_group) {
 			var deferred = $q.defer();
 
-			$http.put('groups/group/' + group_id, new_group)
+			$http.put(group_id, new_group) // relative URL is different because the pushState/popState mechanism mangles the base URL
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);
@@ -48,7 +48,7 @@ TWP.twplan.Factories.factory('GroupRequest', ['$http', '$q', function ($http, $q
 		destroy: function (group_id) {
 			var deferred = $q.defer();
 
-			$http.delete('groups/group/' + group_id)
+			$http.delete(group_id) // relative URL is different because the pushState/popState mechanism mangles the base URL
 			.success(function (data, status, headers, config) {
 				debugger;
 				deferred.resolve(data);

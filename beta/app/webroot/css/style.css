@@ -692,6 +692,28 @@ td.unit {
 	margin-bottom: 20px;
 }
 
+#group_search_box {
+	margin-left: 2%;
+	margin-right: 14%;
+	margin-bottom: 10px;
+}
+
+#group_page_marker {
+	list-style-type:none;
+	float: left;
+	margin: 0;
+	margin-bottom: 10px;
+	padding-left: 6px;
+}
+
+#group_page_marker li a {
+	color: #804000;
+}
+
+#group_page_marker li a:hover {
+	color: white;
+}
+
 /* =========== Bug Report ============ */
 .bug_report_item {
 	width: 400px;

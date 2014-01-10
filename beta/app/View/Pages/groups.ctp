@@ -57,6 +57,12 @@
 		<b>Save Group:</b> <input type="button" value="Save" ng-click="save_group(new_group)" > <br />
 		<div id="available_villages">
 			<h2>Your Villages</h2>
+			<input type="text" id="group_search_box" placeholder="Search villages..." ng-model="search_term" ng-change="search_villages()" />
+			<div>
+				<ul id="group_page_marker" ng-repeat="pages in paginated_available_villages" ng-hide="paginated_available_villages.length < 2">
+					<li ng-class="{selected_page_marker: ($index == current_page)}"><a href="javascript:void(0);" ng-click="switch_page($index)">[{{$index + 1}}]</a></li>
+				</ul>
+			</div>
 			<table>
 				<tr>
 					<th>Village Name</th>
@@ -64,7 +70,7 @@
 					<th>Continent</th>
 					<th>Add to Group</th>
 				</tr>
-				<tr ng-repeat="village in available_villages">
+				<tr ng-repeat="village in page_available_villages">
 					<td>{{village.name}}</td>
 					<td>{{village.coordinates}}</td>
 					<td>{{village.continent}}</td>

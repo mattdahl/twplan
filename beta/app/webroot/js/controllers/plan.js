@@ -161,8 +161,8 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 	$scope.landing_date = '';
 	$scope.landing_time = '';
 	$scope.optimization_checked = false;
-	$scope.early_bound;
-	$scope.late_bound;
+	$scope.early_bound = null;
+	$scope.late_bound = null;
 
 	$scope.toggle_launch_time_optimization_details = function () {
 		$('#launch_time_optimization_details').toggle();

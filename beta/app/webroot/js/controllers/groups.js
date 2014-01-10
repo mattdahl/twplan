@@ -4,6 +4,11 @@
 TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest', 'VillagesRequest', function ($scope, GroupRequest, VillagesRequest) {
 	$scope.villages = [];
 	$scope.available_villages = [];
+	$scope.search_term = '';
+	$scope.paginated_available_villages = []; // Holds the villages paginated into arrays of length 20
+	$scope.page_available_villages = []; // Holds the villages to be displayed on the current page
+	$scope.current_page = 0;
+
 	$scope.groups = [{name: 'Choose a group...'}];
 	$scope.current_group = $scope.groups[0];
 	$scope.new_group_name = '';
@@ -36,15 +41,22 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 				add_to_group: function () {
 					$scope.new_group.villages.push(this);
 					$scope.available_villages.splice($scope.available_villages.indexOf(this), 1);
+					$scope.paginate_villages($scope.available_villages);
+					$scope.page_available_villages = $scope.paginated_available_villages[$scope.current_page];
 				},
 				remove_from_group: function () {
 					$scope.available_villages.push(this);
-					$scope.new_group.villages.splice($scope.available_villages.indexOf(this), 1);
+					$scope.new_group.villages.splice($scope.new_group.villages.indexOf(this), 1);
+					$scope.sort_villages($scope.available_villages);
+					$scope.paginate_villages($scope.available_villages);
+					$scope.page_available_villages = $scope.paginated_available_villages[$scope.current_page];
 				}
 			});
 		});
 		$scope.sort_villages($scope.villages);
 		$scope.available_villages = $scope.villages;
+		$scope.paginate_villages($scope.available_villages);
+		$scope.page_available_villages = $scope.paginated_available_villages[$scope.current_page];
 	}, function (data) { // Error
 		debugger;
 	});
@@ -114,8 +126,8 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 	$scope.save_group = function (group) {
 		GroupRequest.save(group) // Returns a promise object
 		.then(function (data) { // Success
-			$scope.new_group.date_created = new Date();
-			$scope.new_group.date_last_updated = new Date();
+			$scope.new_group.date_created = (new Date()).toString().slice(0, 24);
+			$scope.new_group.date_last_updated = (new Date()).toString().slice(0, 24);
 			$scope.groups.push($scope.new_group);
 			$scope.new_group = null;
 			$scope.new_group_name = '';
@@ -135,5 +147,48 @@ TWP.twplan.Controllers.controller('GroupsController', ['$scope', 'GroupRequest',
 		}, function (data) { // Error
 			debugger;
 		});
+	};
+
+	$scope.search_villages = function () {
+		if ($scope.search_term.length === 0) { // Reset the display when the search box has been cleared
+			$scope.paginate_villages($scope.available_villages);
+			$scope.page_available_villages = $scope.paginated_available_villages[0];
+		}
+		else if ($scope.search_term.length < 2) { // Need at least two characters to search (to minimize performance issues)
+			return;
+		}
+
+		var search_results = [];
+
+		for (var i = 0; i < $scope.available_villages.length; i++) {
+			if ($scope.available_villages[i].name.indexOf($scope.search_term) >= 0 || ($scope.available_villages[i].x_coord + '|' + $scope.available_villages[i].y_coord).indexOf($scope.search_term) >= 0 || $scope.available_villages[i].continent.indexOf($scope.search_term) >= 0) {
+				search_results.push($scope.available_villages[i]);
+			}
+		}
+
+		$scope.paginate_villages(search_results);
+		$scope.switch_page(0);
+	};
+
+	$scope.switch_page = function (index) {
+		$scope.current_page = index;
+		$scope.page_available_villages = $scope.paginated_available_villages[$scope.current_page];
+	};
+
+	$scope.paginate_villages = function (villages) {
+		$scope.paginated_available_villages = [];
+
+		if (!villages.length) {
+			$scope.paginated_available_villages[0] = [{name: 'No search results.'}];
+		}
+
+		for (var i = 0; i < villages.length; i++) {
+			var index = parseInt(i / 20, 10);
+			if ($scope.paginated_available_villages[index]) {
+				$scope.paginated_available_villages[index].push(villages[i]);
+			} else {
+				$scope.paginated_available_villages[index] = [villages[i]];
+			}
+		}
 	};
 }]);

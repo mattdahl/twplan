@@ -44,7 +44,10 @@ class GroupsController extends AppController {
 
 		$groups = $this->Group->findAllByUserIdAndWorld($this->Auth->user('id'), $this->Session->read('current_world'));
 
-		if (is_array($groups)) {
+		if ($groups === true) { // The find function returns true when nothing is found for some reason
+			return json_encode([]);
+		}
+		else if (is_array($groups)) {
 			return json_encode($groups);
 		}
 		else {
