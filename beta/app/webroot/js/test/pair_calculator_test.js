@@ -83,6 +83,15 @@ PairCalculator = {
 			late_bound = '23:00';
 		}
 
+		Candidate = (function () {
+			function Candidate(groom_or_bride, distance) {
+				this.groom_or_bride = groom_or_bride;
+				this.distance = distance;
+			}
+
+			return Candidate;
+		})();
+
 		MarriageWrapper = (function () {
 			function MarriageWrapper(village_or_target) {
 				this.village_or_target = village_or_target;
@@ -94,7 +103,7 @@ PairCalculator = {
 			MarriageWrapper.prototype = {
 				rank: function (candidate) {
 					for (i = 0; i < this.candidates.length; i++) {
-						if (this.candidates[i].village_or_target.x_coord === candidate.village_or_target.x_coord && this.candidates[i].village_or_target.y_coord === candidate.village_or_target.y_coord) { // Can't test for object equality because in the ranking function the objects are copied, not passed by reference
+						if (this.candidates[i].groom_or_bride === candidate) {
 							return i;
 						}
 					}
@@ -109,7 +118,7 @@ PairCalculator = {
 						return null;
 					}
 
-					return this.candidates[this.candidate_index++];
+					return this.candidates[this.candidate_index++].groom_or_bride;
 				},
 				engage_to: function (marriage_wrapper) {
 					if (marriage_wrapper.fiance) {
@@ -165,24 +174,12 @@ PairCalculator = {
 					// Second condiiton is if the time restriction "wraps around the night" (i.e. early - late > 0)
 					console.log((launch_hour >= early && launch_hour <= late) || (early - late > 0 && (launch_hour >= late && launch_hour <= early)));
 					if ((launch_hour >= early && launch_hour <= late) || (early - late > 0 && (launch_hour >= late && launch_hour <= early))) {
-						var candidate = new MarriageWrapper(brides[j].village_or_target);
-						candidate.distance = distance;
-						grooms[i].candidates.push(candidate);
-
-						candidate = new MarriageWrapper(grooms[i].village_or_target);
-						candidate.distance = distance;
-						brides[j].candidates.push(candidate);
+						grooms[i].candidates.push(new Candidate(brides[j], distance));
+						brides[j].candidates.push(new Candidate(grooms[i], distance));
 					}
 					else {
-						// Copy the MarriageWrapper object so the unique distance is preserved
-						// Problem if pass by reference is that the distance will just get recalculated on the next loop, before the sorting happens
-						var candidate = new MarriageWrapper(brides[j].village_or_target);
-						candidate.distance = Number.MAX_VALUE;
-						grooms[i].candidates.push(candidate);
-
-						candidate = new MarriageWrapper(grooms[i].village_or_target);
-						candidate.distance = Number.MAX_VALUE;
-						brides[j].candidates.push(candidate);
+						grooms[i].candidates.push(new Candidate(brides[j], Number.MAX_VALUE));
+						brides[j].candidates.push(new Candidate(grooms[i], Number.MAX_VALUE));
 					}
 				}
 			}
@@ -219,7 +216,15 @@ PairCalculator = {
 			engage(grooms);
 
 			for (var i = 0; i < grooms.length; i++) {
-				console.log("%s is engaged to %s", grooms[i].village_or_target.name, grooms[i].fiance.village_or_target.x_coord + '|' + grooms[i].fiance.village_or_target.y_coord);
+				var groom = grooms[i];
+				var bride = grooms[i].fiance;
+
+				var a = [groom.village_or_target.x_coord, groom.village_or_target.y_coord];
+				var b = [bride.village_or_target.x_coord, bride.village_or_target.y_coord];
+				var distance = (Math.sqrt(Math.pow((a[0] - b[0]) * (a[0] - b[0]), 2) + Math.pow((a[1] - b[1]) * (a[1] - b[1]), 2)) * grooms[i].village_or_target.slowest_unit.speed + 0.5 >> 0) * 60000; // To ms
+				var launch_hour = (new Date(landing_datetime - distance)).getHours();
+
+				console.log("%s is engaged to %s. LH: %d", grooms[i].village_or_target.name, grooms[i].fiance.village_or_target.x_coord + '|' + grooms[i].fiance.village_or_target.y_coord, launch_hour);
 			}
 
 			console.log(PairCalculator.is_stable(grooms, brides));
@@ -272,13 +277,13 @@ Test = (function () {
 		));
 	}
 
-	PairCalculator.pair(villages, targets, new Date(), '10:00', '11:00');
+	PairCalculator.pair(villages, targets, new Date(), '12:00', '17:00');
 })();
 
 /*
  * When the time optimization feature is turned off, make_rankings() should rank based on proximity in order to ensure
  * the most efficient launching combination.
  *
- * However, when the time optimization feature is turned off, make_rankings() should rank based on "good matches" - i.e.
- * matches whose launch times fall between the restriction endpoints.
+ * However, when the time optimization feature is turned on, make_rankings() should rank based on the normalized difference
+ * in the launch time hour and the median of the launch time restriction.
  */
