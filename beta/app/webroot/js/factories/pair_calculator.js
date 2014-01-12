@@ -116,7 +116,7 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 				grooms.sort(sort_by_good_matches);
 				brides.sort(sort_by_good_matches);
 
-				engage(villages);
+				engage(grooms);
 
 				for (var i = 0; i < villages.length; i++) {
 					console.log("%s is engaged to %s", villages[i].name, villages[i].fiance.name);
