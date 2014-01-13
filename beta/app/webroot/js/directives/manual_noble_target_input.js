@@ -79,15 +79,19 @@ TWP.twplan.Directives.directive('manualNobleTargetInput', ['AutocompleteBuilder'
 						scope.village.manual_target.continent,
 						scope.village.manual_target.attack_type
 					);
-					scope.targets_in_plan.nobles.push(relinquished_target);
 
-					// Toggle the state flag on both the relinquished target object and the new target object
-					scope.$apply(function () {
-						scope.toggle_manually_assigned_state(relinquished_target); // Relinquished target
-						if (target) { // Make sure the relinquished target isn't merely being replaced
-							scope.toggle_manually_assigned_state(target); // New target
-						}
-					});
+					// If the target to be relinquished has been deleted from the plan altogether, don't push it back onto the array!
+					if (scope.index_of_target(relinquished_target) != Infinity) {
+						scope.targets_in_plan.nobles.push(relinquished_target);
+
+						// Toggle the state flag on both the relinquished target object and the new target object
+						scope.$apply(function () {
+							scope.toggle_manually_assigned_state(relinquished_target); // Relinquished target
+							if (target) { // Make sure the relinquished target isn't merely being replaced
+								scope.toggle_manually_assigned_state(target); // New target
+							}
+						});
+					}
 				}
 				else { // If this update is just adding a new target to a pristine state
 					// Toggle the state flag on both the relinquished target object

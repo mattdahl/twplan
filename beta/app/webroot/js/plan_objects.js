@@ -153,7 +153,6 @@ Target = (function () {
 			switch (this.attack_type) {
 				case this.scope.AttackTypes.Nuke:
 					this.scope.targets.nukes.splice(this.scope.targets.nukes.indexOf(this), 1);
-					this.scope.targets_in_plan.nukes.splice(this.scope.targets_in_plan.nukes.indexOf(this), 1);
 
 					// This is so ugly! Is there a more Angular way to do this?
 					// Problem is that we don't have a reference to the target-assigning scope, so we have to traverse the DOM to find and check them all
@@ -171,7 +170,6 @@ Target = (function () {
 					break;
 				case this.scope.AttackTypes.Noble:
 					this.scope.targets.nobles.splice(this.scope.targets.nobles.indexOf(this), 1);
-					this.scope.targets_in_plan.nobles.splice(this.scope.targets_in_plan.nobles.indexOf(this), 1);
 
 					// This is so ugly! Is there a more Angular way to do this?
 					// Problem is that we don't have a reference to the target-assigning scope, so we have to traverse the DOM to find and check them all
@@ -189,7 +187,6 @@ Target = (function () {
 					break;
 				case this.scope.AttackTypes.Support:
 					this.scope.targets.supports.splice(this.scope.targets.supports.indexOf(this), 1);
-					this.scope.targets_in_plan.supports.splice(this.scope.targets_in_plan.supports.indexOf(this), 1);
 
 					// This is so ugly! Is there a more Angular way to do this?
 					// Problem is that we don't have a reference to the target-assigning scope, so we have to traverse the DOM to find and check them all
