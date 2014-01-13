@@ -2,16 +2,14 @@
 <p id="instructions">Choose the landing date and time for your attack. All times are in <b>TW Server Time</b> (see bottom of page)!</p>
 
 <h2>Arrival Information</h2>
-Landing Date: <input type="date" id="landingdate" placeholder="mm/dd/yyyy" ng-model='landing_date' />
-Landing Time: <input type="text" id="landingtime" placeholder="hh:mm:ss" ng-model='landing_time' /> <br /> <br />
-<h2>Launch Time Optimization <input type="checkbox" id="timingrestriction" ng-model="optimization_checked" ng-change="toggle_launch_time_optimization_details()" /></h2>
-<div id="launch_time_optimization_details" style="display: none;">
-	<p>TWplan's algorithm can intelligently plan your commands such that the launch times are at times during the day that are convenient to you.
-		For instance, maybe you would prefer not to have any launch times when you would normally be asleep.
-		If you check the Send Time Optimization checkbox, TWplan will try to plan commands to have launch times <i>between</i> the "early bound" and the "late bound"</p>
-	<p>Enter between what two times is the ideal time to launch attacks.</p>
+Landing Date: <input type="date" id="landingdate" placeholder="mm/dd/yyyy" ng-model="landing_date" />
+Landing Time: <input type="text" id="landingtime" placeholder="hh:mm:ss" ng-model="landing_time" /> <br /> <br />
+<h2>Launch Time Optimization <input type="checkbox" ng-model="optimization_checked" /></h2>
+<div ng-show="optimization_checked">
+	<p>TWplan"s algorithm can intelligently plan your commands such that the launch times are at times during the day that are convenient to you. For instance, maybe you would prefer not to have any launch times when you would normally be asleep. If you enable this feature, TWplan will try to plan commands to have launch times <i>between</i> the "early bound" and the "late bound"</p>
+	<p>Enter the range of times when it is best launch attacks.</p>
 	Early Bound:
-	<select id="earlybound" ng-model='early_bound'>
+	<select ng-model="early_bound">
 		<option>00:00</option>
 		<option>01:00</option>
 		<option>02:00</option>
@@ -37,8 +35,9 @@ Landing Time: <input type="text" id="landingtime" placeholder="hh:mm:ss" ng-mode
 		<option>22:00</option>
 		<option>23:00</option>
 	</select>
+	<br />
 	Late Bound:
-	<select id="latebound" ng-model='late_bound'>
+	<select ng-model="late_bound">
 		<option>00:00</option>
 		<option>01:00</option>
 		<option>02:00</option>
@@ -68,4 +67,4 @@ Landing Time: <input type="text" id="landingtime" placeholder="hh:mm:ss" ng-mode
 
 <br />
 
-<input type='button' value='Calculate Plan' ng-click='submitStepThree()' />
+<input type="button" value="Calculate Plan" ng-click="submitStepThree()" />

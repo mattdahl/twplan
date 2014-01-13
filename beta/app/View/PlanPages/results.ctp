@@ -42,14 +42,68 @@
 	<input type="text" id="planname" ng-model="saved_plan_name" />
 	<button id="save" ng-click="save_plan()">Save</button>
 	<img id="loadingcircle" src="http://static-twplan.appspot.com/images/loadingcircle.gif" />
-	<div id="saveresults" ng-bind="save_status"></div>
 </div>
 
-<div id="redoplan">
+<div id="recalculate_plan">
 	<b>Recalculate Plan With Different Landing Information</b> <br /> <br />
-	<form>
-		Landing Date: <input type="date" id="newlandingdate" placeholder="mm/dd/yyyy" />
-		Landing Time: <input type="text" id="newlandingtime" placeholder="hh:mm:ss" /> <br /> <br />
-		<input type="submit" value="Recalculate Plan" ng-click="recalculate_plan()" />
-	</form>
+		Landing Date: <input type="date" ng-model="new_landing_date" placeholder="mm/dd/yyyy" />
+		Landing Time: <input type="text" ng-model="new_landing_time" placeholder="hh:mm:ss" /> <br />
+		Launch Time Optimization <input type="checkbox" ng-model="optimization_checked" /> <br />
+		<div ng-show="optimization_checked">
+			Early Bound:
+			<select ng-model="early_bound">
+				<option>00:00</option>
+				<option>01:00</option>
+				<option>02:00</option>
+				<option>03:00</option>
+				<option>04:00</option>
+				<option>05:00</option>
+				<option>06:00</option>
+				<option>07:00</option>
+				<option>08:00</option>
+				<option>09:00</option>
+				<option>10:00</option>
+				<option>11:00</option>
+				<option>12:00</option>
+				<option>13:00</option>
+				<option>14:00</option>
+				<option>15:00</option>
+				<option>16:00</option>
+				<option>17:00</option>
+				<option>18:00</option>
+				<option>19:00</option>
+				<option>20:00</option>
+				<option>21:00</option>
+				<option>22:00</option>
+				<option>23:00</option>
+			</select>
+			Late Bound:
+			<select ng-model="late_bound">
+				<option>00:00</option>
+				<option>01:00</option>
+				<option>02:00</option>
+				<option>03:00</option>
+				<option>04:00</option>
+				<option>05:00</option>
+				<option>06:00</option>
+				<option>07:00</option>
+				<option>08:00</option>
+				<option>09:00</option>
+				<option>10:00</option>
+				<option>11:00</option>
+				<option>12:00</option>
+				<option>13:00</option>
+				<option>14:00</option>
+				<option>15:00</option>
+				<option>16:00</option>
+				<option>17:00</option>
+				<option>18:00</option>
+				<option>19:00</option>
+				<option>20:00</option>
+				<option>21:00</option>
+				<option>22:00</option>
+				<option>23:00</option>
+			</select>
+		</div>
+	<input type="button" value="Recalculate Plan" ng-click="recalculate_plan()" />
 </div>

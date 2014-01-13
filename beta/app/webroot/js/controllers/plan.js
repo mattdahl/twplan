@@ -155,7 +155,7 @@ TWP.twplan.Controllers.controller('StepTwoController', ['$scope', function ($sco
 /**
  * The controller for the Step Three page
  */
-TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'WorldInfo', 'PairCalculator', function ($rootScope, $scope, WorldInfo, PairCalculator) {
+TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'PlanCalculator', function ($rootScope, $scope, PlanCalculator) {
 	$scope.current_step = 3;
 
 	$scope.landing_date = '';
@@ -164,12 +164,8 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 	$scope.early_bound = null;
 	$scope.late_bound = null;
 
-	$scope.toggle_launch_time_optimization_details = function () {
-		$('#launch_time_optimization_details').toggle();
-	};
-
 	$scope.submitStepThree = function () {
-		if ($scope.landing_date == '') {
+		if ($scope.landing_date === '') {
 			alert("Please enter landing date information.");
 			return false;
 		}
@@ -178,215 +174,17 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 			return false;
 		}
 
-		$scope.calculate_plan();
-
-		window.location.href = 'plan#/results';
-	};
-
-	$scope.calculate_plan = function () {
-		$scope.configure_dst_lookup();
-
 		var landing_datetime = new Date($scope.landing_date + ' ' + $scope.landing_time);
-
-/*
-		if ($scope.optimization_checked) {
-			// Returns an array where index=village location and value=target location
-			var paired_nukes = hungarian($scope.villages_in_plan.nukes, $scope.targets_in_plan.nukes, landing_datetime, $scope.early_bound, $scope.late_bound);
-			var paired_nobles = hungarian($scope.villages_in_plan.nobles, $scope.targets_in_plan.nobles, landing_datetime, $scope.early_bound, $scope.late_bound);
-			var paired_supports = hungarian($scope.villages_in_plan.supports, $scope.targets_in_plan.supports, landing_datetime, $scope.early_bound, $scope.late_bound);
-		}
-		else {
-			// Returns an array where index=village location and value=target location
-			var paired_nukes = hungarian($scope.villages_in_plan.nukes, $scope.targets_in_plan.nukes, landing_datetime);
-			var paired_nobles = hungarian($scope.villages_in_plan.nobles, $scope.targets_in_plan.nobles, landing_datetime);
-			var paired_supports = hungarian($scope.villages_in_plan.supports, $scope.targets_in_plan.supports, landing_datetime);
-
-		}
-		*/
-
-		var assigned_nuke_villages = [], unassigned_nuke_villages = [];
-		var assigned_noble_villages = [], unassigned_noble_villages = [];
-		var assigned_support_villages = [], unassigned_support_villages = [];
-
-		for (var i = 0; i < $scope.villages_in_plan.nukes.length; i++) {
-			if ($scope.villages_in_plan.nukes[i].manual_target && $scope.villages_in_plan.nukes[i].manual_target.scope) {
-				assigned_nuke_villages.push($scope.villages_in_plan.nukes[i]);
-			}
-			else {
-				unassigned_nuke_villages.push($scope.villages_in_plan.nukes[i]);
-			}
-		}
-		for (var i = 0; i < $scope.villages_in_plan.nobles.length; i++) {
-			if ($scope.villages_in_plan.nobles[i].manual_target && $scope.villages_in_plan.nobles[i].manual_target.scope) {
-				assigned_noble_villages.push($scope.villages_in_plan.nobles[i]);
-			}
-			else {
-				unassigned_noble_villages.push($scope.villages_in_plan.nobles[i]);
-			}
-		}
-		for (var i = 0; i < $scope.villages_in_plan.supports.length; i++) {
-			if ($scope.villages_in_plan.supports[i].manual_target && $scope.villages_in_plan.supports[i].manual_target.scope) {
-				assigned_support_villages.push($scope.villages_in_plan.supports[i]);
-			}
-			else {
-				unassigned_support_villages.push($scope.villages_in_plan.supports[i]);
-			}
-		}
-
-		/*
-
-		var paired_nukes = [];
-		var paired_nobles = [];
-		var paired_supports = [];
-
-		if ($scope.optimization_checked) {
-			// Returns an array where index=village location and value=target location
-			paired_nukes = PairCalculator.pair(unassigned_nuke_villages, $scope.targets_in_plan.nukes, landing_datetime, $scope.early_bound, $scope.late_bound);
-			paired_nobles = PairCalculator.pair(unassigned_noble_villages, $scope.targets_in_plan.nobles, landing_datetime, $scope.early_bound, $scope.late_bound);
-			paired_supports = PairCalculator.pair(unassigned_support_villages, $scope.targets_in_plan.supports, landing_datetime, $scope.early_bound, $scope.late_bound);
-		}
-		else {
-			// Returns an array where index=village location and value=target location
-			paired_nukes = PairCalculator.pair(unassigned_nuke_villages, $scope.targets_in_plan.nukes, landing_datetime);
-			paired_nobles = PairCalculator.pair(unassigned_noble_villages, $scope.targets_in_plan.nobles, landing_datetime);
-			paired_supports = PairCalculator.pair(unassigned_support_villages, $scope.targets_in_plan.supports, landing_datetime);
-
-		}
-		*/
-
 		$rootScope.plan = new Plan(
 			$rootScope,
 			"Attack Plan Landing on " + $scope.landing_date + " at " + $scope.landing_time + " (ST)",
 			landing_datetime
 		);
 
-		// Adds the paired commands to the plan
-		/*
-		for (var i = 0; i < paired_nukes.length; i++) {
-			var traveling_time = $scope.calculate_traveling_time(paired_nukes[i][0], paired_nukes[i][1]);
-			debugger;
-			$rootScope.plan.commands.push(new Command(
-				$scope,
-				$scope.villages_in_plan.nukes[i],
-				$scope.targets_in_plan.nukes[paired_nukes[i]],
-				traveling_time,
-				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				)
-			);
-		}
-		for (var i = 0; i < paired_nobles.length; i++) {
-			var traveling_time = $scope.calculate_traveling_time(paired_nobles[i][0], paired_nobles[i][1]);
-
-			$rootScope.plan.commands.push(new Command(
-				$scope,
-				$scope.villages_in_plan.nobles[i],
-				$scope.targets_in_plan.nobles[paired_nobles[i]],
-				traveling_time,
-				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				)
-			);
-		}
-		for (var i = 0; i < paired_supports.length; i++) {
-			var traveling_time = $scope.calculate_traveling_time(paired_supports[i][0], paired_supports[i][1]);
-
-			$rootScope.plan.commands.push(new Command(
-				$scope,
-				$scope.villages_in_plan.supports[i],
-				$scope.targets_in_plan.supports[paired_supports[i]],
-				traveling_time,
-				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				)
-			);
-		}
-		*/
-
-		// Adds the manually assigned commands to the plan
-		for (var i = 0; i < assigned_nuke_villages.length; i++) {
-			var target = new Target(
-				assigned_nuke_villages[i].manual_target.scope,
-				assigned_nuke_villages[i].manual_target.x_coord,
-				assigned_nuke_villages[i].manual_target.y_coord,
-				assigned_nuke_villages[i].manual_target.continent,
-				assigned_nuke_villages[i].manual_target.attack_type
-			);
-
-			var traveling_time = $scope.calculate_traveling_time(assigned_nuke_villages[i], target);
-
-			$rootScope.plan.commands.push(new Command(
-				$scope,
-				assigned_nuke_villages[i],
-				target,
-				traveling_time,
-				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				)
-			);
-		}
-		for (var i = 0; i < assigned_noble_villages.length; i++) {
-			var target = new Target(
-				assigned_noble_villages[i].manual_target.scope,
-				assigned_noble_villages[i].manual_target.x_coord,
-				assigned_noble_villages[i].manual_target.y_coord,
-				assigned_noble_villages[i].manual_target.continent,
-				assigned_noble_villages[i].manual_target.attack_type
-			);
-
-			var traveling_time = $scope.calculate_traveling_time(assigned_noble_villages[i], target);
-
-			$rootScope.plan.commands.push(new Command(
-				$scope,
-				assigned_noble_villages[i],
-				target,
-				traveling_time,
-				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				)
-			);
-		}
-		for (var i = 0; i < assigned_support_villages.length; i++) {
-			var target = new Target(
-				assigned_support_villages[i].manual_target.scope,
-				assigned_support_villages[i].manual_target.x_coord,
-				assigned_support_villages[i].manual_target.y_coord,
-				assigned_support_villages[i].manual_target.continent,
-				assigned_support_villages[i].manual_target.attack_type
-			);
-
-			var traveling_time = $scope.calculate_traveling_time(assigned_support_villages[i], target);
-
-			$rootScope.plan.commands.push(new Command(
-				$scope,
-				assigned_support_villages[i],
-				target,
-				traveling_time,
-				$scope.calculate_launch_time(landing_datetime, traveling_time)
-				)
-			);
-		}
-
+		PlanCalculator.calculate_plan($scope, landing_datetime);
 		$rootScope.plan.sort();
-	};
 
-	$scope.calculate_launch_time = function (landing_datetime, traveling_time) {
-		var n = new Date();
-		var offset;
-
-		if (n.isDST()) {
-			offset = (n.getTimezoneOffset() / 60) + 1;
-		}
-		else {
-			offset = n.getTimezoneOffset() / 60;
-		}
-		// Gets difference; positive if west of UTC, negative if east
-		// +1 when daylight savings is active!
-
-		var before_offset = new Date(landing_datetime - traveling_time);
-
-		return new Date(before_offset.setHours(before_offset.getHours() + offset));
-	};
-
-	$scope.calculate_traveling_time = function (village, target) {
-		var distance = Math.sqrt(Math.pow(village.x_coord - target.x_coord, 2) + Math.pow(village.y_coord - target.y_coord, 2));
-
-		return new Date(((distance * village.slowest_unit.speed) / (WorldInfo[$scope.current_world].speed * WorldInfo[$scope.current_world].unitSpeed)) * 60 * 1000);
+		window.location.href = 'plan#/results';
 	};
 
 	$scope.format_seconds = function (secs) {
@@ -400,25 +198,19 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 
 		return pad(h) + ":" + pad(m) + ":" + pad(s);
 	};
-
-	$scope.configure_dst_lookup = function () {
-		Date.prototype.stdTimezoneOffset = function () {
-			var jan = new Date(this.getFullYear(), 0, 1);
-			var jul = new Date(this.getFullYear(), 6, 1);
-			return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-		};
-
-		Date.prototype.isDST = function () {
-			return this.getTimezoneOffset() < this.stdTimezoneOffset();
-		};
-	};
 }]);
 
 /**
  * The controller for the Results page
  */
-TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest', function ($scope, PlanRequest) {
+TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', 'PlanRequest', 'PlanCalculator', function ($rootScope, $scope, PlanRequest, PlanCalculator) {
 	$scope.current_step = 4;
+
+	$scope.new_landing_date = '';
+	$scope.new_landing_time = '';
+	$scope.optimization_checked = false;
+	$scope.early_bound = null;
+	$scope.late_bound = null;
 
 	$scope.countdown_timeout = null;
 
@@ -426,7 +218,6 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 	$scope.text_export = $scope.plan.export_as_text();
 
 	$scope.saved_plan_name = '';
-	$scope.save_status = '';
 
 	/**
 	 * Initialize all the tooltips on the page
@@ -442,7 +233,16 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 	};
 
 	$scope.recalculate_plan = function () {
+		var landing_datetime = new Date($scope.new_landing_date + ' ' + $scope.new_landing_time);
 
+		$rootScope.plan = new Plan(
+			$rootScope,
+			"Attack Plan Landing on " + $scope.new_landing_date + " at " + $scope.new_landing_time + " (ST)",
+			landing_datetime
+		);
+
+		PlanCalculator.calculate_plan($scope, landing_datetime);
+		$rootScope.plan.sort();
 	};
 
 	$scope.save_plan = function () {
@@ -450,13 +250,12 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 
 		PlanRequest.save($scope.saved_plan_name, $scope.plan) // Returns a promise object
 		.then(function (data) { // Success
-			$scope.save_status = 'Success! Your plan ' + data + ' has been saved. Go to the <a href="/saved">saved</a> tab to view it.';
+			alert('Success! Your plan ' + data + ' has been saved. Go to the saved tab to view it.');
 			$scope.saved_plan_name = '';
 			$('#loadingcircle').hide();
-			debugger;
-		}, function (data) { // Error
+		}, function (jqXHR, t, e) { // Error
+			alert('Something went wrong! Error:\n' + (jqXHR.responseText || e));
 			$('#loadingcircle').hide();
-			debugger;
 		});
 	};
 
@@ -486,6 +285,10 @@ TWP.twplan.Controllers.controller('ResultsController', ['$scope', 'PlanRequest',
 		},
 		1000);
 	};
+
+	$scope.$on('$locationChangeStart', function (event) {
+		clearInterval($scope.countdown_timeout);
+	});
 
 	if ($scope.countdown_timeout) {
 		clearInterval($scope.countdown_timeout);

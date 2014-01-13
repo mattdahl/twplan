@@ -1,4 +1,4 @@
-TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
+TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData', function (Units, WorldInfo, MetaData) {
 	return {
 		pair: function (villages, targets, landing_datetime, early_bound, late_bound) {
 			var grooms = []; // holds villages wrapped in a MarriageWrapper object
@@ -10,9 +10,9 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 			}
 
 			Candidate = (function () {
-				function Candidate(groom_or_bride, distance) {
+				function Candidate(groom_or_bride, traveling_time) {
 					this.groom_or_bride = groom_or_bride;
-					this.distance = distance;
+					this.traveling_time = traveling_time;
 				}
 
 				return Candidate;
@@ -62,6 +62,30 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 				return MarriageWrapper;
 			})();
 
+			var calculate_traveling_time = function (village, target) {
+				var distance = Math.sqrt(Math.pow(village.x_coord - target.x_coord, 2) + Math.pow(village.y_coord - target.y_coord, 2));
+
+				return new Date(((distance * village.slowest_unit.speed) / (WorldInfo[MetaData.current_world].speed * WorldInfo[MetaData.current_world].unitSpeed)) * 60 * 1000);
+			};
+
+			var calculate_launch_time = function (landing_datetime, traveling_time) {
+				var n = new Date();
+				var offset;
+
+				if (n.isDST()) {
+					offset = (n.getTimezoneOffset() / 60) + 1;
+				}
+				else {
+					offset = n.getTimezoneOffset() / 60;
+				}
+				// Gets difference; positive if west of UTC, negative if east
+				// +1 when daylight savings is active!
+
+				var before_offset = new Date(landing_datetime - traveling_time);
+
+				return new Date(before_offset.setHours(before_offset.getHours() + offset));
+			};
+
 			var engage = function (grooms) {
 				var done;
 				do {
@@ -83,27 +107,26 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 				var early = parseInt(early_bound.substring(0, 2), 10);
 				var late = parseInt(late_bound.substring(0, 2), 10);
 
-				var sort_by_distance = function (a, b) {
-					return a.distance - b.distance;
+				var sort_by_traveling_time = function (a, b) {
+					return a.traveling_time - b.traveling_time;
 				};
 
 				for (var i = 0; i < grooms.length; i++) {
-					var a = [grooms[i].village_or_target.x_coord, grooms[i].village_or_target.y_coord];
-
 					for (var j = 0; j < brides.length; j++) {
-						var b = [brides[j].village_or_target.x_coord, brides[j].village_or_target.y_coord];
-						var distance = (Math.sqrt(Math.pow((a[0] - b[0]) * (a[0] - b[0]), 2) + Math.pow((a[1] - b[1]) * (a[1] - b[1]), 2)) * grooms[i].village_or_target.slowest_unit.speed + 0.5 >> 0) * 60000; // To ms
+						var traveling_time = calculate_traveling_time(grooms[i].village_or_target, brides[j].village_or_target);
 
-						var launch_hour = (new Date(landing_datetime - distance)).getHours();
+						var launch_hour = calculate_launch_time(landing_datetime, traveling_time).getHours();
 
 						// First condition is normal
 						// Second condiiton is if the time restriction "wraps around the night" (i.e. early - late > 0)
-						console.log((launch_hour >= early && launch_hour <= late) || (early - late > 0 && (launch_hour >= late && launch_hour <= early)));
+						console.log((launch_hour >= early && launch_hour <= late) || (early - late > 0 && (launch_hour >= early || launch_hour <= late)));
 						if ((launch_hour >= early && launch_hour <= late) || (early - late > 0 && (launch_hour >= late && launch_hour <= early))) {
-							grooms[i].candidates.push(new Candidate(brides[j], distance));
-							brides[j].candidates.push(new Candidate(grooms[i], distance));
+							grooms[i].candidates.push(new Candidate(brides[j], traveling_time));
+							brides[j].candidates.push(new Candidate(grooms[i], traveling_time));
 						}
 						else {
+							// The finesse of this could be improved by calculating the MAX_VALUE relative to how far off the
+							// launch hour is from the restriction range
 							grooms[i].candidates.push(new Candidate(brides[j], Number.MAX_VALUE));
 							brides[j].candidates.push(new Candidate(grooms[i], Number.MAX_VALUE));
 						}
@@ -111,7 +134,7 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 				}
 
 				for (var i = 0; i < grooms.length; i++) {
-					grooms[i].candidates.sort(sort_by_distance);
+					grooms[i].candidates.sort(sort_by_traveling_time);
 
 					if (grooms[i].candidates.length > grooms[i].length) { // Removes the worst targets if there are more targets than villages
 						var difference = grooms[i].candidates.length - grooms[i].length;
@@ -120,7 +143,7 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 				}
 
 				for (var i = 0; i < brides.length; i++) {
-					brides[i].candidates.sort(sort_by_distance);
+					brides[i].candidates.sort(sort_by_traveling_time);
 
 					if (brides[i].candidates.length > brides[i].length) { // Removes the worst targets if there are more targets than villages
 						var difference = brides[i].candidates.length - brides[i].length;
@@ -145,15 +168,11 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 					var groom = grooms[i];
 					var bride = grooms[i].fiance;
 
-					var a = [groom.village_or_target.x_coord, groom.village_or_target.y_coord];
-					var b = [bride.village_or_target.x_coord, bride.village_or_target.y_coord];
-					var distance = (Math.sqrt(Math.pow((a[0] - b[0]) * (a[0] - b[0]), 2) + Math.pow((a[1] - b[1]) * (a[1] - b[1]), 2)) * grooms[i].village_or_target.slowest_unit.speed + 0.5 >> 0) * 60000; // To ms
-					var launch_hour = (new Date(landing_datetime - distance)).getHours();
+					var traveling_time = calculate_traveling_time(groom.village_or_target, bride.village_or_target);
+					var launch_hour = calculate_launch_time(landing_datetime, traveling_time).getHours();
 
-					console.log("%s is engaged to %s. LH: %d", grooms[i].village_or_target.name, grooms[i].fiance.village_or_target.x_coord + '|' + grooms[i].fiance.village_or_target.y_coord, launch_hour);
+					console.log("%s is engaged to %s. LH: %d", groom.village_or_target.x_coord + '|' + groom.village_or_target.y_coord, groom.fiance.village_or_target.x_coord + '|' + groom.fiance.village_or_target.y_coord, launch_hour);
 				}
-
-				console.log(PairCalculator.is_stable(grooms, brides));
 
 				var return_array = [];
 
@@ -165,7 +184,7 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', function (Units) {
 				return return_array;
 			};
 
-			marry();
+			return marry();
 		},
 		is_stable: function (grooms, brides) {
 			for (var i = 0; i < grooms.length; i++) {

@@ -37,6 +37,7 @@
 			echo $this->Html->script('controllers/plan');
 			echo $this->Html->script('plan_objects');
 			echo $this->Html->script('factories/pair_calculator');
+			echo $this->Html->script('factories/plan_calculator');
 			echo $this->Html->script('factories/units');
 			echo $this->Html->script('factories/villages_request');
 			echo $this->Html->script('factories/plan_request');
@@ -89,7 +90,7 @@
 		echo $this->Html->meta(array('name' => 'current_world', 'content' => $this->Session->read('current_world') ? $this->Session->read('current_world') : ''));
 		echo $this->Html->meta(array('name' => 'last_updated', 'content' => $this->Session->read('last_updated') ? $this->Session->read('last_updated') : 0));
 		echo $this->Html->meta(array('name' => 'default_world', 'content' => $this->Session->read('Auth.User.default_world') ? $this->Session->read('Auth.User.default_world') : ''));
-		echo $this->Html->meta(array('name' => 'local_timezone', 'content' => $this->Session->read('Auth.User.local_timezone') ? $this->Session->read('Auth.User.local_timezone') : ''));
+		echo $this->Html->meta(array('name' => 'local_timezone', 'content' => $this->Session->read('Auth.User.local_timezone') ? $this->Session->read('Auth.User.local_timezone') : 0));
 	?>
 
 </head>
