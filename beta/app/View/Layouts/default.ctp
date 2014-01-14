@@ -76,6 +76,9 @@
 		else if ($page == 'user_scripts') {
 			echo $this->Html->script('controllers/user_scripts');
 		}
+		else if ($page == 'bug_report') {
+			echo $this->Html->script('controllers/bug_report');
+		}
 
 		echo $this->Html->css('style');
 
