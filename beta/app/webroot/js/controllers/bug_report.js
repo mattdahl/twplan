@@ -7,7 +7,8 @@ TWP.twplan.Controllers.controller('BugReportController', ['$scope', '$http', fun
 		page: '',
 		error_message: '',
 		is_replicable: '',
-		contact_information: ''
+		contact_information: '',
+		is_js: false
 	};
 
 	$scope.submit_bug_report = function () {
