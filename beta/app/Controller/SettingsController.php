@@ -72,7 +72,9 @@ class SettingsController extends AppController {
 		$this->autoRender = false;
 
 		if ($this->request->is('post')) {
-			$world = $this->request->data['world'];
+			$data = $this->request->input('json_decode', 'true');
+			$world = $data['world'];
+
 			$this->Session->write('current_world', $world);
 
 			// Grabs the last updated data for the new world
