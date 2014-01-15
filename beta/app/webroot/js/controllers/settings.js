@@ -3,20 +3,17 @@
  */
 TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', function ($scope, $http) {
 	$scope.worlds = [
-		19,
-		30,
 		58,
-		59,
 		60,
-		61,
-		63,
 		64,
 		65,
 		66,
 		67,
 		68,
 		69,
-		70
+		70,
+		71,
+		72
 	];
 
 	$scope.timezones = [

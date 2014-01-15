@@ -3,7 +3,6 @@
  */
 TWP.twplan.controller('HeaderController', ['$scope', '$http', function ($scope, $http) {
 	$scope.worlds = [
-		19,
 		58,
 		60,
 		64,
