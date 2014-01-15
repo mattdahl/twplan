@@ -1,5 +1,5 @@
 <h1>Planning - Step 2</h1>
-<p id="instructions">Next, enter the coordinates of your targets. Choose how many of each attack (nuke, noble, and support) you want to send to each village - the number of attacks available are determined by your village selections in Step 1.</p>
+<p id="instructions">Next, enter the coordinates of your targets. Choose how many of each attack (nuke, noble, and support) you want to send to each target - the number of attacks available are determined by your village selections in Step 1.</p>
 <br />
 
 <h2>Add Targets</h2>
