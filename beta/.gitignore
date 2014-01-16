@@ -8,3 +8,6 @@
 /old
 /app/tmp/data/players
 /app/tmp/data/villages
+/app/tmp/cache/persistent
+/app/tmp/cache/models
+/app/tmp/cache/views
