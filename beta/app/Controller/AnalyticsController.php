@@ -15,6 +15,7 @@ class AnalyticsController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 		$this->RequestHandler->setContent('json', 'application/json');
+		$this->Auth->allowedActions = array('add_bug_report');
 	}
 
 	public function set_last_updated () {
@@ -42,7 +43,7 @@ class AnalyticsController extends AppController {
 				    'is_replicable' => $data['is_replicable'],
 				    'contact_information' => $data['contact_information'],
 				    'user_id' => $this->Auth->user('id'),
-				    'data_submitted' => date("Y-m-d H:i:s", time()),
+				    'date_submitted' => date("Y-m-d H:i:s", time()),
 				    'is_js' => $data['is_js']
 			    )
 			);
