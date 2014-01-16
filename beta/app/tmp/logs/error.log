@@ -1,0 +1,14 @@
+2014-01-16 07:22:05 Error: exception 'MissingPluginException' with message 'Plugin DebugKit could not be found.' in /code/twplan/beta/lib/Cake/Core/CakePlugin.php:142
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Core/App.php(364): CakePlugin::path('DebugKit')
+#1 /code/twplan/beta/lib/Cake/Core/App.php(225): App::pluginPath('DebugKit')
+#2 /code/twplan/beta/lib/Cake/Core/App.php(545): App::path('Controller/Comp...', 'DebugKit')
+#3 [internal function]: App::load('ToolbarComponen...')
+#4 [internal function]: spl_autoload_call('ToolbarComponen...')
+#5 /code/twplan/beta/lib/Cake/Controller/ComponentCollection.php(99): class_exists('ToolbarComponen...')
+#6 /code/twplan/beta/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('DebugKit.Toolba...', Array)
+#7 /code/twplan/beta/lib/Cake/Controller/Controller.php(634): ComponentCollection->init(Object(PagesController))
+#8 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#10 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
