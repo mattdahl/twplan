@@ -6,13 +6,13 @@ TWP.twplan.Directives.directive('manualSupportTargetInput', ['AutocompleteBuilde
 			// Initialize the autocomplete widget
 			AutocompleteBuilder.support_autocomplete(elm);
 
-			// The autocomplete widget mangles our custom Target object, so it is necessary to check the coords to determine equality
-			scope.index_of_target = function (target) {
+			// The autocomplete widget mangles our custom Target object, so it is necessary to check the _hash_id to determine equality
+			scope.index_of_target = function (target, array) {
 				if (!target) {
 					return Infinity;
 				}
-				for (var i = 0; i < scope.targets_in_plan.supports.length; i++) {
-					if (scope.targets_in_plan.supports[i].x_coord === target.x_coord && scope.targets_in_plan.supports[i].y_coord === target.y_coord) {
+				for (var i = 0; i < array.length; i++) {
+					if (array[i]._hash_id === target._hash_id) {
 						return i;
 					}
 				}
@@ -21,7 +21,7 @@ TWP.twplan.Directives.directive('manualSupportTargetInput', ['AutocompleteBuilde
 
 			scope.toggle_manually_assigned_state = function (target) {
 				for (var i = 0; i < scope.targets.supports.length; i++) {
-					if (scope.targets.supports[i].x_coord === target.x_coord && scope.targets.supports[i].y_coord === target.y_coord) {
+					if (scope.targets.supports[i]._hash_id === target._hash_id) {
 						scope.targets.supports[i].is_manually_assigned = !scope.targets.supports[i].is_manually_assigned;
 						break;
 					}
@@ -36,11 +36,12 @@ TWP.twplan.Directives.directive('manualSupportTargetInput', ['AutocompleteBuilde
 						scope.village.manual_target.x_coord,
 						scope.village.manual_target.y_coord,
 						scope.village.manual_target.continent,
-						scope.village.manual_target.attack_type
+						scope.village.manual_target.attack_type,
+						scope.village.manual_target._hash_id
 					);
 
 					// If the target to be relinquished has been deleted from the plan altogether, don't push it back onto the array!
-					if (scope.index_of_target(relinquished_target) != Infinity) {
+					if (scope.index_of_target(relinquished_target, scope.targets.supports) != Infinity) {
 						scope.targets_in_plan.supports.push(relinquished_target);
 
 						// Toggle the state flag on both the relinquished target object and the new target object
@@ -60,7 +61,7 @@ TWP.twplan.Directives.directive('manualSupportTargetInput', ['AutocompleteBuilde
 				}
 
 				// Remove the manual target from the scope.targets_in_plan.supports array
-				scope.targets_in_plan.supports.splice(scope.index_of_target(target), 1);
+				scope.targets_in_plan.supports.splice(scope.index_of_target(target, scope.targets_in_plan.supports), 1);
 				scope.village.manual_target = target;
 			};
 

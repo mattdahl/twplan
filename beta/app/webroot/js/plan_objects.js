@@ -139,13 +139,14 @@ Village = (function () {
  * @return {Target} An instance of a target
  */
 Target = (function () {
-	function Target(scope, x_coord, y_coord, continent, attack_type) {
+	function Target(scope, x_coord, y_coord, continent, attack_type, _hash_id) {
 		this.scope = scope;
 
 		this.x_coord = x_coord;
 		this.y_coord = y_coord;
 		this.continent = continent;
 		this.attack_type = attack_type;
+		this._hash_id = _hash_id || Math.floor((1 + Math.random()) * 0x1000000).toString(16).substring(1);
 	}
 
 	Target.prototype = {
@@ -161,11 +162,14 @@ Target = (function () {
 						var self = this;
 						nuke_inputs.each(function (index, element) {
 							var manual_target = angular.element(element).scope().village.manual_target;
-							if (manual_target && manual_target.label === self.x_coord + '|' + self.y_coord) {
+							if (manual_target && manual_target._hash_id === self._hash_id) {
 								angular.element(element).scope().update_manual_target(null);
 								return false; // equivalent to break for jQuery loops
 							}
 						});
+					}
+					else { // If the target hasn't been manually assigned, that means it's still in the targets_in_plan array, and so it needs to be removed from there too
+						this.scope.targets_in_plan.nukes.splice(this.scope.targets_in_plan.nukes.indexOf(this), 1);
 					}
 					break;
 				case this.scope.AttackTypes.Noble:
@@ -178,11 +182,14 @@ Target = (function () {
 						var self = this;
 						noble_inputs.each(function (index, element) {
 							var manual_target = angular.element(element).scope().village.manual_target;
-							if (manual_target && manual_target.label === self.x_coord + '|' + self.y_coord) {
+							if (manual_target && manual_target._hash_id === self._hash_id) {
 								angular.element(element).scope().update_manual_target(null);
 								return false; // equivalent to break for jQuery loops
 							}
 						});
+					}
+					else { // If the target hasn't been manually assigned, that means it's still in the targets_in_plan array, and so it needs to be removed from there too
+						this.scope.targets_in_plan.nobles.splice(this.scope.targets_in_plan.nobles.indexOf(this), 1);
 					}
 					break;
 				case this.scope.AttackTypes.Support:
@@ -195,11 +202,14 @@ Target = (function () {
 						var self = this;
 						support_inputs.each(function (index, element) {
 							var manual_target = angular.element(element).scope().village.manual_target;
-							if (manual_target && manual_target.label === self.x_coord + '|' + self.y_coord) {
+							if (manual_target && manual_target._hash_id === self._hash_id) {
 								angular.element(element).scope().update_manual_target(null);
 								return false; // equivalent to break for jQuery loops
 							}
 						});
+					}
+					else { // If the target hasn't been manually assigned, that means it's still in the targets_in_plan array, and so it needs to be removed from there too
+						this.scope.targets_in_plan.supports.splice(this.scope.targets_in_plan.supports.indexOf(this), 1);
 					}
 					break;
 			}

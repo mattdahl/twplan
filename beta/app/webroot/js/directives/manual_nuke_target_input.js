@@ -6,13 +6,13 @@ TWP.twplan.Directives.directive('manualNukeTargetInput', ['AutocompleteBuilder',
 			// Initialize the autocomplete widget
 			AutocompleteBuilder.nuke_autocomplete(elm);
 
-			// The autocomplete widget mangles our custom Target object, so it is necessary to check the coords to determine equality
-			scope.index_of_target = function (target) {
+			// The autocomplete widget mangles our custom Target object, so it is necessary to check the _hash_id to determine equality
+			scope.index_of_target = function (target, array) {
 				if (!target) {
 					return Infinity;
 				}
-				for (var i = 0; i < scope.targets_in_plan.nukes.length; i++) {
-					if (scope.targets_in_plan.nukes[i].x_coord === target.x_coord && scope.targets_in_plan.nukes[i].y_coord === target.y_coord) {
+				for (var i = 0; i < array.length; i++) {
+					if (array[i]._hash_id === target._hash_id) {
 						return i;
 					}
 				}
@@ -21,7 +21,7 @@ TWP.twplan.Directives.directive('manualNukeTargetInput', ['AutocompleteBuilder',
 
 			scope.toggle_manually_assigned_state = function (target) {
 				for (var i = 0; i < scope.targets.nukes.length; i++) {
-					if (scope.targets.nukes[i].x_coord === target.x_coord && scope.targets.nukes[i].y_coord === target.y_coord) {
+					if (scope.targets.nukes[i]._hash_id === target._hash_id) {
 						scope.targets.nukes[i].is_manually_assigned = !scope.targets.nukes[i].is_manually_assigned;
 						break;
 					}
@@ -36,11 +36,12 @@ TWP.twplan.Directives.directive('manualNukeTargetInput', ['AutocompleteBuilder',
 						scope.village.manual_target.x_coord,
 						scope.village.manual_target.y_coord,
 						scope.village.manual_target.continent,
-						scope.village.manual_target.attack_type
+						scope.village.manual_target.attack_type,
+						scope.village.manual_target._hash_id
 					);
 
 					// If the target to be relinquished has been deleted from the plan altogether, don't push it back onto the array!
-					if (scope.index_of_target(relinquished_target) != Infinity) {
+					if (scope.index_of_target(relinquished_target, scope.targets.nukes) != Infinity) {
 						scope.targets_in_plan.nukes.push(relinquished_target);
 
 						// Toggle the state flag on both the relinquished target object and the new target object
@@ -60,7 +61,7 @@ TWP.twplan.Directives.directive('manualNukeTargetInput', ['AutocompleteBuilder',
 				}
 
 				// Remove the manual target from the scope.targets_in_plan.nukes array
-				scope.targets_in_plan.nukes.splice(scope.index_of_target(target), 1);
+				scope.targets_in_plan.nukes.splice(scope.index_of_target(target, scope.targets_in_plan.nukes), 1);
 				scope.village.manual_target = target;
 			};
 
