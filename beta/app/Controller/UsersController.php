@@ -45,7 +45,7 @@ class UsersController extends AppController {
 	 * @return [boolean]
 	 */
 	private function validate_hash () {
-		return ($this->data['hash'] == md5($this->Session->id() . $this->request->params['username'] . '***REMOVED***'));
+		return ($this->data['hash'] == md5($this->Session->id() . $this->request->params['username'] . 'APP_SECRET'));
 	}
 
 	/**
