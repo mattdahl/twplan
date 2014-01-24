@@ -17,10 +17,10 @@
 <h1>Latest News</h1>
   <div class="latestnews" style="margin-right:2%">
 	<img src="images/icon1.png" />
-	<p><b>5/6/13</b> &nbsp; Today saw a massive graphical overhaul for the entire TWplan website. This upgrade was designed to faciliate increased user experience, and reflects a more sophisticated interface. <a href="news.php">Read more... </a> </p>
+	<p><b>5/6/13</b> &nbsp; Today saw a massive graphical overhaul for the entire TWplan website. This upgrade was designed to facilitate increased user experience, and reflects a more sophisticated interface. <?php echo $this->Html->link('Read more...', '/news'); ?> </p>
   </div>
   <div class="latestnews">
 	<img src="images/icon1.png" />
-	<p><b>4/27/13</b> &nbsp; Unveiled today is a new launching Javascript script for easy deployment of TWplan-generated commands, right from the rally point without any extra clicks. <a href="news.php">Read more... </a> </p>
+	<p><b>4/27/13</b> &nbsp; Unveiled today is a new launching Javascript script for easy deployment of TWplan-generated commands, right from the rally point without any extra clicks. <?php echo $this->Html->link('Read more...', '/news'); ?> </p>
   </div>
 </div>
