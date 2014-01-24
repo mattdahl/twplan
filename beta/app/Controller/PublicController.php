@@ -27,7 +27,6 @@ class PublicController extends AppController {
 		$this->layout = 'empty';
 		$this->response->type('json');
 
-		//return json_encode($new_group['Group']['name']);
 		$path = func_get_args();
 
 		$count = count($path);
