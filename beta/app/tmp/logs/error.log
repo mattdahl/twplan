@@ -1,0 +1,495 @@
+2014-01-16 07:22:05 Error: exception 'MissingPluginException' with message 'Plugin DebugKit could not be found.' in /code/twplan/beta/lib/Cake/Core/CakePlugin.php:142
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Core/App.php(364): CakePlugin::path('DebugKit')
+#1 /code/twplan/beta/lib/Cake/Core/App.php(225): App::pluginPath('DebugKit')
+#2 /code/twplan/beta/lib/Cake/Core/App.php(545): App::path('Controller/Comp...', 'DebugKit')
+#3 [internal function]: App::load('ToolbarComponen...')
+#4 [internal function]: spl_autoload_call('ToolbarComponen...')
+#5 /code/twplan/beta/lib/Cake/Controller/ComponentCollection.php(99): class_exists('ToolbarComponen...')
+#6 /code/twplan/beta/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('DebugKit.Toolba...', Array)
+#7 /code/twplan/beta/lib/Cake/Controller/Controller.php(634): ComponentCollection->init(Object(PagesController))
+#8 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#10 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2014-01-16 23:20:07 Error: exception 'PDOException' with message 'SQLSTATE[01000]: Warning: 1265 Data truncated for column 'date_submitted' at row 1' in /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php:459
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(459): PDOStatement->execute(Array)
+#1 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(425): DboSource->_execute('INSERT INTO `tw...', Array)
+#2 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(1007): DboSource->execute('INSERT INTO `tw...')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1735): DboSource->create(Object(BugReport), Array, Array)
+#4 /code/twplan/beta/app/Controller/AnalyticsController.php(51): Model->save(Array)
+#5 [internal function]: AnalyticsController->add_bug_report()
+#6 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AnalyticsController), Array)
+#7 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#8 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AnalyticsController), Object(CakeRequest), Object(CakeResponse))
+#9 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2014-01-17 07:20:30 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:21:53 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:16 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:17 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:18 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:18 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:19 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:19 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:22:26 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:23:08 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:23:34 Error: exception 'MissingActionException' with message 'Action AdminController::display() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:25 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:47 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:55 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:56 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:56 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:56 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:24:57 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:23 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:24 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:24 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:39 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:41 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:42 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:43 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:43 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:43 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:26:44 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:27:36 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:27:36 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:27:37 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:27:37 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:27:37 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:27:37 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:27:37 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:27:37 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:28:09 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:28:35 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:28:35 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:28:41 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:28:41 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:28:43 Error: Fatal Error (1): Call to a member function findByUsername() on a non-object in [/code/twplan/beta/app/Controller/AdminController.php, line 33]
+2014-01-17 07:28:43 Error: exception 'FatalErrorException' with message 'Call to a member function findByUsername() on a non-object' in /code/twplan/beta/app/Controller/AdminController.php:33
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/code/twplan/be...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#2 /code/twplan/beta/lib/Cake/Core/App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/code/twplan/be...', 33, Array)
+#3 /code/twplan/beta/lib/Cake/Core/App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-17 07:29:07 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->__call('findByUsername', Array)
+#7 /code/twplan/beta/app/Controller/AdminController.php(33): User->findByUsername('sbl')
+#8 [internal function]: AdminController->pseudo_login('sbl')
+#9 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#12 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-01-17 07:29:08 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->__call('findByUsername', Array)
+#7 /code/twplan/beta/app/Controller/AdminController.php(33): User->findByUsername('sbl')
+#8 [internal function]: AdminController->pseudo_login('sbl')
+#9 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#12 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-01-17 07:30:23 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(2650): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->find('all')
+#7 [internal function]: AdminController->pseudo_login('sbl')
+#8 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#11 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-01-17 07:30:23 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(2650): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->find('all')
+#7 [internal function]: AdminController->pseudo_login('sbl')
+#8 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#11 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-01-17 07:30:24 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(2650): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->find('all')
+#7 [internal function]: AdminController->pseudo_login('sbl')
+#8 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#11 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-01-17 07:30:24 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(2650): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->find('all')
+#7 [internal function]: AdminController->pseudo_login('sbl')
+#8 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#11 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-01-17 07:30:24 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(2650): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->find('all')
+#7 [internal function]: AdminController->pseudo_login('sbl')
+#8 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#11 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-01-17 07:30:24 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('default')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('users')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(2650): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/AdminController.php(33): Model->find('all')
+#7 [internal function]: AdminController->pseudo_login('sbl')
+#8 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(AdminController), Array)
+#9 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#11 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-01-17 07:34:03 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:34:05 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:34:26 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:34:27 Error: exception 'MissingActionException' with message 'Action AdminController::psuedo_login() could not be found.' in /code/twplan/beta/lib/Cake/Controller/Controller.php:491
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AdminController), Object(CakeRequest), Object(CakeResponse))
+#2 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-17 07:39:28 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('players')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('players')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('72')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Model->__call('findByUsername', Array)
+#7 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Player->findByUsername('syntexgrid')
+#8 /code/twplan/beta/app/Controller/PlanPagesController.php(35): PlayersComponent->is_active_world()
+#9 [internal function]: PlanPagesController->display('plan')
+#10 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PlanPagesController), Array)
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#12 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PlanPagesController), Object(CakeRequest), Object(CakeResponse))
+#13 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-17 07:39:33 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('analytics')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('analytics')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource('worlds')
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/WorldsController.php(23): Model->__call('findByWorldNumb...', Array)
+#7 /code/twplan/beta/app/Controller/WorldsController.php(23): World->findByWorldNumber(67)
+#8 /code/twplan/beta/app/Controller/SettingsController.php(83): WorldsController->last_updated()
+#9 [internal function]: SettingsController->set_current_world()
+#10 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SettingsController), Array)
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#12 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SettingsController), Object(CakeRequest), Object(CakeResponse))
+#13 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-17 07:39:34 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('players')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('players')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource(67)
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Model->__call('findByUsername', Array)
+#7 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Player->findByUsername('syntexgrid')
+#8 /code/twplan/beta/app/Controller/PlanPagesController.php(35): PlayersComponent->is_active_world()
+#9 [internal function]: PlanPagesController->display('plan')
+#10 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PlanPagesController), Array)
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#12 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PlanPagesController), Object(CakeRequest), Object(CakeResponse))
+#13 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-17 07:39:37 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('players')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('players')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource(67)
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Model->__call('findByUsername', Array)
+#7 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Player->findByUsername('syntexgrid')
+#8 /code/twplan/beta/app/Controller/PlanPagesController.php(35): PlayersComponent->is_active_world()
+#9 [internal function]: PlanPagesController->display('plan')
+#10 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PlanPagesController), Array)
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#12 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PlanPagesController), Object(CakeRequest), Object(CakeResponse))
+#13 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-17 07:39:38 Error: exception 'MissingConnectionException' with message 'Database connection "Mysql" is missing, or could not be created.' in /code/twplan/beta/lib/Cake/Model/Datasource/Database/Mysql.php:152
+Stack trace:
+#0 /code/twplan/beta/lib/Cake/Model/Datasource/DboSource.php(261): Mysql->connect()
+#1 /code/twplan/beta/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /code/twplan/beta/lib/Cake/Model/Model.php(3177): ConnectionManager::getDataSource('players')
+#3 /code/twplan/beta/lib/Cake/Model/Model.php(1096): Model->setDataSource('players')
+#4 /code/twplan/beta/lib/Cake/Model/Model.php(3199): Model->setSource(67)
+#5 /code/twplan/beta/lib/Cake/Model/Model.php(788): Model->getDataSource()
+#6 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Model->__call('findByUsername', Array)
+#7 /code/twplan/beta/app/Controller/Component/PlayersComponent.php(28): Player->findByUsername('syntexgrid')
+#8 /code/twplan/beta/app/Controller/PlanPagesController.php(35): PlayersComponent->is_active_world()
+#9 [internal function]: PlanPagesController->display('plan')
+#10 /code/twplan/beta/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PlanPagesController), Array)
+#11 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#12 /code/twplan/beta/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PlanPagesController), Object(CakeRequest), Object(CakeResponse))
+#13 /code/twplan/beta/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
