@@ -510,7 +510,6 @@ class AuthComponent extends Component {
 			$user = $this->identify($this->request, $this->response);
 		}
 		if ($user) {
-			$this->Session->renew();
 			$this->Session->write(self::$sessionKey, $user);
 		}
 		return $this->loggedIn();

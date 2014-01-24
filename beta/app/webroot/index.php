@@ -19,6 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 /**
+ * Set the sid manually if necessary (redirection from TW external auth)
+ */
+if (isset($_GET['sid'])) {
+	session_id($_GET['sid']);
+}
+session_start();
+/**
  * Use the DS to separate the directories in other defines
  */
 if (!defined('DS')) {
