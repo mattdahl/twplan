@@ -5,16 +5,13 @@
 */
 class AdminController extends AppController {
 
-	public $uses = array();
+	public $uses = array('User');
 
 	function beforeFilter() {
 		parent::beforeFilter();
 		if ($this->Auth->user('username') == 'syntexgrid') {
 			$this->Auth->allow('psuedo_login');
 		}
-		$this->Auth->fields = array(
-            'username' => 'username'
-            );
 	}
 
 	public function display () {
@@ -30,20 +27,29 @@ class AdminController extends AppController {
 		}
 	}
 
-	public function puesdo_login ($username) {
-		$user = $this->User->findByUsername($username);
+	public function pseudo_login ($username) {
+		$this->autoRender = false;
 
-		if ($user) {
+//		$user = $this->User->findByUsername($username);
+
+//		if ($user) {
+			$user = array(
+				'id' => 10000,
+				'username' => $username,
+				'default_world' => NULL,
+				'local_timezone' => NULL
+			);
+
 			if ($this->Auth->login($user)) {
-				$current_world = '69';
+				$current_world = '72';
 				$this->Session->write('current_world', $current_world);
 
-				$this->redirect($this->Auth->redirectUrl());
 			}
-		}
-		else {
-			$this->Session->setFlash("User with username {$username} does not exist.");
-		}
+			$this->redirect('/index');
+	//	}
+	//	else {
+	//		$this->Session->setFlash("User with username {$username} does not exist.");
+	//	}
 
 	}
 
