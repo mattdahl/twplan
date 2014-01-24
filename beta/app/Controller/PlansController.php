@@ -5,8 +5,11 @@
 */
 class PlansController extends AppController {
 
+	public $uses = array('Plan', 'User');
+
 	function beforeFilter() {
 		parent::beforeFilter();
+		$this->Auth->allow('public_display');
 		$this->Auth->allow('login');
 		$this->Auth->fields = array(
             'username' => 'username'
@@ -125,8 +128,8 @@ class PlansController extends AppController {
 
 			// Find the username of the plan owner
 			$user_id = $plan->user_id;
-			$user = $this->Plan->query("SELECT * FROM `twp_users`.`users` WHERE `id` = $user_id");
-			$plan->owner = $user[0]['users']['username'];
+			$user = $this->User->findById($user_id);
+			$plan->owner = $user->username;
 
 			$this->set(compact('page', 'title_for_layout', 'plan'));
 		}
