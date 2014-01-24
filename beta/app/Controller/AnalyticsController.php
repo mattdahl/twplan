@@ -59,10 +59,10 @@ class AnalyticsController extends AppController {
 			$bug_report_message .= "User ID: {$new_bug_report['BugReport']['user_id']}";
 
 			if ($new_bug_report['BugReport']['is_js'] == true || $new_bug_report['BugReport']['is_js'] == 'true') {
-				mail("site@twplan.com", "TWplan JS ERROR", $bug_report_message);
+				mail("support@twplan.com", "TWplan JS ERROR", $bug_report_message);
 			}
 			else {
-				mail("site@twplan.com", "TWplan Bug Report", $bug_report_message);
+				mail("support@twplan.com", "TWplan Bug Report", $bug_report_message);
 			}
 
 			return json_encode($new_bug_report['BugReport']);
