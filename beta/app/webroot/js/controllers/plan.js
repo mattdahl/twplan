@@ -1,7 +1,7 @@
 /**
  * The controller for the Step One page of /plan
  */
-TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesRequest', 'GroupRequest', 'Units', function ($scope, VillagesRequest, GroupRequest, Units) {
+TWP.twplan.Controllers.controller('StepOneController', ['$scope', '$location', 'VillagesRequest', 'GroupRequest', 'Units', function ($scope, $location, VillagesRequest, GroupRequest, Units) {
 	$scope.current_step = 1;
 
 	$scope.village_paste_in_interface = new VillagePasteInInterface($scope);
@@ -73,7 +73,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 			return false;
 		}
 
-		window.location.href = 'plan#/step_two';
+		$location.path('/step_two');
 	};
 
 	// Checks if villages have already been loaded (i.e. returning from step two or three)
@@ -121,7 +121,7 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', 'VillagesReque
 /**
  * The controller for the Step Two page
  */
-TWP.twplan.Controllers.controller('StepTwoController', ['$scope', function ($scope) {
+TWP.twplan.Controllers.controller('StepTwoController', ['$scope', '$location', function ($scope, $location) {
 	$scope.current_step = 2;
 
 	$scope.target_paste_in_interface = new TargetPasteInInterface($scope);
@@ -148,14 +148,14 @@ TWP.twplan.Controllers.controller('StepTwoController', ['$scope', function ($sco
 			}
 		}
 
-		window.location.href = 'plan#/step_three';
+		$location.path('/step_three');
 	};
 }]);
 
 /**
  * The controller for the Step Three page
  */
-TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', 'PlanCalculator', function ($rootScope, $scope, PlanCalculator) {
+TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', '$location', 'PlanCalculator', function ($rootScope, $scope, $location, PlanCalculator) {
 	$scope.current_step = 3;
 
 	$scope.landing_date = '';
@@ -184,7 +184,7 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 		PlanCalculator.calculate_plan($scope, landing_datetime);
 		$rootScope.plan.sort();
 
-		window.location.href = 'plan#/results';
+		$location.path('/results');
 	};
 
 	$scope.format_seconds = function (secs) {

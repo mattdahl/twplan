@@ -34,7 +34,7 @@
 
 	<?php
 		if ($page == 'plan') {
-			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js');
+			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js');
 			echo $this->Html->script('controllers/plan');
 			echo $this->Html->script('plan_objects');
 			echo $this->Html->script('factories/pair_calculator');
@@ -51,14 +51,14 @@
 			echo $this->Html->css('jqueryui');
 		}
 		else if ($page == 'plans') {
-			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js');
+			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js');
 			echo $this->Html->script('controllers/plans');
 			echo $this->Html->script('factories/plan_request');
 			echo $this->Html->script('factories/units');
 			echo $this->Html->css('jqueryui');
 		}
 		else if ($page == 'public_plans') {
-			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js');
+			echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js');
 			echo $this->Html->script('controllers/public_plans');
 			echo $this->Html->script('plan_objects');
 			echo $this->Html->script('factories/units');

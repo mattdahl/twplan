@@ -8,7 +8,7 @@ TWP.error_handler = function (message, url, line_number) {
 		contentType: 'application/json; chareset=utf-8',
 		data: JSON.stringify({
 			description: line_number,
-			page: url,
+			page: url + ' (on: ' + document.URL + ')',
 			error_message: message,
 			is_js: true,
 			is_replicable: null,
