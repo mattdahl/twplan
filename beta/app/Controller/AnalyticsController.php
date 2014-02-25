@@ -50,7 +50,8 @@ class AnalyticsController extends AppController {
 
 			$this->BugReport->save($new_bug_report);
 
-			$bug_report_message = "Description: {$new_bug_report['BugReport']['description']} \n";
+			$bug_report_message = "Bug Report ID #" . $this->BugReport->getLastInsertID() . "\n";
+			$bug_report_message .= "Description: {$new_bug_report['BugReport']['description']} \n";
 			$bug_report_message .= "Page: {$new_bug_report['BugReport']['page']} \n";
 			$bug_report_message .= "Error Message: {$new_bug_report['BugReport']['error_message']} \n";
 			$bug_report_message .= "Browser: {$new_bug_report['BugReport']['browser']} \n";
