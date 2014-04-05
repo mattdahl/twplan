@@ -5,7 +5,7 @@
 	<title>
 		<?php echo $title_for_layout; ?>
 	</title>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+	<?php echo $this->Html->script('lib/angular-1.0.6.min.js'); ?>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<?php
 		echo $this->Html->script('slider');
