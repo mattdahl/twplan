@@ -1,7 +1,15 @@
 var TWP = TWP || {};
 
 TWP.error_handler = function (message, url, line_number) {
-	alert('Sorry, something went wrong. This error has been logged and we will try to resolve it. You may be able to continue using TWplan - try again!');
+	var supressed = false;
+
+	if (line_number == 88 && message == 'Uncaught exception: Error: 10 $digest() iterations reached. Aborting!') {
+		var suppressed = true;
+	}
+	else {
+		alert('Sorry, something went wrong. This error has been logged and we will try to resolve it. You may be able to continue using TWplan - try again!');
+	}
+
 	$.ajax({
 		url: 'analytics/add_bug_report',
 		type: 'POST',
@@ -9,7 +17,7 @@ TWP.error_handler = function (message, url, line_number) {
 		data: JSON.stringify({
 			description: line_number,
 			page: url + ' (on: ' + document.URL + ')',
-			error_message: message,
+			error_message: supressed ? message + ' (supressed)' : message,
 			is_js: true,
 			is_replicable: null,
 			contact_information: null
