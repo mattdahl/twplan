@@ -3,7 +3,7 @@ var TWP = TWP || {};
 TWP.error_handler = function (message, url, line_number) {
 	var supressed = false;
 
-	if (line_number == 88 && message == 'Uncaught exception: Error: 10 $digest() iterations reached. Aborting!') {
+	if (line_number == 88 && message.indexOf('10 $digest()')) {
 		var suppressed = true;
 	}
 	else {
