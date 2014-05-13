@@ -1,7 +1,7 @@
 var TWP = TWP || {};
 
 TWP.error_handler = function (message, url, line_number) {
-	var supressed = false;
+	var suppressed = false;
 
 	if (line_number == 88 && message.indexOf('10 $digest()')) {
 		var suppressed = true;
@@ -17,7 +17,7 @@ TWP.error_handler = function (message, url, line_number) {
 		data: JSON.stringify({
 			description: line_number,
 			page: url + ' (on: ' + document.URL + ')',
-			error_message: supressed ? message + ' (supressed)' : message,
+			error_message: suppressed ? message + ' (suppressed)' : message,
 			is_js: true,
 			is_replicable: null,
 			contact_information: null
