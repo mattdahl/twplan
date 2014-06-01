@@ -50,9 +50,7 @@ class PlansController extends AppController {
 	public function get () {
 		$this->autoRender = false;
 
-		$user_id = $this->Auth->user('id');
-
-		$plans = $this->Plan->findAllByUserId($user_id);
+		$plans = $this->Plan->findAllByUserIdAndWorld($this->Auth->user('id'), $this->Session->read('current_world'));
 
 		// Now find each plans's commands
 		foreach ($plans as &$p) { // '&' passes the element by reference
