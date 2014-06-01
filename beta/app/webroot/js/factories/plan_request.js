@@ -26,7 +26,8 @@ TWP.twplan.Factories.factory('PlanRequest', ['$http', '$q', function ($http, $q)
 			$http.post('plans/plan', {
 				name: plan_name,
 				landing_datetime: plan.landing_datetime.getTime() / 1000,
-				world: plan.scope.current_world,
+				// TODO: refactor to obtain the current_world from the $Session variable on the backend
+				world: plan.scope.current_world.world, // #CASUALWORLDHACK the backend doesn't know anything about the server property
 				commands: commands
 			})
 			.success(function (data, status, headers, config) {

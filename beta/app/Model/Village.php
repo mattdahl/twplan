@@ -8,7 +8,7 @@
 class Village extends AppModel {
 
 	public $useDbConfig = 'villages';
-	public $tablePrefix = 'en';
+	//public $tablePrefix = 'en'; #CASUALWORLDHACK removed
 
 	private $village_id;
 	private $village_name;
@@ -21,6 +21,13 @@ class Village extends AppModel {
 	 * @param int $world
 	 */
 	public function use_table ($world) {
+		if ($world == '1' || $world == '2') { #CASUALWORLDHACK
+			$this->tablePrefix = 'enp';
+		}
+		else {
+			$this->tablePrefix = 'en';
+		}
+
 		$this->useTable = $world;
 	}
 

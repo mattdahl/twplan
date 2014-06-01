@@ -133,11 +133,12 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 					}
 				}
 
+				// TODO: Fix this, does not work when grooms.length != brides.length
 				for (var i = 0; i < grooms.length; i++) {
 					grooms[i].candidates.sort(sort_by_traveling_time);
 
-					if (grooms[i].candidates.length > grooms[i].length) { // Removes the worst targets if there are more targets than villages
-						var difference = grooms[i].candidates.length - grooms[i].length;
+					if (grooms[i].length > grooms[i].candidates.length) { // Removes the worst villages if there are more villages than targets
+						var difference = grooms[i].length - grooms[i].candidates.length;
 						grooms[i].candidates.splice(-difference, difference);
 					}
 				}
@@ -145,8 +146,8 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 				for (var i = 0; i < brides.length; i++) {
 					brides[i].candidates.sort(sort_by_traveling_time);
 
-					if (brides[i].candidates.length > brides[i].length) { // Removes the worst targets if there are more targets than villages
-						var difference = brides[i].candidates.length - brides[i].length;
+					if (brides[i].length > brides[i].candidates.length) { // Removes the worst villages if there are more villages targets
+						var difference = brides[i].length - brides[i].candidates.length;
 						brides[i].candidates.splice(-difference, difference);
 					}
 				}

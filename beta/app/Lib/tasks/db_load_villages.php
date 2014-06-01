@@ -16,8 +16,17 @@ if (!$world) {
 	exit();
 }
 
-$filepath = 'http://en' . $world. '.tribalwars.net/map/village.txt.gz';
-$local_filepath = '/code/twplan/beta/app/tmp/data/villages/en' . $world . '_village_data.txt';
+// #CASUALWORLDHACK
+if ($world == 1 || $world == 2) { // casual
+    $server_prefix = 'enp';
+}
+else {
+    $server_prefix = 'en';
+}
+
+$filepath = 'http://' . $server_prefix . $world. '.tribalwars.net/map/village.txt.gz';
+
+$local_filepath = '/code/twplan/beta/app/tmp/data/villages/' . $server_prefix . $world . '_village_data.txt';
 
 // Unzips the remote data file into an array
 $village_file = gzfile($filepath);
@@ -62,7 +71,7 @@ else {
         	printf("Connected to database... \n");
         }
 
-        $truncate_query = "DROP TABLE IF EXISTS en{$world}";
+        $truncate_query = "DROP TABLE IF EXISTS {$server_prefix}{$world}";
 
         if (!$mysqli->query($truncate_query)) {
         	printf("Error truncating old table with query \n %s \n", $create_query);
@@ -73,7 +82,7 @@ else {
         	printf("Truncated old table...\n");
         }
 
-        $create_query = "CREATE TABLE IF NOT EXISTS en{$world}
+        $create_query = "CREATE TABLE IF NOT EXISTS {$server_prefix}{$world}
         (
         	village_id INT NOT NULL,
         	village_name VARCHAR(100) NOT NULL,
@@ -93,7 +102,7 @@ else {
 	printf("Created table (IF NOT EXISTS)...\n");
 }
 
-$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE en{$world}
+$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$server_prefix}{$world}
 FIELDS TERMINATED BY '>'
 LINES TERMINATED BY '\n'
 (
@@ -113,14 +122,16 @@ else {
 	printf("Parsed csv into mysql...\n");
 }
 
-$mysqli->select_db('twp_users');
+
+// Logs record of last_updated
+$mysqli->select_db('twp_analytics');
 
 date_default_timezone_set("Europe/London");
 $now = date("Y-m-d H:i:s");
-$last_updated_query = "UPDATE worlds SET last_updated='{$now}' WHERE world_number = '{$world}'";
+$last_updated_query = "UPDATE worlds SET villages_last_updated='{$now}' WHERE world_number = '{$world}'";
 
 if (!$mysqli->query($last_updated_query)) {
-	printf("Error updating last_updated data with query \n %s \n", $last_updated_query);
+	printf("Error updating villages_last_updated data with query \n %s \n", $last_updated_query);
 	printf("Error message: %s \n", $mysqli->error);
 	exit();
 }
@@ -132,7 +143,7 @@ $mysqli->close();
 
 $end_time = microtime(true);
 
-printf("Database twp_villages successfully loaded village data for table en{$world}! \nElapsed time: %f \n", $end_time - $start_time);
+printf("Database twp_villages successfully loaded village data for table {$server_prefix}{$world}! \nElapsed time: %f \n", $end_time - $start_time);
 
 exit();
 

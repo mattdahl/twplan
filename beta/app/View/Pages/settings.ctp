@@ -7,7 +7,7 @@
         <b>Default World</b>
       </td>
       <td>
-        <select ng-model="default_world" ng-options="'W' + w for w in worlds" ng-change="change_default_world()"></select>
+        <select ng-model="default_world" ng-options="'W' + w.world group by w.server for w in worlds" ng-change="change_default_world()"></select>
       </td>
     </tr>
     <tr>

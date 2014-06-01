@@ -74,6 +74,5 @@ TWP.twplan.run(['$rootScope', 'MetaData', 'AttackTypes', function ($rootScope, M
 
 	$rootScope.username = MetaData.username;
 	$rootScope.user_id = MetaData.user_id;
-	$rootScope.current_world = MetaData.current_world;
 	$rootScope.last_updated = MetaData.last_updated;
 }]);

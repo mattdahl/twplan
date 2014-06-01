@@ -3,17 +3,21 @@
  */
 TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', function ($scope, $http) {
 	$scope.worlds = [
-		58,
-		60,
-		64,
-		65,
-		66,
-		67,
-		68,
-		69,
-		70,
-		71,
-		72
+		{world: 1, server: 'casual'},
+		{world: 2, server: 'casual'},
+		{world: 60, server: 'en'},
+		{world: 64, server: 'en'},
+		{world: 65, server: 'en'},
+		{world: 66, server: 'en'},
+		{world: 67, server: 'en'},
+		{world: 68, server: 'en'},
+		{world: 69, server: 'en'},
+		{world: 70, server: 'en'},
+		{world: 71, server: 'en'},
+		{world: 72, server: 'en'},
+		{world: 73, server: 'en'},
+		{world: 74, server: 'en'},
+		{world: 75, server: 'en'}
 	];
 
 	$scope.timezones = [
@@ -53,7 +57,16 @@ TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', func
 		return null;
 	};
 
-	$scope.default_world = $scope.MetaData.default_world;
+	// #CASUALWORLDHACK
+	(function () {
+		for (var i = 0; i < $scope.worlds.length; i++) {
+			if ($scope.worlds[i].world === $scope.MetaData.default_world) {
+				$scope.default_world = $scope.worlds[i];
+				break;
+			}
+		}
+	})();
+
 	$scope.local_timezone = $scope.timezone_in_array({offset: $scope.MetaData.local_timezone});
 
 	$scope.change_local_timezone = function () {
@@ -70,7 +83,7 @@ TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', func
 	$scope.change_default_world = function () {
 		$http.post(
 			'settings/set_default_world',
-			{default_world: $scope.default_world}
+			{default_world: $scope.default_world.world} // #CASUALWORLDHACK the backend doesn't know anything about the server property
 		).success(function (data, status, headers, config) {
 			debugger;
 		}).error(function (data, status, headers, config) {

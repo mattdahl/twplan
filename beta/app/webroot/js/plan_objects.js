@@ -538,7 +538,14 @@ Command = (function () {
 		this.traveling_time = traveling_time;
 		this.launch_datetime = launch_datetime;
 		this.time_remaining = (new Date(this.launch_datetime - new Date())).getTime() / 1000; // Seconds
-		this.launch_url = "http://en" + this.scope.current_world + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
+
+		// #CASUALWORLDHACK make sure the world prefix is correct
+		if (this.scope.MetaData.current_world === 1 || this.scope.MetaData.current_world === 2) { // casual world
+			this.launch_url = "http://enp" + this.scope.MetaData.current_world + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
+		}
+		else {
+			this.launch_url = "http://en" + this.scope.MetaData.current_world + ".tribalwars.net/game.php?village=" + this.village.village_id + "&screen=place&x=" + this.target.x_coord + "&y=" + this.target.y_coord + "&attacktype=" + this.attack_type;
+		}
 	}
 
 	Command.prototype = {

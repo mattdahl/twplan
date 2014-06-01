@@ -80,6 +80,11 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', '$location', '
 	if ($scope.villages.length === 0) {
 		VillagesRequest.query() // Returns a promise object
 		.then(function (data) { // Success
+			if (!data.length) {
+				alert('You don\'t have any villages on this world!');
+				return false;
+			}
+
 			$.each(data, function (index, element) {
 				$scope.villages.push(new Village(
 					$scope,

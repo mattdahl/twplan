@@ -16,8 +16,17 @@ if (!$world) {
 	exit();
 }
 
-$filepath = 'http://en' . $world. '.tribalwars.net/map/player.txt.gz';
-$local_filepath = '/code/twplan/beta/app/tmp/data/players/en' . $world . '_player_data.txt';
+// #CASUALWORLDHACK
+if ($world == 1 || $world == 2) { // casual
+    $server_prefix = 'enp';
+}
+else {
+    $server_prefix = 'en';
+}
+
+$filepath = 'http://' . $server_prefix . $world. '.tribalwars.net/map/player.txt.gz';
+
+$local_filepath = '/code/twplan/beta/app/tmp/data/players/' . $server_prefix . $world . '_player_data.txt';
 
 // Unzips the remote data file into an array
 $player_file = gzfile($filepath);
@@ -62,7 +71,7 @@ else {
 	printf("Connected to database...\n");
 }
 
-$truncate_query = "DROP TABLE IF EXISTS en{$world}";
+$truncate_query = "DROP TABLE IF EXISTS {$server_prefix}{$world}";
 
 if (!$mysqli->query($truncate_query)) {
     printf("Error truncating old table with query \n %s \n", $create_query);
@@ -73,7 +82,7 @@ else {
 	printf("Truncated old table...\n");
 }
 
-$create_query = "CREATE TABLE IF NOT EXISTS en{$world}
+$create_query = "CREATE TABLE IF NOT EXISTS {$server_prefix}{$world}
 			(
 				player_id INT NOT NULL,
 				username VARCHAR(100) NOT NULL,
@@ -91,7 +100,7 @@ else {
 	printf("Created table (IF NOT EXISTS)...\n");
 }
 
-$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE en{$world}
+$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$server_prefix}{$world}
 			FIELDS TERMINATED BY '>'
 			LINES TERMINATED BY '\n'
 			(
@@ -109,7 +118,7 @@ else {
 	printf("Parsed csv into mysql...\n");
 }
 
-$decode_query = "UPDATE en{$world} SET username = REPLACE(username, '+', ' ')";
+$decode_query = "UPDATE {$server_prefix}{$world} SET username = REPLACE(username, '+', ' ')";
 
 if (!$mysqli->query($decode_query)) {
     printf("Error decoding player data with query \n %s \n", $decode_query);
@@ -120,11 +129,27 @@ else {
 	printf("Decoded usernames...\n");
 }
 
+// Logs record of last_updated
+$mysqli->select_db('twp_analytics');
+
+date_default_timezone_set("Europe/London");
+$now = date("Y-m-d H:i:s");
+$last_updated_query = "UPDATE worlds SET players_last_updated='{$now}' WHERE world_number = '{$world}'";
+
+if (!$mysqli->query($last_updated_query)) {
+	printf("Error updating players_last_updated data with query \n %s \n", $last_updated_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
+}
+else {
+	printf("Updated last_updated data...\n");
+}
+
 $mysqli->close();
 
 $end_time = microtime(true);
 
-printf("Database twp_players successfully loaded player data for table en{$world}! \nElapsed time: %f \n", $end_time - $start_time);
+printf("Database twp_players successfully loaded player data for table {$server_prefix}{$world}! \nElapsed time: %f \n", $end_time - $start_time);
 
 exit();
 

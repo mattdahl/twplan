@@ -1,8 +1,12 @@
 TWP.twplan.Factories.factory('WorldInfo', function () {
 	return {
-		58: {
-			speed: 1.5,
-			unitSpeed: 0.8
+		1: {
+			speed: 1,
+			unitSpeed: 1
+		},
+		2: {
+			speed: 1,
+			unitSpeed: 1
 		},
 		60: {
 			speed: 1.25,
@@ -43,6 +47,18 @@ TWP.twplan.Factories.factory('WorldInfo', function () {
 		72: {
 			speed: 1,
 			unitSpeed: 1
+		},
+		73: {
+			speed: 1.25,
+			unitSpeed: 1
+		},
+		74: {
+			speed: 1,
+			unitSpeed: 1
+		},
+		75: {
+			speed: 1.5,
+			unitSpeed: 2 / 3
 		}
 	};
 });

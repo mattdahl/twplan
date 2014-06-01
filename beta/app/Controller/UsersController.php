@@ -24,7 +24,14 @@ class UsersController extends AppController {
      */
     public function villages () {
         $this->autoRender = false;
-        return json_encode($this->Villages->villages_for_world());
+
+        $villages = $this->Villages->villages_for_world();
+        if ($villages === true) { // When a lookup finds nothing it returns true for some bizarre reason
+            return json_encode([]);
+        }
+        else {
+            return json_encode($villages);
+        }
     }
 
     /**
