@@ -10,11 +10,11 @@ class Village extends AppModel {
 	public $useDbConfig = 'villages';
 	//public $tablePrefix = 'en'; #CASUALWORLDHACK removed
 
-	private $village_id;
-	private $village_name;
-	private $x_coord;
-	private $y_coord;
-	private $player_id;
+	public $village_id;
+	public $village_name;
+	public $x_coord;
+	public $y_coord;
+	public $player_id;
 
 	/**
 	 * Switches table given a world; i.e. use table en69, or en70
@@ -29,26 +29,6 @@ class Village extends AppModel {
 		}
 
 		$this->useTable = $world;
-	}
-
-	public function village_id () {
-		return $this->village_id;
-	}
-
-	public function village_name () {
-		return $this->name;
-	}
-
-	public function x_coord () {
-		return $this->x_coord;
-	}
-
-	public function y_coord () {
-		return $this->y_coord;
-	}
-
-	public function player_id () {
-		return $this->player_id;
 	}
 }
 

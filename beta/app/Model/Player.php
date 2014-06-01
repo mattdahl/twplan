@@ -10,9 +10,9 @@ class Player extends AppModel {
 	public $useDbConfig = 'players';
 	//public $tablePrefix = 'en'; #CASUALWORLDHACK removed
 
-	private $player_id;
-	private $username;
-	private $tribe_id;
+	public $player_id;
+	public $username;
+	public $tribe_id;
 
 	/**
 	 * Switches table given a world; i.e. use table en69, or en70
@@ -28,19 +28,6 @@ class Player extends AppModel {
 
 		$this->useTable = $world;
 	}
-
-	public function player_id () {
-		return $this->player_id;
-	}
-
-	public function username () {
-		return $this->username;
-	}
-
-	public function tribe_id () {
-		return $this->tribe_id;
-	}
-
 }
 
 ?>
