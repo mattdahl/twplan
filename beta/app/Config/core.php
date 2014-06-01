@@ -73,14 +73,14 @@
  * @see ErrorHandler for more information on exception handling and configuration.
  */
 
-	Configure::write('Exception.handler', 'AppExceptionHandler::handle');
-/*
+	#Custom handler, discontinued 5/31/14
+	#Configure::write('Exception.handler', 'AppExceptionHandler::handle');
+
 	Configure::write('Exception', array(
 		'handler' => 'ErrorHandler::handleException',
 		'renderer' => 'ExceptionRenderer',
 		'log' => true
 	));
-	*/
 
 /**
  * Application wide charset encoding
