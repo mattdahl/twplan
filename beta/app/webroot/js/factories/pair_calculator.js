@@ -86,17 +86,17 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 				return new Date(before_offset.setHours(before_offset.getHours() + offset));
 			};
 
-			var engage = function (grooms) {
+			var engage = function (brides) {
 				var done;
 				do {
 					done = true;
-					for (var i = 0; i < grooms.length; i++) {
-						var groom = grooms[i];
-						if (!groom.fiance) {
+					for (var i = 0; i < brides.length; i++) {
+						var bride = brides[i];
+						if (!bride.fiance) {
 							done = false;
-							var bride = groom.next_candidate();
-							if (!bride.fiance || bride.prefers(groom)) {
-								groom.engage_to(bride);
+							var groom = bride.next_candidate();
+							if (!groom.fiance || groom.prefers(bride)) {
+								bride.engage_to(groom);
 							}
 						}
 					}
@@ -133,21 +133,12 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 					}
 				}
 
-				// TODO: Fix this, does not work when grooms.length != brides.length
-				for (var i = 0; i < grooms.length; i++) {
-					grooms[i].candidates.sort(sort_by_traveling_time);
+				// Removes the worst villages (grooms, i.e. brides[i].candidates) if there are more villages (grooms) than targets (brides)
+				if (grooms.length > brides.length) {
+					var difference = grooms.length - brides.length;
 
-					if (grooms[i].length > grooms[i].candidates.length) { // Removes the worst villages if there are more villages than targets
-						var difference = grooms[i].length - grooms[i].candidates.length;
-						grooms[i].candidates.splice(-difference, difference);
-					}
-				}
-
-				for (var i = 0; i < brides.length; i++) {
-					brides[i].candidates.sort(sort_by_traveling_time);
-
-					if (brides[i].length > brides[i].candidates.length) { // Removes the worst villages if there are more villages targets
-						var difference = brides[i].length - brides[i].candidates.length;
+					for (var i = 0; i < brides.length; i++) {
+						brides[i].candidates.sort(sort_by_traveling_time);
 						brides[i].candidates.splice(-difference, difference);
 					}
 				}
@@ -163,11 +154,11 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 
 				make_rankings();
 
-				engage(grooms);
+				engage(brides);
 
-				for (var i = 0; i < grooms.length; i++) {
-					var groom = grooms[i];
-					var bride = grooms[i].fiance;
+				for (var i = 0; i < brides.length; i++) {
+					var bride = brides[i];
+					var groom = bride.fiance;
 
 					var traveling_time = calculate_traveling_time(groom.village_or_target, bride.village_or_target);
 					var launch_hour = calculate_launch_time(landing_datetime, traveling_time).getHours();
@@ -177,9 +168,9 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 
 				var return_array = [];
 
-				for (var i = 0; i < grooms.length; i++) {
+				for (var i = 0; i < brides.length; i++) {
 					//	return_array[villages.indexOf(grooms[i].village_or_target)] = targets.indexOf(grooms[i].fiance.village_or_target);
-					return_array[i] = [grooms[i].village_or_target, grooms[i].fiance.village_or_target];
+					return_array[i] = [brides[i].fiance.village_or_target, brides[i].village_or_target];
 				}
 
 				return return_array;
@@ -187,9 +178,9 @@ TWP.twplan.Factories.factory('PairCalculator', ['Units', 'WorldInfo', 'MetaData'
 
 			return marry();
 		},
-		is_stable: function (grooms, brides) {
-			for (var i = 0; i < grooms.length; i++) {
-				for (var j = 0; j < brides.length; j++) {
+		is_stable: function (grooms, brides) { // Not sure if this works when grooms.length != brides.length
+			for (var i = 0; i < brides.length; i++) {
+				for (var j = 0; j < grooms.length; j++) {
 					if (grooms[i].prefers(brides[j]) && brides[j].prefers(grooms[i])) {
 						return false;
 					}

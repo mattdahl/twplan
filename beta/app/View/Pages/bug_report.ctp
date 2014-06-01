@@ -11,7 +11,7 @@
 	</p>
 
 	<p>
-		<b>What page (or planing step) were you using?</b> <br />
+		<b>What page (or planning step) were you using?</b> <br />
 		<textarea class="bug_report_item" ng-model="bug_report.page"></textarea>
 	</p>
 
