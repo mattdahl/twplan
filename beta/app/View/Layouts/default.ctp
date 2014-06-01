@@ -15,6 +15,7 @@
 		echo $this->Html->script('factories/meta_data');
 		echo $this->Html->script('factories/attack_types');
 		echo $this->Html->script('error_handler');
+		echo $this->Html->script('factories/exception_handler');
 	?>
 
 	<script type="text/javascript"> /* Google Analytics */
