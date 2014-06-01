@@ -589,9 +589,9 @@ Plan = (function () {
 				+ " ("
 				+ this.scope.AttackTypes.toString[this.commands[i].attack_type]
 				+ ") from [village]"
-				+ this.commands[i].village.y_coord
-				+ "|"
 				+ this.commands[i].village.x_coord
+				+ "|"
+				+ this.commands[i].village.y_coord
 				+ "[/village] to [village]"
 				+ this.commands[i].target.x_coord
 				+ "|"
@@ -608,9 +608,9 @@ Plan = (function () {
 
 			for (var i = 0; i < this.commands.length; i++) {
 				s += "[*][village]"
-				+ this.commands[i].village.y_coord
-				+ "|"
 				+ this.commands[i].village.x_coord
+				+ "|"
+				+ this.commands[i].village.y_coord
 				+ "[/village][|][village]"
 				+ this.commands[i].target.x_coord
 				+ "|"
