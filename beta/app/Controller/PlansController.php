@@ -57,7 +57,7 @@ class PlansController extends AppController {
 		// Now find each plans's commands
 		foreach ($plans as &$p) { // '&' passes the element by reference
 			$plan_id = $p->id;
-			$commands = $this->Plan->Command->findAllByPlanId($plan_id);
+			$commands = $this->Plan->Command->findAllByPlanId($plan_id); // This returns true even if nothing is found... Not a breaking change, but weird
 			$p->commands = $commands;
 		}
 
@@ -73,15 +73,15 @@ class PlansController extends AppController {
 
 		$was_published = $this->Plan->findById($plan_id)->is_published;
 
-		if ($data['is_published'] == 'true' && !$was_published) { // Setup the published_hash
-			$this->Plan->saveField('is_published', true);
+		if ($data['is_published'] == 'Yes' && $was_published == 'No') { // Setup the published_hash
+			$this->Plan->saveField('is_published', 'Yes');
 
 			$published_hash = md5(time() . $this->Auth->user('id'));
 
 			$this->Plan->saveField('published_hash', $published_hash);
 		}
-		else if ($data['is_published'] == 'false' && $was_published) {
-			$this->Plan->saveField('is_published', false);
+		else if ($data['is_published'] == 'No' && $was_published == 'Yes') {
+			$this->Plan->saveField('is_published', 'No');
 			$this->Plan->saveField('published_hash', NULL);
 		}
 
@@ -116,7 +116,7 @@ class PlansController extends AppController {
 		// Find the appropriate plan
 		$plan = $this->Plan->findByPublishedHash($published_hash);
 
-		if (!count($plan) || !$plan->is_published) {
+		if (!count($plan) || $plan->is_published != 'Yes') {
 			$this->Session->setFlash('<h1>Public Plan</h1> There is no published plan for this url indentifier.', 'plain_flash_message');
 			$this->set(compact('page', 'title_for_layout'));
 		}
