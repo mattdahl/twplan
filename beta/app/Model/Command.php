@@ -3,7 +3,7 @@
 class Command extends AppModel {
 
 	// Having trouble setting up association
-	public $belongsTo = 'Plan';
+	//public $belongsTo = 'Plan';
 
 	public $village;
 	public $target;
