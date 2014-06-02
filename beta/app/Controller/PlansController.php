@@ -52,14 +52,19 @@ class PlansController extends AppController {
 
 		$plans = $this->Plan->findAllByUserIdAndWorld($this->Auth->user('id'), $this->Session->read('current_world'));
 
-		// Now find each plans's commands
-		foreach ($plans as &$p) { // '&' passes the element by reference
-			$plan_id = $p->id;
-			$commands = $this->Plan->Command->findAllByPlanId($plan_id); // This returns true even if nothing is found... Not a breaking change, but weird
-			$p->commands = $commands;
+		if ($plans === true) { // Returns true if nothing is found
+			return json_encode([]);
 		}
+		else {
+			// Now find each plans's commands
+			foreach ($plans as &$p) { // '&' passes the element by reference
+				$plan_id = $p->id;
+				$commands = $this->Plan->Command->findAllByPlanId($plan_id); // This returns true even if nothing is found... Not a breaking change, but weird
+				$p->commands = $commands;
+			}
 
-		return json_encode($plans);
+			return json_encode($plans);
+		}
 	}
 
 	public function update ($plan_id) {
