@@ -37,7 +37,7 @@ class PlansController extends AppController {
 				'user_id' => $this->Auth->user('id'),
 			    'name' => $data['name'],
 			    'landing_datetime' => date("Y-m-d H:i:s", $data['landing_datetime']), // Reformats the date string so mySQL will accept it
-			    'world' => $data['world']
+			    'world' => $this->Session->read('current_world')
 		    ),
 		    'Command' => $data['commands']
 		);
