@@ -52,6 +52,8 @@ TWP.twplan.Controllers.controller('PlansController', ['$scope', 'PlanRequest', '
 			debugger;
 			alert('Plan "' + $scope.current_plan.name + '" deleted!');
 			$scope.plans.splice($scope.plans.indexOf($scope.current_plan), 1);
+			clearInterval($scope.countdown_timeout);
+			$scope.current_plan = $scope.plans[0];
 		}, function (data) { // Error
 			debugger;
 		});
