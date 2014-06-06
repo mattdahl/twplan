@@ -26,6 +26,10 @@ class PlansController extends AppController {
 
 		$data = $this->request->input('json_decode', 'true');
 
+		if (is_array($this->Plan->findAllByNameAndWorld($data['name'], $this->Session->read('current_world')))) {
+			return json_encode('name_exists');
+		}
+
 		// Reformat the date strings in the commands array
 		foreach ($data['commands'] as &$command) { // '&' passes the element by reference
 			$command['launch_datetime'] = date("Y-m-d H:i:s", $command['launch_datetime']);

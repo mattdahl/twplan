@@ -251,12 +251,22 @@ TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', 
 	};
 
 	$scope.save_plan = function () {
+		if (!$scope.saved_plan_name) {
+			alert('You must enter a name for your plan!');
+			return false;
+		}
+
 		$('#loadingcircle').show();
 
 		PlanRequest.save($scope.saved_plan_name, $scope.plan) // Returns a promise object
 		.then(function (data) { // Success
-			alert('Success! Your plan ' + data + ' has been saved. Go to the saved tab to view it.');
-			$scope.saved_plan_name = '';
+			if (JSON.parse(data) === 'name_exists') { // This will actually be true too is someone is stupid enough to name their plan 'name_exists'
+				alert('You already have a plan on this world with this name! Please choose another.');
+			}
+			else {
+				alert('Success! Your plan "' + JSON.parse(data) + '" has been saved. Go to the saved tab to view it.');
+				$scope.saved_plan_name = '';
+			}
 			$('#loadingcircle').hide();
 		}, function (jqXHR, t, e) { // Error
 			alert('Something went wrong! Error:\n' + (jqXHR.responseText || e));
