@@ -3,7 +3,14 @@ var TWP = TWP || {};
 TWP.error_handler = function (message, url, line_number) {
 	var suppressed = false;
 
-	if (line_number == 88 && message.indexOf('10 $digest()')) {
+	if (
+		(line_number == 88 &&
+		message.indexOf('10 $digest()') >= 0
+		) ||
+		(navigator.userAgent.indexOf('Opera/9.80') >= 0 && // Ignore location $digest() errors for this old version of Opera
+		message.indexOf('$locationChangeStart') >= 0
+		)
+	) {
 		var suppressed = true;
 	}
 	else {

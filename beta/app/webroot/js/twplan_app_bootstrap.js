@@ -47,9 +47,7 @@ TWP.twplan.run(['$rootScope', 'MetaData', 'AttackTypes', function ($rootScope, M
 		// Fixes annoying bug in Opera 12
 		// Should be fixed in latest version of Angular: https://github.com/angular/angular.js/commit/dca23173e25a32cb740245ca7f7b01a84805f43f
 		// This forces the location.href to be read, and therefore update synchronously when the .otherwise redirectTo triggers location.replace()
-		setTimeout(function () {
-			window.location.href === window.location.href;
-		}, 50);
+		window.location.href === window.location.href;
 	});
 
 	$rootScope.villages = [];
