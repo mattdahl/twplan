@@ -24,7 +24,7 @@
       <ul>
           <li><?php echo $this->Html->link('Groups', '/groups', array('class' => 'navlink')); ?></li>
           <li><?php echo $this->Html->link('Saved', '/plans', array('class' => 'navlink')); ?></li>
-          <li><?php echo $this->Html->link('Script', '/user_scripts', array('class' => 'navlink')); ?></li>
+          <li><?php echo $this->Html->link('Scripts', '/user_scripts', array('class' => 'navlink')); ?></li>
         </ul>
     </div>
     </nav>
