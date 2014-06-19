@@ -44,7 +44,8 @@ class AnalyticsController extends AppController {
 				    'contact_information' => $data['contact_information'],
 				    'user_id' => $this->Auth->user('id'),
 				    'date_submitted' => date("Y-m-d H:i:s", time()),
-				    'is_js' => $data['is_js']
+				    'is_js' => $data['is_js'],
+				    'is_suppressed' => $data['is_suppressed']
 			    )
 			);
 
@@ -59,7 +60,10 @@ class AnalyticsController extends AppController {
 			$bug_report_message .= "Contact Information: {$new_bug_report['BugReport']['contact_information']} \n";
 			$bug_report_message .= "User ID: {$new_bug_report['BugReport']['user_id']}";
 
-			if ($new_bug_report['BugReport']['is_js'] == true || $new_bug_report['BugReport']['is_js'] == 'true') {
+			if ($new_bug_report['BugReport']['is_suppressed'] === true || $new_bug_report['BugReport']['is_suppressed'] == 'true') {
+				return;
+			}
+			else if ($new_bug_report['BugReport']['is_js'] === true || $new_bug_report['BugReport']['is_js'] == 'true') {
 				mail("support@twplan.com", "TWplan JS ERROR", $bug_report_message);
 			}
 			else {

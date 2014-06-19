@@ -24,10 +24,11 @@ TWP.error_handler = function (message, url, line_number) {
 		data: JSON.stringify({
 			description: line_number,
 			page: url + ' (on: ' + document.URL + ')',
-			error_message: suppressed ? message + ' (suppressed)' : message,
+			error_message: message,
 			is_js: true,
 			is_replicable: null,
-			contact_information: null
+			contact_information: null,
+			is_suppressed: suppressed
 		}),
 		success: function (data) {
 			debugger;
