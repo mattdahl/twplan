@@ -219,8 +219,8 @@ TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', 
 
 	$scope.countdown_timeout = null;
 
-	$scope.table_export = $scope.plan.export_as_table();
-	$scope.text_export = $scope.plan.export_as_text();
+	$scope.table_export = $rootScope.plan.export_as_table();
+	$scope.text_export = $rootScope.plan.export_as_text();
 
 	$scope.saved_plan_name = '';
 
@@ -258,7 +258,7 @@ TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', 
 
 		$('#loadingcircle').show();
 
-		PlanRequest.save($scope.saved_plan_name, $scope.plan) // Returns a promise object
+		PlanRequest.save($scope.saved_plan_name, $rootScope.plan) // Returns a promise object
 		.then(function (data) { // Success
 			if (JSON.parse(data) === 'name_exists') { // This will actually be true too is someone is stupid enough to name their plan 'name_exists'
 				alert('You already have a plan on this world with this name! Please choose another.');
@@ -293,8 +293,8 @@ TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', 
 	$scope.countdown = function () {
 		$scope.countdown_timeout = setInterval(function () {
 			$scope.$apply(function () {
-				for (var i = 0; i < $scope.plan.commands.length; i++) {
-					$scope.plan.commands[i].decrement_time_remaining();
+				for (var i = 0; i < $rootScope.plan.commands.length; i++) {
+					$rootScope.plan.commands[i].decrement_time_remaining();
 				}
 			});
 		},
