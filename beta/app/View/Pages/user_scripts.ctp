@@ -72,7 +72,7 @@
   <p><b>Archer World</b>&nbsp<input type="checkbox" ng-model="is_archer" ng-checked="is_archer" /></p>
 
   <p><b>Script</b></p>
-  <pre class="user_script" ng-click="select_all($event.srcElement)">
+  <pre class="user_script" ng-click="select_all($event.target)">
     javascript:
     var troops = {
       nuke: [
@@ -118,7 +118,7 @@
         {{ launch_script.support_troops.noble }}
       ],
     };
-    $.getScript( {{ launch_script.external_url }} );
+    $.getScript('{{ launch_script.external_url }}');
     void(0);
   </pre>
 
@@ -126,10 +126,7 @@
   <p>Using this script you can easily import your existing Tribalwars village groups into TWplan for one-click use in your plans. Run this script from the Groups Overview page in Tribalwars. (Requires premium account.)</p>
 
   <p><b>Script</b></p>
-  <pre class="user_script" ng-click="select_all($event.srcElement)">
-    javascript:
-    var user_id = 'foo';
-    $.getScript( {{ group_import_script.external_url }} );
-    void(0);
+  <pre class="user_script" ng-click="select_all($event.target)">
+    coming soon
   </pre>
 </div>
