@@ -272,12 +272,17 @@ VillagePasteInInterface = (function () {
 			$('#' + this.village_id + '_add_button').focus();
 		},
 		addToPlan: function () {
-			if (this.coords == '') {
-				alert("You haven't entered any coordinates in the box yet.");
+			if (this.coords === '') {
+				alert('You haven\'t entered any coordinates in the box yet.');
 				return false;
 			}
 
 			var coords = this.coords.match(/[0-9]{3}\|[0-9]{3}/g);
+
+			if (!coords || coords.length === '') {
+				alert('None of the coordinates you entered are valid! Use the format xxx|yyy, separated by spaces.');
+				return false;
+			}
 
 			for (var i = 0; i < this.scope.villages.length; i++) {
 				for (var j = 0; j < coords.length; j++) {
@@ -471,6 +476,11 @@ TargetPasteInInterface = (function () {
 			}
 
 			var coords = this.coords.match(/[0-9]{3}\|[0-9]{3}/g);
+
+			if (!coords || coords.length === '') {
+				alert('None of the coordinates you entered are valid! Use the format xxx|yyy, separated by spaces.');
+				return false;
+			}
 
 			for (var i = 0; i < coords.length; i++) {
 				var coord_components = coords[i].split('|');
