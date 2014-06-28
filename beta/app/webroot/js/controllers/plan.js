@@ -67,12 +67,19 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', '$location', '
 		});
 	};
 
+	$scope.render_villages = function () {
+		$scope.sort_villages($scope.villages);
+		$scope.paginate_villages($scope.villages);
+		$scope.page_villages = $scope.paginated_villages[$scope.current_page];
+	};
+
 	$scope.submitStepOne = function () {
 		if ($scope.villages_in_plan.nukes.length + $scope.villages_in_plan.nobles.length + $scope.villages_in_plan.supports.length === 0) {
 			alert("You haven't added any villages! Please choose at least one.");
 			return false;
 		}
 
+		$scope.completed_steps.one = true;
 		$location.path('/step_two');
 	};
 
@@ -96,13 +103,16 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', '$location', '
 					null,
 					null
 				));
+
+				$scope.render_villages();
 			});
-			$scope.sort_villages($scope.villages);
-			$scope.paginate_villages($scope.villages);
-			$scope.page_villages = $scope.paginated_villages[$scope.current_page];
 		}, function (data) { // Error
 			debugger;
 		});
+	}
+	else {
+		// Have to re-render since the pagination data is lost on page change
+		$scope.render_villages();
 	}
 
 	// Checks if group name have already been loaded (i.e. returning from step two or three)
@@ -120,13 +130,16 @@ TWP.twplan.Controllers.controller('StepOneController', ['$scope', '$location', '
 				debugger;
 			});
 	}
-
 }]);
 
 /**
  * The controller for the Step Two page
  */
 TWP.twplan.Controllers.controller('StepTwoController', ['$scope', '$location', function ($scope, $location) {
+	if (!$scope.completed_steps.one) {
+		$location.path('/step_one');
+	}
+
 	$scope.current_step = 2;
 
 	$scope.target_paste_in_interface = new TargetPasteInInterface($scope);
@@ -153,6 +166,7 @@ TWP.twplan.Controllers.controller('StepTwoController', ['$scope', '$location', f
 			}
 		}
 
+		$scope.completed_steps.two = true;
 		$location.path('/step_three');
 	};
 }]);
@@ -161,6 +175,10 @@ TWP.twplan.Controllers.controller('StepTwoController', ['$scope', '$location', f
  * The controller for the Step Three page
  */
 TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope', '$location', 'PlanCalculator', function ($rootScope, $scope, $location, PlanCalculator) {
+	if (!$scope.completed_steps.one || !$scope.completed_steps.two) {
+		$location.path('/step_one');
+	}
+
 	$scope.current_step = 3;
 
 	$scope.landing_date = '';
@@ -189,6 +207,7 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 		PlanCalculator.calculate_plan($scope, landing_datetime);
 		$rootScope.plan.sort();
 
+		$scope.completed_steps.three = true;
 		$location.path('/results');
 	};
 
@@ -208,7 +227,11 @@ TWP.twplan.Controllers.controller('StepThreeController', ['$rootScope', '$scope'
 /**
  * The controller for the Results page
  */
-TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', 'PlanRequest', 'PlanCalculator', function ($rootScope, $scope, PlanRequest, PlanCalculator) {
+TWP.twplan.Controllers.controller('ResultsController', ['$rootScope', '$scope', '$location', 'PlanRequest', 'PlanCalculator', function ($rootScope, $scope, $location, PlanRequest, PlanCalculator) {
+	if (!$scope.completed_steps.one || !$scope.completed_steps.two || !$scope.completed_steps.three) {
+		$location.path('/step_one');
+	}
+
 	$scope.current_step = 4;
 
 	$scope.new_landing_date = '';

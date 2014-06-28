@@ -50,12 +50,18 @@ TWP.twplan.run(['$rootScope', 'MetaData', 'AttackTypes', function ($rootScope, M
 		window.location.href === window.location.href;
 	});
 
+	$rootScope.completed_steps = {
+		one: false,
+		two: false,
+		three: false
+	};
+
 	$rootScope.villages = [];
 	$rootScope.villages_in_plan = {
-			nukes: [],
-			nobles: [],
-			supports: []
-		};
+		nukes: [],
+		nobles: [],
+		supports: []
+	};
 
 	$rootScope.targets = { // EVERY target that the user has added
 		nukes: [],
