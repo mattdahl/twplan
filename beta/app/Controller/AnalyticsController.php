@@ -40,6 +40,7 @@ class AnalyticsController extends AppController {
 				    'page' => $data['page'],
 				    'error_message' => $data['error_message'],
 				    'browser' => $this->request->header('User-Agent'),
+				    'client_ip' => $this->request->clientIp(),
 				    'is_replicable' => $data['is_replicable'],
 				    'contact_information' => $data['contact_information'],
 				    'user_id' => $this->Auth->user('id'),
@@ -56,6 +57,7 @@ class AnalyticsController extends AppController {
 			$bug_report_message .= "Page: {$new_bug_report['BugReport']['page']} \n";
 			$bug_report_message .= "Error Message: {$new_bug_report['BugReport']['error_message']} \n";
 			$bug_report_message .= "Browser: {$new_bug_report['BugReport']['browser']} \n";
+			$bug_report_message .= "Client IP: {$new_bug_report['BugReport']['client_ip']} \n";
 			$bug_report_message .= "Is Replicable: {$new_bug_report['BugReport']['is_replicable']} \n";
 			$bug_report_message .= "Contact Information: {$new_bug_report['BugReport']['contact_information']} \n";
 			$bug_report_message .= "User ID: {$new_bug_report['BugReport']['user_id']}";
