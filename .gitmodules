@@ -1,3 +1,0 @@
-[submodule "beta/lib/Cake"]
-	path = beta/lib/Cake
-	url = git@github.com:mattdahl/cakephp.git
