@@ -66,12 +66,13 @@ class DATABASE_CONFIG {
 		$this->default = array(
 			'datasource' => 'Database/Mysql',
 			'persistent' => false,
-			'host' => TWPLAN_CONFIG::$db_host,
-			'login' => TWPLAN_CONFIG::$db_login,
-			'password' => TWPLAN_CONFIG::$db_password,
-			'database' => 'twplan',
-			'prefix' => '',
-			'encoding' => 'utf8'
+			'host'       => TWPLAN_CONFIG::$db_host,
+			'port'       => 3306,
+			'login'      => TWPLAN_CONFIG::$db_login,
+			'password'   => TWPLAN_CONFIG::$db_password,
+			'database'   => 'twplan',
+			'prefix'     => '',
+			'encoding'   => 'utf8'
 		);
 	}
 }

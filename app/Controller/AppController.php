@@ -41,11 +41,11 @@ class AppController extends Controller {
 			'loginRedirect' => '/',
 			'logoutRedirect' => '/',
 			'loginAction' => '/users/login'
-		)
+		),
+		'DebugKit.Toolbar' # Managed by Configure::debug level
 	);
 
 	function beforeFilter () {
-		parent::beforeFilter();
 		$this->Auth->allowedActions = array('display');
 
 		# Fake an authenticated account
@@ -58,14 +58,11 @@ class AppController extends Controller {
 			));
 		}
 
-		# Dynamically load DebugKit in dev
-		if (TWPLAN_CONFIG::$env === 'dev') {
-			$this->Components->load('DebugKit.Toolbar');
-		}
-
 		# Ensure that a current_world is always set
 		if (!$this->Session->read('current_world')) {
 			$this->Session->write('current_world', 67);
 		}
+
+		parent::beforeFilter();
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 
 class TWPLAN_CONFIG {
-	public static $env         = 'dev';
+	public static $env         = 'prod';
 	public static $app_path    = '/code/twplan/';
 	public static $auto_login  = true;
 

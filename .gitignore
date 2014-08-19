@@ -8,6 +8,7 @@ app/tmp/cache
 
 # aws
 AWS-twplan.pem
+twplan_config.prod.php
 
 # misc
 archive

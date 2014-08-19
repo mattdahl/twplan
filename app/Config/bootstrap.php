@@ -187,6 +187,4 @@ CakeLog::config('error', array(
 /**
  * Enables DebugKit
  */
-if (TWPLAN_CONFIG::$env === 'dev') {
-	CakePlugin::load('DebugKit');
-}
+CakePlugin::load('DebugKit');

@@ -1,4 +1,7 @@
 <?php
+
+require_once(dirname(__FILE__) . '/../../twplan_config.php');
+
 /**
  * This is core configuration file.
  *
@@ -32,7 +35,13 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
+
+if (TWPLAN_CONFIG::$env === 'dev') {
 	Configure::write('debug', 2);
+}
+else {
+	Configure::write('debug', 0);
+}
 
 /**
  * Configure the Error handler used to handle errors for your application.  By default
