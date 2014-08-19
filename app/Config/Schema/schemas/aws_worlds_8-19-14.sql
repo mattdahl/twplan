@@ -1,0 +1,54 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4096
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: 127.0.0.1 (MySQL 5.6.19)
+# Database: twplan
+# Generation Time: 2014-08-19 17:48:26 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table worlds
+# ------------------------------------------------------------
+
+LOCK TABLES `worlds` WRITE;
+/*!40000 ALTER TABLE `worlds` DISABLE KEYS */;
+
+INSERT INTO `worlds` (`world_number`, `villages_last_updated`, `players_last_updated`, `plans`)
+VALUES
+	(60,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(64,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(66,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(67,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(68,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(70,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(71,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(72,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(73,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(74,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(75,'2014-01-01 00:00:00','2014-01-01 00:00:00',0),
+	(76,'2014-01-01 00:00:00','2014-01-01 00:00:00',0);
+
+/*!40000 ALTER TABLE `worlds` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
