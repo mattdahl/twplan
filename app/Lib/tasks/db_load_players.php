@@ -18,15 +18,16 @@ if (!$world) {
 
 // #CASUALWORLDHACK
 if ($world == 1 || $world == 2) { // casual
-    $server_prefix = 'enp';
+	$server_prefix = 'enp';
 }
 else {
-    $server_prefix = 'en';
+	$server_prefix = 'en';
 }
 
 $filepath = 'http://' . $server_prefix . $world. '.tribalwars.net/map/player.txt.gz';
 
-$local_filepath = '/code/twplan/beta/app/tmp/data/players/' . $server_prefix . $world . '_player_data.txt';
+require_once(dirname(__FILE__) . '/../../../twplan_config.php');
+$local_filepath = TWPLAN_CONFIG::$app_path . '/beta/app/tmp/data/players/' . $server_prefix . $world . '_player_data.txt';
 
 // Unzips the remote data file into an array
 $player_file = gzfile($filepath);
@@ -55,34 +56,35 @@ else {
 	printf("Wrote data to tmp folder... \n");
 }
 
-// Loads the database data from app/Config/database.php
-include('../../Config/database.php');
-$db_config = get_class_vars('DATABASE_CONFIG');
-$player_db_config = $db_config['players'];
+// Loads the database data
+require_once(TWPLAN_CONFIG::$app_path . 'beta/app/Config/database.php');
+$db_config = (new DATABASE_CONFIG())->default;
 
-$mysqli = new mysqli($player_db_config['host'], $player_db_config['login'], $player_db_config['password'], $player_db_config['database']);
+$mysqli = new mysqli($db_config['host'], $db_config['login'], $db_config['password'], $db_config['database']);
 
 // Checks for connection error
 if ($mysqli->connect_errno) {
-    printf("Connect failed: %s\n", $mysqli->connect_error);
-    exit();
+	printf("Connect failed: %s\n", $mysqli->connect_error);
+	exit();
 }
 else {
 	printf("Connected to database...\n");
 }
 
-$truncate_query = "DROP TABLE IF EXISTS {$server_prefix}{$world}";
+$table_name = "players_{$server_prefix}{$world}";
+
+$truncate_query = "DROP TABLE IF EXISTS {$table_name}";
 
 if (!$mysqli->query($truncate_query)) {
-    printf("Error truncating old table with query \n %s \n", $create_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
+	printf("Error truncating old table with query \n %s \n", $create_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
 }
 else {
 	printf("Truncated old table...\n");
 }
 
-$create_query = "CREATE TABLE IF NOT EXISTS {$server_prefix}{$world}
+$create_query = "CREATE TABLE IF NOT EXISTS {$table_name}
 			(
 				player_id INT NOT NULL,
 				username VARCHAR(100) NOT NULL,
@@ -92,15 +94,15 @@ $create_query = "CREATE TABLE IF NOT EXISTS {$server_prefix}{$world}
 			)";
 
 if (!$mysqli->query($create_query)) {
-    printf("Error creating table with query \n %s \n", $create_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
+	printf("Error creating table with query \n %s \n", $create_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
 }
 else {
 	printf("Created table (IF NOT EXISTS)...\n");
 }
 
-$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$server_prefix}{$world}
+$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$table_name}
 			FIELDS TERMINATED BY '>'
 			LINES TERMINATED BY '\n'
 			(
@@ -110,28 +112,26 @@ $load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$server_prefix}{
 			)";
 
 if (!$mysqli->query($load_query)) {
-    printf("Error loading player data with query \n %s \n", $load_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
+	printf("Error loading player data with query \n %s \n", $load_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
 }
 else {
 	printf("Parsed csv into mysql...\n");
 }
 
-$decode_query = "UPDATE {$server_prefix}{$world} SET username = REPLACE(username, '+', ' ')";
+$decode_query = "UPDATE {$table_name} SET username = REPLACE(username, '+', ' ')";
 
 if (!$mysqli->query($decode_query)) {
-    printf("Error decoding player data with query \n %s \n", $decode_query);
-    printf("Error message: %s \n", $mysqli->error);
-    exit();
+	printf("Error decoding player data with query \n %s \n", $decode_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
 }
 else {
 	printf("Decoded usernames...\n");
 }
 
 // Logs record of last_updated
-$mysqli->select_db('twp_analytics');
-
 date_default_timezone_set("Europe/London");
 $now = date("Y-m-d H:i:s");
 $last_updated_query = "UPDATE worlds SET players_last_updated='{$now}' WHERE world_number = '{$world}'";
@@ -149,7 +149,7 @@ $mysqli->close();
 
 $end_time = microtime(true);
 
-printf("Database twp_players successfully loaded player data for table {$server_prefix}{$world}! \nElapsed time: %f \n", $end_time - $start_time);
+printf("Database twp_players successfully loaded player data for table {$table_name}! \nElapsed time: %f \n", $end_time - $start_time);
 
 exit();
 

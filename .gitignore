@@ -1,0 +1,13 @@
+# tmp files
+app/tmp/data/players
+app/tmp/data/villages
+app/tmp/cache
+
+# apple
+.DS_Store
+
+# aws
+AWS-twplan.pem
+
+# misc
+archive

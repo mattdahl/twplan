@@ -7,7 +7,7 @@
  */
 class Player extends AppModel {
 
-	public $useDbConfig = 'players';
+	public $useDbConfig = 'default';
 	//public $tablePrefix = 'en'; #CASUALWORLDHACK removed
 
 	public $player_id;
@@ -20,10 +20,10 @@ class Player extends AppModel {
 	 */
 	public function use_table ($world) {
 		if ($world == '1' || $world == '2') { #CASUALWORLDHACK
-			$this->tablePrefix = 'enp';
+			$this->tablePrefix = 'players_enp';
 		}
 		else {
-			$this->tablePrefix = 'en';
+			$this->tablePrefix = 'players_en';
 		}
 
 		$this->useTable = $world;

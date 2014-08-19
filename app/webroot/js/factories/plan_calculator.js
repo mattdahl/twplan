@@ -154,21 +154,7 @@ TWP.twplan.Factories.factory('PlanCalculator', ['$rootScope', 'PairCalculator', 
 			return new Date(((distance * village.slowest_unit.speed) / (WorldInfo[MetaData.current_world].speed * WorldInfo[MetaData.current_world].unitSpeed)) * 60 * 1000);
 		},
 		calculate_launch_time: function (landing_datetime, traveling_time) {
-			var n = new Date();
-			var offset;
-
-			if (n.isDST()) {
-				offset = (n.getTimezoneOffset() / 60) + 1;
-			}
-			else {
-				offset = n.getTimezoneOffset() / 60;
-			}
-			// Gets difference; positive if west of UTC, negative if east
-			// +1 when daylight savings is active!
-
-			var before_offset = new Date(landing_datetime - traveling_time);
-
-			return new Date(before_offset.setHours(before_offset.getHours() + offset));
+			return new Date(landing_datetime - traveling_time);
 		},
 		configure_dst_lookup: function () {
 			Date.prototype.stdTimezoneOffset = function () {

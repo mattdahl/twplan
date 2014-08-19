@@ -36,12 +36,12 @@ class AppController extends Controller {
 	function beforeFilter () {
 		parent::beforeFilter();
 		$this->Auth->allowedActions = array('display');
-		/*$this->Auth->login(array(
+		$this->Auth->login(array(
 			'id' => 1,
 			'username' => 'syntexgrid',
-			'default_world' => '67',
+			'default_world' => '73',
 			'local_timezone' => NULL
-		));*/
+		));
 		if (!$this->Session->read('current_world')) {
 			$this->Session->write('current_world', 67);
 		}

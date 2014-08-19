@@ -1,4 +1,7 @@
 <?php
+
+require_once(dirname(__FILE__) . '/../../twplan_config.php');
+
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
@@ -184,4 +187,6 @@ CakeLog::config('error', array(
 /**
  * Enables DebugKit
  */
-CakePlugin::load('DebugKit');
+if (TWPLAN_CONFIG::$env === 'dev') {
+	CakePlugin::load('DebugKit');
+}

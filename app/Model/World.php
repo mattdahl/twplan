@@ -5,7 +5,7 @@
  */
 class World extends AppModel {
 
-	public $useDbConfig = 'analytics';
+	public $useDbConfig = 'default';
 
 	public $world_number;
 	public $villages_last_updated;

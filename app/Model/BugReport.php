@@ -5,7 +5,7 @@
  */
 class BugReport extends AppModel {
 
-	public $useDbConfig = 'analytics';
+	public $useDbConfig = 'default';
 	var $useTable = 'bug_reports';
 
 	public $description;

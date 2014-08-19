@@ -18,15 +18,16 @@ if (!$world) {
 
 // #CASUALWORLDHACK
 if ($world == 1 || $world == 2) { // casual
-    $server_prefix = 'enp';
+	$server_prefix = 'enp';
 }
 else {
-    $server_prefix = 'en';
+	$server_prefix = 'en';
 }
 
 $filepath = 'http://' . $server_prefix . $world. '.tribalwars.net/map/village.txt.gz';
 
-$local_filepath = '/code/twplan/beta/app/tmp/data/villages/' . $server_prefix . $world . '_village_data.txt';
+require_once(dirname(__FILE__) . '/../../../twplan_config.php');
+$local_filepath = TWPLAN_CONFIG::$app_path . '/beta/app/tmp/data/villages/' . $server_prefix . $world . '_village_data.txt';
 
 // Unzips the remote data file into an array
 $village_file = gzfile($filepath);
@@ -41,57 +42,58 @@ else {
 	$write_to = '';
 	for ($i = 0; $i < count($village_file); $i++) {
 		$line = explode(',', $village_file[$i]);
-                $write_to .= $line[0] . '>' . urldecode($line[1]) . '>' . $line[2] . '>' . $line[3] . '>' . $line[4] . "\n"; // Delimit using '>' because TW doesn't allow this character
-            }
-            printf("Processed data... \n");
-        }
+		$write_to .= $line[0] . '>' . urldecode($line[1]) . '>' . $line[2] . '>' . $line[3] . '>' . $line[4] . "\n"; // Delimit using '>' because TW doesn't allow this character
+	}
+	printf("Processed data... \n");
+}
 
 // Pulls the processed csv file into the tmp folder
-        if (!file_put_contents($local_filepath, $write_to)) {
-        	printf("Error writing remote file %s to path %s\n", $filepath, $local_filepath);
-        	exit();
-        }
-        else {
-        	printf("Wrote data to tmp folder... \n");
-        }
+if (!file_put_contents($local_filepath, $write_to)) {
+	printf("Error writing remote file %s to path %s\n", $filepath, $local_filepath);
+	exit();
+}
+else {
+	printf("Wrote data to tmp folder... \n");
+}
 
-// Loads the database data from app/Config/database.php
-        include('../../Config/database.php');
-        $db_config = get_class_vars('DATABASE_CONFIG');
-        $village_db_config = $db_config['villages'];
+// Loads the database data
+require_once(TWPLAN_CONFIG::$app_path . 'beta/app/Config/database.php');
+$db_config = (new DATABASE_CONFIG())->default;
 
-        $mysqli = new mysqli($village_db_config['host'], $village_db_config['login'], $village_db_config['password'], $village_db_config['database']);
+$mysqli = new mysqli($db_config['host'], $db_config['login'], $db_config['password'], $db_config['database']);
 
 // Checks for connection error
-        if ($mysqli->connect_errno) {
-        	printf("Connect failed: %s\n", $mysqli->connect_error);
-        	exit();
-        }
-        else {
-        	printf("Connected to database... \n");
-        }
+if ($mysqli->connect_errno) {
+	printf("Connect failed: %s\n", $mysqli->connect_error);
+	exit();
+}
+else {
+	printf("Connected to database... \n");
+}
 
-        $truncate_query = "DROP TABLE IF EXISTS {$server_prefix}{$world}";
+$table_name = "villages_{$server_prefix}{$world}";
 
-        if (!$mysqli->query($truncate_query)) {
-        	printf("Error truncating old table with query \n %s \n", $create_query);
-        	printf("Error message: %s \n", $mysqli->error);
-        	exit();
-        }
-        else {
-        	printf("Truncated old table...\n");
-        }
+$truncate_query = "DROP TABLE IF EXISTS {$table_name}";
 
-        $create_query = "CREATE TABLE IF NOT EXISTS {$server_prefix}{$world}
-        (
-        	village_id INT NOT NULL,
-        	village_name VARCHAR(100) NOT NULL,
-        	x_coord INT NOT NULL,
-        	y_coord INT NOT NULL,
-        	player_id INT NOT NULL,
-        	PRIMARY KEY
-        	(village_id)
-        	)";
+if (!$mysqli->query($truncate_query)) {
+	printf("Error truncating old table with query \n %s \n", $create_query);
+	printf("Error message: %s \n", $mysqli->error);
+	exit();
+}
+else {
+	printf("Truncated old table...\n");
+}
+
+$create_query = "CREATE TABLE IF NOT EXISTS {$table_name}
+(
+	village_id INT NOT NULL,
+	village_name VARCHAR(100) NOT NULL,
+	x_coord INT NOT NULL,
+	y_coord INT NOT NULL,
+	player_id INT NOT NULL,
+	PRIMARY KEY
+	(village_id)
+)";
 
 if (!$mysqli->query($create_query)) {
 	printf("Error creating table with query \n %s \n", $create_query);
@@ -102,7 +104,7 @@ else {
 	printf("Created table (IF NOT EXISTS)...\n");
 }
 
-$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$server_prefix}{$world}
+$load_query = "LOAD DATA INFILE '{$local_filepath}' INTO TABLE {$table_name}
 FIELDS TERMINATED BY '>'
 LINES TERMINATED BY '\n'
 (
@@ -124,8 +126,6 @@ else {
 
 
 // Logs record of last_updated
-$mysqli->select_db('twp_analytics');
-
 date_default_timezone_set("Europe/London");
 $now = date("Y-m-d H:i:s");
 $last_updated_query = "UPDATE worlds SET villages_last_updated='{$now}' WHERE world_number = '{$world}'";
@@ -143,7 +143,7 @@ $mysqli->close();
 
 $end_time = microtime(true);
 
-printf("Database twp_villages successfully loaded village data for table {$server_prefix}{$world}! \nElapsed time: %f \n", $end_time - $start_time);
+printf("Database twp_villages successfully loaded village data for table {$table_name}! \nElapsed time: %f \n", $end_time - $start_time);
 
 exit();
 

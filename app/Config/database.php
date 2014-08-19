@@ -57,49 +57,21 @@
  * unix_socket =>
  * For MySQL to connect via socket specify the `unix_socket` parameter instead of `host` and `port`
  */
+require_once(dirname(__FILE__) . '/../../twplan_config.php');
+
 class DATABASE_CONFIG {
+	public $default;
 
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => 'password',
-		'database' => 'twp_users',
-		'prefix' => '',
-		'encoding' => 'utf8'
-	);
-
-	public $villages = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => 'password',
-		'database' => 'twp_villages',
-		'prefix' => '',
-		'encoding' => 'utf8'
-	);
-
-	public $players = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => 'password',
-		'database' => 'twp_players',
-		'prefix' => '',
-		'encoding' => 'utf8'
-	);
-
-	public $analytics = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => 'password',
-		'database' => 'twp_analytics',
-		'prefix' => '',
-		'encoding' => 'utf8'
-	);
+	function __construct () {
+		$this->default = array(
+			'datasource' => 'Database/Mysql',
+			'persistent' => false,
+			'host' => TWPLAN_CONFIG::$db_host,
+			'login' => TWPLAN_CONFIG::$db_login,
+			'password' => TWPLAN_CONFIG::$db_password,
+			'database' => 'twplan',
+			'prefix' => '',
+			'encoding' => 'utf8'
+		);
+	}
 }
