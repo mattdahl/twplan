@@ -7,6 +7,7 @@
 
 error_reporting(-1);
 ini_set('display_errors', true);
+date_default_timezone_set("Europe/London");
 require_once(dirname(__FILE__) . '/../../../twplan_config.php');
 
 function log_success ($message) {
@@ -132,7 +133,6 @@ try {
 		log_success("Decoded usernames...\n");
 	}
 
-	date_default_timezone_set("Europe/London");
 	$current_time = date("Y-m-d H:i:s");
 	$update_time_query = "UPDATE `worlds` SET players_last_updated='$current_time' WHERE `world_number` = '$world'";
 

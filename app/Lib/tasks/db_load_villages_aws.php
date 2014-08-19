@@ -7,6 +7,7 @@
 
 error_reporting(-1);
 ini_set('display_errors', true);
+date_default_timezone_set("Europe/London");
 require_once(dirname(__FILE__) . '/../../../twplan_config.php');
 
 function log_success ($message) {
