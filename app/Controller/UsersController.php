@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__FILE__) . '/../../twplan_config.php');
+
 App::import('Controller', 'Worlds');
 
 /**
@@ -46,7 +48,7 @@ class UsersController extends AppController {
      * @return [boolean]
      */
     private function validate_hash () {
-        return ($this->request->query['hash'] == md5($this->request->query['sid'] . $this->request->query['username'] . 'APP_SECRET'));
+        return ($this->request->query['hash'] == md5($this->request->query['sid'] . $this->request->query['username'] . TWPLAN_CONFIG::$auth_secret));
     }
 
     /**
