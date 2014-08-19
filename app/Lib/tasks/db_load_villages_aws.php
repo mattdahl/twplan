@@ -64,7 +64,7 @@ try {
 
 	$filepath = 'http://' . $server_prefix . $world. '.tribalwars.net/map/village.txt.gz';
 
-	$local_filepath = TWPLAN_CONFIG::$app_path . '/app/tmp/data/villages/' . $server_prefix . $world . '_village_data.txt';
+	$local_filepath = TWPLAN_CONFIG::$app_path . 'app/tmp/data/villages/' . $server_prefix . $world . '_village_data.txt';
 
 	// Unzips the remote data file into an array
 	$village_file = gzfile($filepath);
@@ -120,12 +120,13 @@ try {
 		log_success("Created table (IF NOT EXISTS)...\n");
 	}
 
-	$local_filepath_handle = fopen($local_filepath, "r");
-	while (($data = fgetcsv($local_filepath_handle, 1000, ">"))) {
-		$load_query = "INSERT INTO {$table_name} values('" . implode('\',\'', $data) . "')";
-		$mysqli->query($load_query) or log_error(sprintf("Error loading village data with query \n %s \n Error message: %s \n", $load_query, $mysqli->error));
-	}
-	fclose($local_filepath_handle);
+	$load_query = "
+		LOAD DATA LOCAL INFILE '{$local_filepath}'
+		INTO TABLE {$table_name}
+		FIELDS TERMINATED BY '>'
+	";
+
+	$mysqli->query($load_query) or log_error(sprintf("Error loading player data with query \n %s \n Error message: %s \n", $load_query, $mysqli->error));
 
 	log_success("Parsed csv into mysql...\n");
 
