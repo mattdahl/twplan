@@ -20,6 +20,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+require_once(dirname(__FILE__) . '/../../twplan_config.php');
+
 App::uses('Controller', 'Controller');
 
 /**
@@ -33,28 +35,37 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+	public $components = array(
+		'Session',
+		'Auth' => array(
+			'loginRedirect' => '/',
+			'logoutRedirect' => '/',
+			'loginAction' => '/users/login'
+		)
+	);
+
 	function beforeFilter () {
 		parent::beforeFilter();
 		$this->Auth->allowedActions = array('display');
-		$this->Auth->login(array(
-			'id' => 1,
-			'username' => 'syntexgrid',
-			'default_world' => '73',
-			'local_timezone' => NULL
-		));
+
+		# Fake an authenticated account
+		if (TWPLAN_CONFIG::$auto_login === true) {
+			$this->Auth->login(array(
+				'id' => 1,
+				'username' => 'syntexgrid',
+				'default_world' => '73',
+				'local_timezone' => NULL
+			));
+		}
+
+		# Dynamically load DebugKit in dev
+		if (TWPLAN_CONFIG::$env === 'dev') {
+			$this->Components->load('DebugKit.Toolbar');
+		}
+
+		# Ensure that a current_world is always set
 		if (!$this->Session->read('current_world')) {
 			$this->Session->write('current_world', 67);
 		}
 	}
-
-	public $components = array(
-		'DebugKit.Toolbar',
-	    'Session',
-	    'Auth' => array(
-	        'loginRedirect' => '/',
-	        'logoutRedirect' => '/',
-	        'loginAction' => '/users/login'
-	    ),
-	    'Players'
-	);
 }

@@ -18,6 +18,14 @@ class PlanPagesController extends AppController {
  */
 	public $uses = array();
 
+
+/**
+ *
+ */
+	public $components = array(
+		'Players'
+	);
+
 /**
  * Displays a view
  *
