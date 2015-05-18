@@ -16,7 +16,11 @@ TWP.twplan.Controllers.controller('SettingsController', ['$scope', '$http', func
 		{world: 73, server: 'en'},
 		{world: 74, server: 'en'},
 		{world: 75, server: 'en'},
-		{world: 76, server: 'en'}
+		{world: 76, server: 'en'},
+		{world: 77, server: 'en'},
+		{world: 78, server: 'en'},
+		{world: 79, server: 'en'},
+		{world: 80, server: 'en'}
 	];
 
 	$scope.timezones = [
